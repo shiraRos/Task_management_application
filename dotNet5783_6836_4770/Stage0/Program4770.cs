@@ -1,7 +1,7 @@
 ﻿using System;
 namespace Targil0
 {
-    partial class program
+    partial class Program
     {
        
         static partial void Welcome6836();
