@@ -1,6 +1,4 @@
-﻿
-
-namespace Dal;
+﻿namespace Dal;
 using DalApi;
 using DO;
 using System.Collections.Generic;
@@ -9,26 +7,52 @@ public class EngineerImplementation : IEngineer
 {
     public int Create(Engineer item)
     {
-        throw new NotImplementedException();
+        foreach (var x in DataSource.Engineers)
+        {
+            if(item.Id==x.Id) {
+                throw new Exception($"Engineer with ID={item.Id} does Not exist");
+            }
+        }
+        DataSource.Engineers.Add(item);
+        return item.Id;
     }
 
     public void Delete(int id)
     {
-        throw new NotImplementedException();
+        if (!(DataSource.Engineers.Exists(eng => eng.Id == id)))
+            throw new Exception($"Engineer with ID={id} does Not exist");
+        if( DataSource.Tasks.Exists(tsk=>tsk.EngineerId==id) )
+            throw new Exception($"Engineer with ID={id} can not be deleted because, he still has task");
+        foreach (var x in DataSource.Engineers)
+        {
+            if (id == x.Id)
+            {
+                DataSource.Engineers.Remove(x);
+            }
+        }
     }
 
     public Engineer? Read(int id)
     {
-        throw new NotImplementedException();
+            return DataSource.Engineers.Find(eng => eng.Id ==id);
     }
 
     public List<Engineer> ReadAll()
     {
-        throw new NotImplementedException();
+        return new List<Engineer>(DataSource.Engineers);
     }
 
     public void Update(Engineer item)
     {
-        throw new NotImplementedException();
+        if(!(DataSource.Engineers.Exists(eng => eng.Id == item.Id)))
+          throw new Exception($"Engineer with ID={item.Id} does Not exist");
+        foreach (var x in DataSource.Engineers)
+        {
+            if (item.Id == x.Id)
+            {
+                DataSource.Engineers.Remove(x);
+                DataSource.Engineers.Add(item);    
+            }
+        }
     }
 }

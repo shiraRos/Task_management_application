@@ -1,5 +1,4 @@
-﻿
-namespace Dal;
+﻿namespace Dal;
 
 internal class DataSource
 {
@@ -13,7 +12,7 @@ internal class DataSource
         private static int nextDepenId = startDepenId;
         internal static int NextDepenId { get => nextDepenId++; }
         //id for Task entity
-        internal const int startTaskId = 10;
+        internal const int startTaskId = 200;
         private static int nextTaskId = startTaskId;
         internal static int NextTaskId { get => nextTaskId++; }
     }
