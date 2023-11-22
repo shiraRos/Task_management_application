@@ -35,12 +35,22 @@ public static class Initialization
     private static void createDependency()
     {
         int otomatId = 0;
-        int _dependenTask = DataSource.Config.NextTaskId;
-        int _dependensOnTask = DataSource.Config.NextTaskId;
+        int _dependenTask = GetRanTask().Id;
+        int nextRanTask = GetRanTask().Id;
+        while(nextRanTask == _dependenTask)
+            nextRanTask = GetRanTask().Id;
+        int _dependensOnTask = nextRanTask;
 
         Dependency newDpn = new(otomatId,_dependenTask,_dependensOnTask);
-        d_dalDependency!.Create(newDpn);
+        otomatId=d_dalDependency!.Create(newDpn);
 
+    }
+    //פונקציית עזר חיצונית להגרלת משימת תלות רנדומלית
+    private static Task GetRanTask()
+    {
+        Task[] tempArr = new Task[20];
+        tempArr = t_dalTask!.ReadAll().ToArray();
+        return tempArr[s_rand.Next(0, 19)];
     }
     private static void createTask()
     {
@@ -48,28 +58,37 @@ public static class Initialization
         for (int i = 0; i < 20; i++)
         {
             int otamtId = 0;
-            int _idEngineer;
-            Engineer randomEngineer = e_dalEngineer!.ReadAll().OrderBy(x => s_rand.Next()).First();
-            _idEngineer = randomEngineer.Id;
-            // _idEngineer =s_rand.Next(2000,4000);
+            int _idEngineer= GetRanEng().Id;
             bool _isMileston = false;
-            DateTime date = new DateTime(1995, 1, 1);
+           // DateTime date = new DateTime(1995, 1, 1);
+           //הגרלת מספר ימים להוספה
+            int daysToAdd = s_rand.Next(0, 10);
             DateTime _startDate = (DateTime.Today);
-            int range = (DateTime.Today - date).Days;
-            DateTime _deadlineDate = _startDate.AddDays(s_rand.Next(range));
-            DateTime _completeDate = _deadlineDate.AddDays(s_rand.Next(range));
-            DateTime _scheduledDate = _startDate.AddDays(s_rand.Next(range));
-            DateTime? ForecastDate = null;
+            //הגדרת דדליין ע"פ מס הימים שהוגרלו
+            DateTime? _deadlineDate = _startDate.AddDays(daysToAdd+1);
+            //הגדרה שהפרוייקט הסתיים יום לפני הדדליין עבור כל פרוייקט
+            DateTime? _completeDate = null;
+            //הגדרת יום תחילת העבודה למעשה כעכשיו
+            DateTime? _scheduledDate = DateTime.Today;
+            //DateTime? ForecastDate = null;
             TimeSpan? _requiredEffortTime = null;
-            string? _alias = "tsk" + (char)s_rand.Next(32, 122);
+            string? _alias = "tsk" + s_rand.Next(32, 122);
             string? _deliverables = null;
             string? _remarks = null;
-            int? _complexityLevel = s_rand.Next(1, 10);
+            EngineerExperience? _complexityLevel = (EngineerExperience)s_rand.Next(0, 4);
             string? _description = null;
-            Task newTsk = new(otamtId, _idEngineer, _isMileston, _startDate, _deadlineDate, _completeDate, _scheduledDate, ForecastDate, _requiredEffortTime, _alias, _deliverables, _remarks, _complexityLevel, _description);
-            t_dalTask!.Create(newTsk);
+            Task newTsk = new(otamtId, _idEngineer, _isMileston, _startDate, _deadlineDate, _completeDate, _scheduledDate, _requiredEffortTime, _deliverables, _remarks, _complexityLevel, _description,_alias);
+            otamtId=t_dalTask!.Create(newTsk);
         }
     }
+    //פונקציית עזר חיצונית להגרלת מתכנת אחראי רנדומלי
+    private static Engineer GetRanEng()
+    {
+        Engineer[] tempArr = new Engineer[9];
+        tempArr=e_dalEngineer!.ReadAll().ToArray();
+        return tempArr[s_rand.Next(0, 8)];
+    }
+    //מתודה ציבורית לזימון כל המתודות הפרטיות
     public static void DO(IEngineer dalEngineer, IDependency? dalDependency, ITask? dalTask)
     {
         e_dalEngineer = dalEngineer ?? throw new NullReferenceException("DAL can not be null!");

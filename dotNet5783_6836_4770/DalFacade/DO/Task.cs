@@ -10,7 +10,7 @@ public record Task
    DateTime? DeadlineDate = null,
    DateTime? CompleteDate = null,
    DateTime? ScheduledDate = null,
-   DateTime? ForecastDate = null,
+  // DateTime? ForecastDate = null,
    TimeSpan? RequiredEffortTime = null,
    string? Deliverables = null,
    string? Remarks = null,
