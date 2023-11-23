@@ -18,4 +18,8 @@ namespace DO;
     )
     {
      public Engineer() : this(0, 0) { }
+    public override string ToString()
+    {
+        return $"id: {Id}, level: {Level}, cost: {Cost}, name: {Name}, email: {Email}";
+    }
     }
