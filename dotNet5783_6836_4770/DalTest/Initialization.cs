@@ -60,8 +60,8 @@ public static class Initialization
             int otamtId = 0;
             int _idEngineer= GetRanEng().Id;
             bool _isMileston = false;
-           // DateTime date = new DateTime(1995, 1, 1);
-           //הגרלת מספר ימים להוספה
+            // DateTime date = new DateTime(1995, 1, 1);
+            //הגרלת מספר ימים להוספה
             int daysToAdd = s_rand.Next(0, 10);
             DateTime _startDate = (DateTime.Today);
             //הגדרת דדליין ע"פ מס הימים שהוגרלו
