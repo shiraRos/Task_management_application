@@ -21,4 +21,9 @@ public record Task
 {
     public Task():this(0,0) { }
     public DateTime CreateAtDate => DateTime.Now;
-}
+
+    public override string ToString()
+    {
+        return $"id:{Id}, Engineer Id: {EngineerId}, Is Mileston: {IsMileston}, Start Date: {StartDate}, Deadline Date: {DeadlineDate}, Complete Date: {CompleteDate} , Scheduled Date: {ScheduledDate}, Required Effort Time: {RequiredEffortTime},Deliverables: {Deliverables}, Remarks: {Remarks} , ComplexityLevel: {ComplexityLevel}, Description: {Description}, Alias: {Alias} ";
+    }                                                                                                      
+}                                                                                                          

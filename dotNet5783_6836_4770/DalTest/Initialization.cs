@@ -29,7 +29,7 @@ public static class Initialization
             double? _cost = s_rand.Next(1000, 400000);
             string? _email = _name + "@gmail.com";
             Engineer newEng = new(_id, _level, _cost, _name, _email);
-            e_dalEngineer!.Create(newEng);
+            _id=e_dalEngineer!.Create(newEng);
         }
     }
     private static void createDependency()
@@ -95,7 +95,7 @@ public static class Initialization
         d_dalDependency = dalDependency ?? throw new NullReferenceException("DAL can not be null!");
         t_dalTask = dalTask ?? throw new NullReferenceException("DAL can not be null!");
         createEngineer();
-        createDependency();
         createTask();
+        createDependency();
     }
 }
