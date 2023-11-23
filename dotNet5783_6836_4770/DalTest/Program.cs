@@ -14,58 +14,48 @@ namespace DalTest
         private static IEngineer e_dalEngineer = new EngineerImplementation();
 
 
-        //private static int MainManu()
-        //{
-        //    Console.WriteLine("לפנייך תפריט האפשרויות \nהקש 0 ליציאה\nהקש 1 למשימה\n הקש 2 לתלות\nהקש 3 למתכנת");
-        //    int choice=int.Parse(Console.ReadLine());
-        //    return choice;
-        //}
-        ////יצרת תפריט עבור משימה
-        //private static void TaskManu()
-        //{
-            
-        //}
+       
         private static void CreateTask()
         {
-            int _idEngineer,_complexityLevel;
+            int _idEngineer, _complexityLevel;
             bool _isMileston;
             DateTime? _deadlineDate, _completeDate, _scheduledDate, _startDate;
             TimeSpan? _requiredEffortTime;
-            string? _alias,_deliverables,_remarks,_description;
-            Console.WriteLine("הכנס ת.ז מתכנת");
+            string? _alias, _deliverables, _remarks, _description;
+            Console.WriteLine("insert engineer id");
             _idEngineer = int.Parse(Console.ReadLine());
-            Console.WriteLine("האם זוהי משימת אבן דרך?");
-            _isMileston =bool.Parse(Console.ReadLine());
-            Console.WriteLine("הקש תאריך התחלה");
+            Console.WriteLine("is it a miles tone?");
+            _isMileston = bool.Parse(Console.ReadLine());
+            Console.WriteLine("insert start date");
             _startDate = DateTime.Parse(Console.ReadLine());
-            Console.WriteLine("הקש תאריך אחרון לסיום");
+            Console.WriteLine("insert deadline date");
             _deadlineDate = DateTime.Parse(Console.ReadLine());
-            Console.WriteLine("הקש תאריך סיום בפועל");
+            Console.WriteLine("insert complete date");
             _completeDate = DateTime.Parse(Console.ReadLine());
-            Console.WriteLine("התאריך בו המשימה הייתה אמורה להסתיים");
+            Console.WriteLine("insert scheduled date ");
             _scheduledDate = DateTime.Parse(Console.ReadLine());
-            Console.WriteLine("משך הזמן שארכה המשימה");
-            _requiredEffortTime =TimeSpan.Parse(Console.ReadLine());
-            Console.WriteLine("האם בר שליחה?");
+            Console.WriteLine("insert required Effort Time");
+            _requiredEffortTime = TimeSpan.Parse(Console.ReadLine());
+            Console.WriteLine("insert deliverables");
             _deliverables = Console.ReadLine();
-            Console.WriteLine("הערות");
+            Console.WriteLine("insert remarks");
             _remarks = Console.ReadLine();
-            Console.WriteLine("הקש רמת מורכבות בין 0-4");
-            _complexityLevel =int.Parse(Console.ReadLine());
-            Console.WriteLine("תיאור כללי");
+            Console.WriteLine("insert complexity level between 0-4");
+            _complexityLevel = int.Parse(Console.ReadLine());
+            Console.WriteLine("insert description");
             _description = Console.ReadLine();
-            Console.WriteLine("כינוי");
-            _alias =Console.ReadLine();
+            Console.WriteLine("insert alias");
+            _alias = Console.ReadLine();
             DO.Task newTsk = new(0, _idEngineer, _isMileston, _startDate, _deadlineDate, _completeDate, _scheduledDate, _requiredEffortTime, _deliverables, _remarks, (EngineerExperience)_complexityLevel, _description, _alias);
             int idnt = t_dalTask.Create(newTsk);
         }
-        private static void CreatDependency()
+        private static void CreateDependency()
         {
             int _dependenTask, _dependensOnTask;
-            Console.WriteLine("הקש קוד משימה נוכחית ");
-            _dependenTask=int.Parse(Console.ReadLine());
-            Console.WriteLine("הקש קוד משימה שבה תלויה ");
-            _dependensOnTask=int.Parse(Console.ReadLine());
+            Console.WriteLine("insert depeden task ");
+            _dependenTask = int.Parse(Console.ReadLine());
+            Console.WriteLine("depends on task ");
+            _dependensOnTask = int.Parse(Console.ReadLine());
             Dependency newDpn = new(0, _dependenTask, _dependensOnTask);
             int temp = d_dalDependecy.Create(newDpn);
         }
@@ -74,36 +64,36 @@ namespace DalTest
             int _id, _level;
             double _cost;
             string _name, _email;
-            Console.WriteLine("הקש ת.ז.");
-            _id=int.Parse(Console.ReadLine());
-            Console.WriteLine("הקש שם");
+            Console.WriteLine("insert id");
+            _id = int.Parse(Console.ReadLine());
+            Console.WriteLine(" insert name");
             _name = Console.ReadLine();
-            Console.WriteLine("הקש רמה בין 0-4");
-            _level=int.Parse(Console.ReadLine());
-            Console.WriteLine("הקש עלות");
-            _cost=double.Parse(Console.ReadLine());
-            Console.WriteLine("הקש אמייל");
-            _email=Console.ReadLine();
+            Console.WriteLine("insert complexity kevel between 0-4");
+            _level = int.Parse(Console.ReadLine());
+            Console.WriteLine("insert cost");
+            _cost = double.Parse(Console.ReadLine());
+            Console.WriteLine("insert email");
+            _email = Console.ReadLine();
             Engineer newEng = new(_id, (EngineerExperience)_level, _cost, _name, _email);
             _id = e_dalEngineer.Create(newEng);
         }
         private static void DeleteTask()
         {
-            Console.WriteLine("הקש קוד משימה להסרה");
+            Console.WriteLine("insert task code to remove");
             int taskId = int.Parse(Console.ReadLine());
             t_dalTask.Delete(taskId);
         }
 
         private static void DeleteEngineer()
         {
-            Console.WriteLine("הקש קוד מתכנת להסרה");
+            Console.WriteLine("insert engineer to remove");
             int engineerId = int.Parse(Console.ReadLine());
             e_dalEngineer.Delete(engineerId);
         }
 
         private static void DeleteDependency()
         {
-            Console.WriteLine("הקש קוד תלות למחיקה");
+            Console.WriteLine("insert dependeny to remove");
             int dependencyId = int.Parse(Console.ReadLine());
             d_dalDependecy.Delete(dependencyId);
         }
@@ -111,21 +101,21 @@ namespace DalTest
 
         private static void ReadTask()
         {
-            Console.WriteLine("הקש קוד משימה להדפסה");
+            Console.WriteLine("insert task code to print");
             int taskId = int.Parse(Console.ReadLine());
             Console.WriteLine(t_dalTask.Read(taskId));
         }
 
         private static void ReadDependency()
         {
-            Console.WriteLine("הקש קוד תלות להדפסה");
+            Console.WriteLine("insert dependency code to print");
             int dependencyId = int.Parse(Console.ReadLine());
             Console.WriteLine(d_dalDependecy.Read(dependencyId));
         }
 
         private static void ReadEngineer()
         {
-            Console.WriteLine("הקש קוד מתכנת להדפסה");
+            Console.WriteLine("insert engineer code to print");
             int engineerId = int.Parse(Console.ReadLine());
             Console.WriteLine(e_dalEngineer.Read(engineerId));
         }
@@ -139,14 +129,229 @@ namespace DalTest
                 Console.WriteLine(item);
             }
         }
+
+        private static void ReadAllDependencies()
+        {
+            Console.WriteLine("the all Dependencies:");
+            List<Dependency> depList = d_dalDependecy!.ReadAll();
+            foreach (var item in depList)
+            {
+                Console.WriteLine(item);
+            }
+        }
+
+        private static void ReadAllTasks()
+        {
+            Console.WriteLine("the all Tasks:");
+            List<DO.Task> tskList = t_dalTask!.ReadAll();
+            foreach (var item in tskList)
+            {
+                Console.WriteLine(item);
+            }
+        }
+
+        private static void UpdateTask()
+        {
+
+        }
+
+        private static void UpdateDependency()
+        {
+
+        }
+
+        private static void UpdateEngineer()
+        {
+
+        }
+
+        private static void OptionsTaskManu()
+        {
+            try
+            {
+                int choice;
+                Console.WriteLine("press 0 to exit\n press 1 create a new task\n press 2 to read task\npress 3 to read all tasks\npress 4 to update \npress 5 to delete\n");
+                choice = int.Parse(Console.ReadLine());
+                while (choice < 0 || choice > 5)
+                {
+                    Console.WriteLine("insert number between 0-5");
+                    choice = int.Parse(Console.ReadLine());
+                }
+                while (choice > 0)
+                {
+
+                    switch (choice)
+                    {
+                        case 1:
+                            CreateTask();
+                            break;
+                        case 2:
+                            ReadTask();
+                            break;
+                        case 3:
+                            ReadAllTasks();
+                            break;
+                        case 4:
+                            UpdateTask();
+                            break;
+                        case 5:
+                            DeleteTask();
+                            break;
+                    }
+                    Console.WriteLine("insert number between 0-5");
+                    choice = int.Parse(Console.ReadLine());
+                    while (choice < 0||choice>5) {
+                        Console.WriteLine("insert number between 0-5");
+                        choice = int.Parse(Console.ReadLine());
+                    }
+                }
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+
+        private static void OptionsDependencykManu()
+        {
+            try
+            {
+                int choice;
+                Console.WriteLine("press 0 to exit\n press 1 create a new Dependency\n press 2 to read Dependency\npress 3 to read all Dependencies\npress 4 to update \npress 5 to delete\n");
+                choice = int.Parse(Console.ReadLine());
+                while (choice < 0 || choice > 5)
+                {
+                    Console.WriteLine("insert number between 0-5");
+                    choice = int.Parse(Console.ReadLine());
+                }
+                while (choice > 0)
+                {
+
+                    switch (choice)
+                    {
+                        case 1:
+                            CreateDependency();
+                            break;
+                        case 2:
+                            ReadDependency();
+                            break;
+                        case 3:
+                            ReadAllDependencies();
+                            break;
+                        case 4:
+                            UpdateDependency();
+                            break;
+                        case 5:
+                            DeleteDependency();
+                            break;
+                    }
+                    Console.WriteLine("insert number between 0-5");
+                    choice = int.Parse(Console.ReadLine());
+                    while (choice < 0 || choice > 5)
+                    {
+                        Console.WriteLine("insert number between 0-5");
+                        choice = int.Parse(Console.ReadLine());
+                    }
+                }
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+
+        private static void OptionsEngineerManu()
+        {
+            try
+            {
+                int choice;
+                Console.WriteLine("press 0 to exit\n press 1 create a new Engineer\n press 2 to read Engineer\npress 3 to read all Engineers\npress 4 to update \npress 5 to delete\n"); 
+                choice = int.Parse(Console.ReadLine());
+                while (choice < 0 || choice > 5)
+                {
+                    Console.WriteLine("insert number between 0-5");
+                    choice = int.Parse(Console.ReadLine());
+                }
+                while (choice > 0)
+                {
+
+                    switch (choice)
+                    {
+                        case 1:
+                            CreateEngineer();
+                            break;
+                        case 2:
+                            ReadEngineer();
+                            break;
+                        case 3:
+                            ReadAllEngineers();
+                            break;
+                        case 4:
+                            UpdateEngineer();
+                            break;
+                        case 5:
+                            DeleteEngineer();
+                            break;
+                    }
+                    Console.WriteLine("insert number between 0-5");
+                    choice = int.Parse(Console.ReadLine());
+                    while (choice < 0 || choice > 5)
+                    {
+                        Console.WriteLine("insert number between 0-5");
+                        choice = int.Parse(Console.ReadLine());
+                    }
+                }
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+
+
+        private static void MainManu()
+        {
+            Console.WriteLine("hi here is an options namu \npress 0 to exit\npress 1 to task\n press 2 to dependendy\npress 3 to engineer\n");
+            int choice = int.Parse(Console.ReadLine());
+            while (choice < 0 || choice > 3)
+            {
+                Console.WriteLine("insert number between 0-3");
+                choice = int.Parse(Console.ReadLine());
+            }
+            while (choice > 0)
+            {
+
+                switch (choice)
+                {
+                    case 1:
+                        OptionsTaskManu();
+                        break;
+                    case 2:
+                        OptionsDependencykManu();
+                        break;
+                    case 3:
+                        OptionsEngineerManu();
+                        break;
+                }
+                Console.WriteLine("הקש מספר בין 0-5");
+                choice = int.Parse(Console.ReadLine());
+                while (choice < 0 || choice > 5)
+                {
+                    Console.WriteLine("הקש מספר בין 0-5");
+                    choice = int.Parse(Console.ReadLine());
+                }
+            }
+        }
+      
         static void Main(string[] args)
         {
-            try 
+            try
             {
-                Initialization.DO(s_engineer,s_dalDependecy,s_dalTask);
-                //int mainChoice = MainManu();
-                //while(mainChoice<0)
-                //{ }
+                Initialization.DO(e_dalEngineer, d_dalDependecy, t_dalTask);
+                MainManu();
             }
             catch (Exception e)
             {
