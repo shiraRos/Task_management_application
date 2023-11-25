@@ -89,7 +89,7 @@ public static class Initialization
         return tempArr[s_rand.Next(0, 8)];
     }
     //מתודה ציבורית לזימון כל המתודות הפרטיות
-    public static void DO(IEngineer dalEngineer, IDependency? dalDependency, ITask? dalTask)
+    public static void DO(IEngineer? dalEngineer, IDependency? dalDependency, ITask? dalTask)
     {
         e_dalEngineer = dalEngineer ?? throw new NullReferenceException("DAL can not be null!");
         d_dalDependency = dalDependency ?? throw new NullReferenceException("DAL can not be null!");
