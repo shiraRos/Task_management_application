@@ -2,7 +2,9 @@
 namespace Dal;
 using DalApi;
 using DO;
+using Microsoft.VisualBasic.FileIO;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 public class DependencyImplementation : IDependency
 {
@@ -48,6 +50,18 @@ public class DependencyImplementation : IDependency
                 DataSource.Dependencies.Remove(x);
                 DataSource.Dependencies.Add(item);
             }
+        }
+    }
+
+    public void Reset()
+    {
+        foreach (var item in DataSource.Dependencies)
+        {
+            try
+            {
+                Delete(item.Id);
+            }
+            catch(Exception e) { Console.WriteLine(e); }
         }
     }
 }
