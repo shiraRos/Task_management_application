@@ -54,12 +54,13 @@ public class DependencyImplementation : IDependency
 
     public void Reset()
     {
-    
-        foreach (var item in DataSource.Dependencies)
+
+        DO.Dependency[] arrDpnd = DataSource.Dependencies.ToArray();
+        for(int i=0;i<arrDpnd.Length;i++)
         {
             try
             {
-                Delete(item.Id);
+                Delete(arrDpnd[i].Id);
             }
             catch(Exception e) { Console.WriteLine(e); }
         }
