@@ -56,9 +56,7 @@ public class DependencyImplementation : IDependency
 
     public void Reset()
     {
-        //DO.Dependency[] arrDpnd = DataSource.Dependencies.ToArray();
-        DO.Dependency pos = DataSource.Dependencies.First();
-        DO.Dependency pos1=pos.g
+    
         foreach (var item in DataSource.Dependencies)
         {
             try
