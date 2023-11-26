@@ -52,15 +52,4 @@ public class TaskImplementation : ITask
             }
         }
     }
-    public void Reset()
-    {
-        foreach (var item in DataSource.Tasks)
-        {
-            try
-            {
-                Delete(item.Id);
-            }
-            catch (Exception e) { Console.WriteLine(e); }
-        }
-    }
 }

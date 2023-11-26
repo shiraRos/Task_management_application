@@ -29,23 +29,20 @@ public static class Initialization
             double? _cost = s_rand.Next(1000, 400000);
             string? _email = _name + "@gmail.com";
             Engineer newEng = new(_id, _level, _cost, _name, _email);
-            _id = e_dalEngineer!.Create(newEng);
+            _id=e_dalEngineer!.Create(newEng);
         }
     }
     private static void createDependency()
     {
-        int otomatId = 0, _dependenTask, nextRanTask;
-        for (int i = 0; i < 10; i++)
-        {
-            _dependenTask = GetRanTask().Id;
+        int otomatId = 0;
+        int _dependenTask = GetRanTask().Id;
+        int nextRanTask = GetRanTask().Id;
+        while(nextRanTask == _dependenTask)
             nextRanTask = GetRanTask().Id;
-            while (nextRanTask == _dependenTask)
-                nextRanTask = GetRanTask().Id;
-            int _dependensOnTask = nextRanTask;
+        int _dependensOnTask = nextRanTask;
 
-            Dependency newDpn = new(otomatId, _dependenTask, _dependensOnTask);
-            otomatId = d_dalDependency!.Create(newDpn);
-        }
+        Dependency newDpn = new(otomatId,_dependenTask,_dependensOnTask);
+        otomatId=d_dalDependency!.Create(newDpn);
 
     }
     //פונקציית עזר חיצונית להגרלת משימת תלות רנדומלית
@@ -61,14 +58,14 @@ public static class Initialization
         for (int i = 0; i < 20; i++)
         {
             int otamtId = 0;
-            int _idEngineer = GetRanEng().Id;
+            int _idEngineer= GetRanEng().Id;
             bool _isMileston = false;
             // DateTime date = new DateTime(1995, 1, 1);
             //הגרלת מספר ימים להוספה
             int daysToAdd = s_rand.Next(0, 10);
             DateTime _startDate = (DateTime.Today);
             //הגדרת דדליין ע"פ מס הימים שהוגרלו
-            DateTime? _deadlineDate = _startDate.AddDays(daysToAdd + 1);
+            DateTime? _deadlineDate = _startDate.AddDays(daysToAdd+1);
             //הגדרה שהפרוייקט הסתיים יום לפני הדדליין עבור כל פרוייקט
             DateTime? _completeDate = null;
             //הגדרת יום תחילת העבודה למעשה כעכשיו
@@ -80,19 +77,19 @@ public static class Initialization
             string? _remarks = null;
             EngineerExperience? _complexityLevel = (EngineerExperience)s_rand.Next(0, 4);
             string? _description = null;
-            Task newTsk = new(otamtId, _idEngineer, _isMileston, _startDate, _deadlineDate, _completeDate, _scheduledDate, _requiredEffortTime, _deliverables, _remarks, _complexityLevel, _description, _alias);
-            otamtId = t_dalTask!.Create(newTsk);
+            Task newTsk = new(otamtId, _idEngineer, _isMileston, _startDate, _deadlineDate, _completeDate, _scheduledDate, _requiredEffortTime, _deliverables, _remarks, _complexityLevel, _description,_alias);
+            otamtId=t_dalTask!.Create(newTsk);
         }
     }
     //פונקציית עזר חיצונית להגרלת מתכנת אחראי רנדומלי
     private static Engineer GetRanEng()
     {
         Engineer[] tempArr = new Engineer[9];
-        tempArr = e_dalEngineer!.ReadAll().ToArray();
+        tempArr=e_dalEngineer!.ReadAll().ToArray();
         return tempArr[s_rand.Next(0, 8)];
     }
     //מתודה ציבורית לזימון כל המתודות הפרטיות
-    public static void DO(IEngineer dalEngineer, IDependency? dalDependency, ITask? dalTask)
+    public static void DO(IEngineer? dalEngineer, IDependency? dalDependency, ITask? dalTask)
     {
         e_dalEngineer = dalEngineer ?? throw new NullReferenceException("DAL can not be null!");
         d_dalDependency = dalDependency ?? throw new NullReferenceException("DAL can not be null!");

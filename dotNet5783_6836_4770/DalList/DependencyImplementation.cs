@@ -2,9 +2,7 @@
 namespace Dal;
 using DalApi;
 using DO;
-using Microsoft.VisualBasic.FileIO;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 
 public class DependencyImplementation : IDependency
 {

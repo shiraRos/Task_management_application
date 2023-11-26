@@ -55,15 +55,4 @@ public class EngineerImplementation : IEngineer
             }
         }
     }
-    public void Reset()
-    {
-        foreach (var item in DataSource.Engineers)
-        {
-            try
-            {
-                Delete(item.Id);
-            }
-            catch (Exception e) { Console.WriteLine(e); }
-        }
-    }
 }

@@ -490,10 +490,10 @@ namespace DalTest
         {
             try
             {
-                //Calling the action to fill in the information in our fake database
-                Initialization.DO(e_dalEngineer, d_dalDependecy, t_dalTask);
-                //calling the main manu function
-                MainManu();
+                Initialization.DO(s_engineer,s_dalDependecy,s_dalTask);
+                //int mainChoice = MainManu();
+                //while(mainChoice<0)
+                //{ }
             }
             catch (Exception e)
             {
