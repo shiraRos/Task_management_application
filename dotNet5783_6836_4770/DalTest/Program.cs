@@ -14,29 +14,97 @@ namespace DalTest
         private static ITask t_dalTask = new TaskImplementation();
         private static IDependency d_dalDependecy = new DependencyImplementation();
         private static IEngineer e_dalEngineer = new EngineerImplementation();
+        //converting the level
+        private static int GetComplexityLevel()
+        {
+            while (true)
+            {
+                Console.WriteLine("Insert complexity level between 0-4");
 
+                if (int.TryParse(Console.ReadLine(), out int parsedComplexityLevel) && parsedComplexityLevel >= 0 && parsedComplexityLevel <= 4)
+                {
+                    return parsedComplexityLevel; // Exit the loop and return the value if parsing is successful and within the range
+                }
 
+                Console.WriteLine("Invalid input. Please enter a valid complexity level between 0-4");
+            }
+        }
+        //Convertig Dates
+        private static DateTime? ParseDate()
+        {
+            DateTime result;
+
+            if (DateTime.TryParse(Console.ReadLine(), out result))
+            {
+                return result;
+            }
+            else
+            {
+                return null; // Return null if parsing fails
+            }
+        }
         //Creating a new task and adding it to the existing data
         private static void CreateTask()
         {
             //Receipt of data by the user
             int _idEngineer, _complexityLevel;
             bool _isMileston;
-            DateTime? _deadlineDate, _completeDate, _scheduledDate, _startDate;
+            DateTime? _startDate, _deadlineDate,_completeDate, _scheduledDate;
             TimeSpan? _requiredEffortTime;
             string? _alias, _deliverables, _remarks, _description;
             Console.WriteLine("insert engineer id");
-            _idEngineer = int.Parse(Console.ReadLine() ?? " ");
+            _idEngineer = int.Parse(Console.ReadLine()!);
             Console.WriteLine("is it a miles tone?");
-            _isMileston = bool.Parse(Console.ReadLine() ?? " ");
+            if (bool.TryParse(Console.ReadLine(), out bool parsedIsMilestone))
+            {
+                _isMileston = parsedIsMilestone;
+            }
+            else
+            {
+                _isMileston = false; // Default value if parsing fails
+            }
+            // Now 'isMilestone' will be a bool value based on user input, or false if parsing failed.
+            Console.WriteLine("Is Milestone: " + _isMileston);
             Console.WriteLine("insert start date");
-            _startDate = DateTime.Parse(Console.ReadLine() ?? " ");
+            _startDate = ParseDate();
+            if (_startDate.HasValue)
+            {
+                Console.WriteLine("Start Date: " + _startDate.Value.ToString("yyyy-MM-dd")); // Adjust the format as needed
+            }
+            else
+            {
+                Console.WriteLine("Invalid date input");
+            }
             Console.WriteLine("insert deadline date");
-            _deadlineDate = DateTime.Parse(Console.ReadLine() ?? " ");
+            _deadlineDate = ParseDate();
+            if (_deadlineDate.HasValue)
+            {
+                Console.WriteLine("DeadLine Date: " + _deadlineDate.Value.ToString("yyyy-MM-dd")); // Adjust the format as needed
+            }
+            else
+            {
+                Console.WriteLine("Invalid date input");
+            }
             Console.WriteLine("insert complete date");
-            _completeDate = DateTime.Parse(Console.ReadLine() ?? " ");
+            _completeDate = ParseDate();
+            if (_completeDate.HasValue)
+            {
+                Console.WriteLine("Complete Date: " + _completeDate.Value.ToString("yyyy-MM-dd")); // Adjust the format as needed
+            }
+            else
+            {
+                Console.WriteLine("Invalid date input");
+            }
             Console.WriteLine("insert scheduled date ");
-            _scheduledDate = DateTime.Parse(Console.ReadLine() ?? " ");
+            _scheduledDate = ParseDate();
+            if (_scheduledDate.HasValue)
+            {
+                Console.WriteLine("Scheduled Date: " + _scheduledDate.Value.ToString("yyyy-MM-dd")); // Adjust the format as needed
+            }
+            else
+            {
+                Console.WriteLine("Invalid date input");
+            }
             Console.WriteLine("insert required Effort Time");
             _requiredEffortTime = TimeSpan.Parse(Console.ReadLine() ?? " ");
             Console.WriteLine("insert deliverables");
@@ -44,7 +112,10 @@ namespace DalTest
             Console.WriteLine("insert remarks");
             _remarks = Console.ReadLine() ?? " ";
             Console.WriteLine("insert complexity level between 0-4");
-            _complexityLevel = int.Parse(Console.ReadLine() ?? " ");
+             _complexityLevel = GetComplexityLevel();
+
+            // Now 'complexityLevel' will be an integer between 0-4 based on user input.
+            Console.WriteLine("Complexity Level: " + _complexityLevel);
             Console.WriteLine("insert description");
             _description = Console.ReadLine() ?? " ";
             Console.WriteLine("insert alias");
@@ -75,16 +146,25 @@ namespace DalTest
         {
             //Receipt of data by the user
             int _id, _level;
-            double _cost;
-            string _name, _email;
+            double? _cost;
+            string? _name, _email;
             Console.WriteLine("insert id");
-            _id = int.Parse(Console.ReadLine() ?? " ");
+            _id = int.Parse(Console.ReadLine()!);
             Console.WriteLine(" insert name");
             _name = Console.ReadLine() ?? " ";
-            Console.WriteLine("insert complexity kevel between 0-4");
-            _level = int.Parse(Console.ReadLine() ?? " ");
+            Console.WriteLine("insert complexity level between 0-4");
+           _level = GetComplexityLevel();
+            // Now 'complexityLevel' will be an integer between 0-4 based on user input.
+            Console.WriteLine("Complexity Level: " + _level);
             Console.WriteLine("insert cost");
-            _cost = double.Parse(Console.ReadLine() ?? " ");
+            if (double.TryParse(Console.ReadLine(), out double parsedCost))
+            {
+                _cost = parsedCost;
+            }
+            else
+                _cost = null;
+            // Now 'cost' will be a double value if parsing was successful, or null if it failed or the input was blank.
+            Console.WriteLine("Cost: " + (_cost.HasValue ? _cost.ToString() : "null"));
             Console.WriteLine("insert email");
             _email = Console.ReadLine() ?? " ";
             //creating a new object
@@ -97,7 +177,7 @@ namespace DalTest
         private static void DeleteTask()
         {
             Console.WriteLine("insert task code to remove");
-            int taskId = int.Parse(Console.ReadLine() ?? " ");
+            int taskId = int.Parse(Console.ReadLine() !);
             //delete from the data by calling an external operation
             t_dalTask.Delete(taskId);
         }
@@ -106,7 +186,7 @@ namespace DalTest
         private static void DeleteEngineer()
         {
             Console.WriteLine("insert engineer to remove");
-            int engineerId = int.Parse(Console.ReadLine() ?? " ");
+            int engineerId = int.Parse(Console.ReadLine() !);
             //delete from the data by calling an external operation
             e_dalEngineer.Delete(engineerId);
         }
@@ -124,7 +204,7 @@ namespace DalTest
         private static void ReadTask()
         {
             Console.WriteLine("insert task code to print");
-            int taskId = int.Parse(Console.ReadLine() ?? " ");
+            int taskId = int.Parse(Console.ReadLine()!);
             //print the data by calling an external operation
             Console.WriteLine(t_dalTask.Read(taskId));
         }
@@ -133,7 +213,7 @@ namespace DalTest
         private static void ReadDependency()
         {
             Console.WriteLine("insert dependency code to print");
-            int dependencyId = int.Parse(Console.ReadLine() ?? " ");
+            int dependencyId = int.Parse(Console.ReadLine()!);
             //print the data by calling an external operation
             Console.WriteLine(d_dalDependecy.Read(dependencyId));
         }
@@ -142,7 +222,7 @@ namespace DalTest
         private static void ReadEngineer()
         {
             Console.WriteLine("insert engineer code to print");
-            int engineerId = int.Parse(Console.ReadLine() ?? " ");
+            int engineerId = int.Parse(Console.ReadLine()!);
             //print the data by calling an external operation
             Console.WriteLine(e_dalEngineer.Read(engineerId));
         }
@@ -194,15 +274,24 @@ namespace DalTest
             int id = int.Parse(Console.ReadLine()!);
             t_dalTask.Read(id);
             int _idEngineer;
-            int? _complexityLevel;
+            int _complexityLevel;
             bool? _isMileston;
             DateTime? _deadlineDate, _completeDate, _scheduledDate, _startDate;
             TimeSpan? _requiredEffortTime;
             string? _alias, _deliverables, _remarks, _description;
             Console.WriteLine("insert engineer id");
-            _idEngineer = int.Parse(Console.ReadLine() ?? " ");
+            _idEngineer = int.Parse(Console.ReadLine()!);
             Console.WriteLine("is it a miles tone?");
-            _isMileston = bool.Parse(Console.ReadLine() ?? " ");
+            if (bool.TryParse(Console.ReadLine(), out bool parsedIsMilestone))
+            {
+                _isMileston = parsedIsMilestone;
+            }
+            else
+            {
+                _isMileston = false; // Default value if parsing fails
+            }
+            // Now 'isMilestone' will be a bool value based on user input, or false if parsing failed.
+            Console.WriteLine("Is Milestone: " + _isMileston);
             Console.WriteLine("insert start date");
             _startDate = DateTime.Parse(Console.ReadLine() ?? " ");
             Console.WriteLine("insert deadline date");
@@ -218,7 +307,9 @@ namespace DalTest
             Console.WriteLine("insert remarks");
             _remarks = Console.ReadLine() ?? " ";
             Console.WriteLine("insert complexity level between 0-4");
-            _complexityLevel = int.Parse(Console.ReadLine() ?? " ");
+             _complexityLevel = GetComplexityLevel();
+            // Now 'complexityLevel' will be an integer between 0-4 based on user input.
+            Console.WriteLine("Complexity Level: " + _complexityLevel);
             Console.WriteLine("insert description");
             _description = Console.ReadLine() ?? " ";
             Console.WriteLine("insert alias");
@@ -254,15 +345,24 @@ namespace DalTest
             Console.WriteLine("insert id");
             int id = int.Parse(Console.ReadLine()!);
             e_dalEngineer.Read(id);
-            int? _level;
-            double _cost;
+            int _level;
+            double? _cost;
             string _name, _email;
             Console.WriteLine(" insert name");
             _name = Console.ReadLine() ?? " ";
             Console.WriteLine("insert complexity kevel between 0-4");
-            _level = int.Parse(Console.ReadLine() ?? " ");
+             _level = GetComplexityLevel();
+            // Now 'complexityLevel' will be an integer between 0-4 based on user input.
+            Console.WriteLine("Complexity Level: " + _level);
             Console.WriteLine("insert cost");
-            _cost = double.Parse(Console.ReadLine() ?? " ");
+            if (double.TryParse(Console.ReadLine(), out double parsedCost))
+            {
+                _cost = parsedCost;
+            }
+            else
+                _cost = null;
+            // Now 'cost' will be a double value if parsing was successful, or null if it failed or the input was blank.
+            Console.WriteLine("Cost: " + (_cost.HasValue ? _cost.ToString() : "null"));
             Console.WriteLine("insert email");
             _email = Console.ReadLine() ?? " ";
             //creating a new object
@@ -491,7 +591,7 @@ namespace DalTest
             try
             {
                 Initialization.DO(e_dalEngineer,d_dalDependecy,t_dalTask);
-                //int mainChoice = MainManu();
+                MainManu();
                 //while(mainChoice<0)
                 //{ }
             }
