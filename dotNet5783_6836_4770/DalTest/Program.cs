@@ -558,8 +558,6 @@ namespace DalTest
             {
                 Initialization.DO(e_dalEngineer, d_dalDependecy, t_dalTask);
                 MainManu();
-                //while(mainChoice<0)
-                //{ }
             }
             catch (Exception e)
             {
