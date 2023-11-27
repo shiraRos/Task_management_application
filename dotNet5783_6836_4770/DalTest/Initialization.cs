@@ -87,7 +87,6 @@ public static class Initialization
             //Add to data by calling  cerate operation
             otomatId = d_dalDependency!.Create(newDpn3);
         }
-
     }
     //External helper function to draw a random dependency assignment
     private static Task GetRanTask()
