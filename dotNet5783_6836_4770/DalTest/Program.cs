@@ -491,9 +491,7 @@ namespace DalTest
             try
             {
                 Initialization.DO(e_dalEngineer,d_dalDependecy,t_dalTask);
-                //int mainChoice = MainManu();
-                //while(mainChoice<0)
-                //{ }
+                MainManu();
             }
             catch (Exception e)
             {

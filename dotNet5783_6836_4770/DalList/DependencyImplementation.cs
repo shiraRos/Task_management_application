@@ -60,18 +60,6 @@ public class DependencyImplementation : IDependency
     //function for reset all the list of Dependency
     public void Reset()
     {
-        foreach (var item in DataSource.Dependencies)
-        {
-            try
-            {
-                Delete(item.Id);
-            }
-            catch(Exception e) { Console.WriteLine(e); }
-        }
-    }
-
-    public void Reset()
-    {
 
         DO.Dependency[] arrDpnd = DataSource.Dependencies.ToArray();
         for(int i=0;i<arrDpnd.Length;i++)

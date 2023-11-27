@@ -67,11 +67,12 @@ public class EngineerImplementation : IEngineer
     //function for reset all the list of Engineer
     public void Reset()
     {
-        foreach (var item in DataSource.Engineers)
+        DO.Engineer[] arreng = DataSource.Engineers.ToArray();
+        for (int i = 0; i < arreng.Length; i++)
         {
             try
             {
-                Delete(item.Id);
+                Delete(arreng[i].Id);
             }
             catch (Exception e) { Console.WriteLine(e); }
         }

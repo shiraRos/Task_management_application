@@ -1,4 +1,6 @@
 ﻿namespace DalTest;
+
+using Dal;
 using DalApi;
 using DO;
 using System.Security.Cryptography;
@@ -44,18 +46,46 @@ public static class Initialization
     private static void createDependency()
     {
         int otomatId = 0, _dependenTask, nextRanTask;
-        for (int i = 0; i < 40; i++)
+        int dep1 = GetRanTask().Id, dep2 = GetRanTask().Id;
+        //creating the first dependency outside the loop
+        _dependenTask = GetRanTask().Id;
+        nextRanTask = GetRanTask().Id;
+        //loop for checking the dependency
+        while (nextRanTask == _dependenTask || d_dalDependency!.ReadAll().Exists(dep => dep.DependenTask == _dependenTask && dep.DependensOnTask == nextRanTask) || d_dalDependency!.ReadAll().Exists(dep => dep.DependenTask == nextRanTask && dep.DependensOnTask == _dependenTask))
+            nextRanTask = GetRanTask().Id;
+        int _dependensOnTask = nextRanTask;
+        //creating a new object
+        Dependency newDpn = new(otomatId, _dependenTask, _dependensOnTask);
+        //Add to data by calling  cerate operation
+        otomatId = d_dalDependency!.Create(newDpn);
+        //a loop for crating 2 different dependencies with the same depend on task
+        for (int i = 0; i < 3; i++)
+        {
+            nextRanTask = GetRanTask().Id;
+            //loop for checking the dependency
+            while (nextRanTask == dep1 || nextRanTask == dep2 || d_dalDependency!.ReadAll().Exists(dep => dep.DependenTask == dep1 && dep.DependensOnTask == nextRanTask) || d_dalDependency!.ReadAll().Exists(dep => dep.DependenTask == dep2 && dep.DependensOnTask == nextRanTask) || d_dalDependency!.ReadAll().Exists(dep => dep.DependenTask == nextRanTask && dep.DependensOnTask == dep1) || d_dalDependency!.ReadAll().Exists(dep => dep.DependenTask == nextRanTask && dep.DependensOnTask == dep2))
+                nextRanTask = GetRanTask().Id;
+            //creating a new object
+            Dependency newDpn1 = new(otomatId, dep1, nextRanTask);
+            Dependency newDpn2 = new(otomatId, dep2, nextRanTask);
+            //Add to data by calling  cerate operation
+            otomatId = d_dalDependency!.Create(newDpn1);
+            otomatId = d_dalDependency!.Create(newDpn2);
+
+        }
+        //a loop for the rest of the regular deendencies
+        for (int i = 0; i < 33; i++)
         {
             //initialize the dependendTasks by random id -that exist in the task list
             _dependenTask = GetRanTask().Id;
             nextRanTask = GetRanTask().Id;
-            while (nextRanTask == _dependenTask)
+            //loop for checking the dependency
+            while (nextRanTask == _dependenTask || d_dalDependency!.ReadAll().Exists(dep => dep.DependenTask == _dependenTask && dep.DependensOnTask == nextRanTask) || d_dalDependency!.ReadAll().Exists(dep => dep.DependenTask == nextRanTask && dep.DependensOnTask == _dependenTask))
                 nextRanTask = GetRanTask().Id;
-            int _dependensOnTask = nextRanTask;
             //creating a new object
-            Dependency newDpn = new(otomatId, _dependenTask, _dependensOnTask);
+            Dependency newDpn3 = new(otomatId, _dependenTask, nextRanTask);
             //Add to data by calling  cerate operation
-            otomatId = d_dalDependency!.Create(newDpn);
+            otomatId = d_dalDependency!.Create(newDpn3);
         }
 
     }
@@ -67,9 +97,10 @@ public static class Initialization
         //converting the list to array
         tempArr = t_dalTask!.ReadAll().ToArray();
         //Return random index that contains item
-        return tempArr[s_rand.Next(0, 19)];
+        int temp = s_rand.Next(0, 19);
+        return tempArr[temp];
     }
-     //Create objects Task type
+    //Create objects Task type
     private static void createTask()
     {
 
@@ -78,16 +109,15 @@ public static class Initialization
             int otamtId = 0;
             //get ENgineer id from the random function 
             int _idEngineer = GetRanEng().Id;
-            bool _isMileston = false;
+            bool? _isMileston = false;
             //Lottery several days to add
             int daysToAdd = s_rand.Next(0, 10);
-            DateTime _startDate = (DateTime.Today);
+            DateTime? _startDate = null;
             //Defining a deadline according to the number of days drawn
-            DateTime? _deadlineDate = _startDate.AddDays(daysToAdd + 1);
+            DateTime? _deadlineDate = DateTime.Today.AddDays(daysToAdd + 1);
             //Definition that the project ended a day before the deadline for each project
             DateTime? _completeDate = null;
-            //Setting the actual start day as now
-            DateTime? _scheduledDate = DateTime.Today;
+            DateTime? _scheduledDate = null;
             TimeSpan? _requiredEffortTime = null;
             string? _alias = "tsk" + s_rand.Next(32, 122);
             string? _deliverables = null;

@@ -62,11 +62,17 @@ public class TaskImplementation : ITask
     //function for reset all the list of Tasks
     public void Reset()
     {
-        foreach (var item in DataSource.Tasks)
+        DO.Task[] arrtsk = DataSource.Tasks.ToArray();
+        try
+        {
+            Delete(arrtsk[0].Id);
+        }
+        catch (Exception e) { Console.WriteLine(e); }
+        for (int i = 1; i < arrtsk.Length; i++)
         {
             try
             {
-                Delete(item.Id);
+                Delete(arrtsk[i].Id);
             }
             catch (Exception e) { Console.WriteLine(e); }
         }
