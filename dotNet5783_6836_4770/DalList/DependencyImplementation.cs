@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
 // implementation off the dependency entity
-public class DependencyImplementation : IDependency
+internal class DependencyImplementation : IDependency
 {
     // function for create an item of Dependency object
     public int Create(Dependency item)

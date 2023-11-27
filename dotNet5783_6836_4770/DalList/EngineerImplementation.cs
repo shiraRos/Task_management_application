@@ -4,7 +4,7 @@ using DO;
 using System.Collections.Generic;
 
 // implementation of the Engineer entity
-public class EngineerImplementation : IEngineer
+internal class EngineerImplementation : IEngineer
 {
     // function for create an item of Engineer object
     public int Create(Engineer item)
