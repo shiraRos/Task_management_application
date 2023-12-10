@@ -2,21 +2,20 @@
 using DalApi;
 using DO;
 using System.Collections.Generic;
+using System.Linq;
 
 // implementation of the Engineer entity
 internal class EngineerImplementation : IEngineer
 {
-    // function for create an item of Engineer object
     public int Create(Engineer item)
     {
-        //checking if the id is new
-        foreach (var x in DataSource.Engineers)
+        // Checking if the id is new
+        if (DataSource.Engineers.FirstOrDefault(x => x.Id == item.Id) != null)
         {
-            if(item.Id==x.Id) {
-                throw new Exception($"Engineer with ID={item.Id}is already exists");
-            }
+            throw new Exception($"Engineer with ID={item.Id} already exists");
         }
-        //adding the item
+
+        // Adding the item
         DataSource.Engineers.Add(item);
         return item.Id;
     }
@@ -24,10 +23,10 @@ internal class EngineerImplementation : IEngineer
     public void Delete(int id)
     {
         //if the id of engineer not exists -no need for delete
-        if (!(DataSource.Engineers.Exists(eng => eng.Id == id)))
+        if (!(DataSource.Engineers.Any(eng => eng.Id == id)))
             throw new Exception($"Engineer with ID={id} does Not exist");
         //if the id of engineer exists in the task-cannot be deleted
-        if( DataSource.Tasks.Exists(tsk=>tsk.EngineerId==id) )
+        if( DataSource.Tasks.Any(tsk=>tsk.EngineerId==id) )
             throw new Exception($"Engineer with ID={id} can not be deleted because, he still has task");
         foreach (var x in DataSource.Engineers)
         {
@@ -40,7 +39,7 @@ internal class EngineerImplementation : IEngineer
     // function for get an item of Engineer by checking the id
     public Engineer? Read(int id)
     {
-            return DataSource.Engineers.Find(eng => eng.Id ==id);
+            return DataSource.Engineers.FirstOrDefault(eng => eng.Id ==id);
     }
     //function  for get all the list of Engineer items
     public List<Engineer> ReadAll()
@@ -51,7 +50,7 @@ internal class EngineerImplementation : IEngineer
     public void Update(Engineer item)
     {
         //if id doesnt exist-no need for updating
-        if(!(DataSource.Engineers.Exists(eng => eng.Id == item.Id)))
+        if(!(DataSource.Engineers.Any(eng => eng.Id == item.Id)))
           throw new Exception($"Engineer with ID={item.Id} does Not exist");
         foreach (var x in DataSource.Engineers)
         {

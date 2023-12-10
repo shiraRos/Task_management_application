@@ -2,6 +2,7 @@
 using DalApi;
 using DO;
 using System.Collections.Generic;
+using System.Linq;
 
 // implementation of the Engineer entity
 internal class TaskImplementation : ITask
@@ -18,7 +19,7 @@ internal class TaskImplementation : ITask
     public void Delete(int id)
     {
         //if the id of task  not exists -no need for delete
-        if (!(DataSource.Tasks.Exists(tsk => tsk.Id == id)))
+        if (!(DataSource.Tasks.Any(tsk => tsk.Id == id)))
             throw new Exception($"Task with ID={id} does Not exist");
         //if the id of task exists in the dependency-cannot be deleted
         if (DataSource.Dependencies.Exists(idTs=> idTs.DependensOnTask == id ))
@@ -35,7 +36,7 @@ internal class TaskImplementation : ITask
     // function for get an item of task by checking the id
     public Task? Read(int id)
     {
-        return DataSource.Tasks.Find(tsk => tsk.Id == id);
+        return DataSource.Tasks.FirstOrDefault(tsk => tsk.Id == id);
     }
     //function  for get all the list of Tasks items
     public List<Task> ReadAll()
@@ -46,7 +47,7 @@ internal class TaskImplementation : ITask
     public void Update(Task item)
     {
         //if id doesnt exist-no need for updating
-        if (!(DataSource.Tasks.Exists(tsk => tsk.Id == item.Id)))
+        if (!(DataSource.Tasks.Any(tsk => tsk.Id == item.Id)))
             throw new Exception($"Task with ID={item.Id} does Not exist");
         foreach (var x in DataSource.Tasks)
         {

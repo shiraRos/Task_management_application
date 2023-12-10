@@ -4,6 +4,7 @@ using DO;
 using Microsoft.VisualBasic.FileIO;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Linq;
 
 // implementation off the dependency entity
 internal class DependencyImplementation : IDependency
@@ -20,7 +21,7 @@ internal class DependencyImplementation : IDependency
     public void Delete(int id)
     {
         //if the id of dependency not exists -no need for delete
-        if (!(DataSource.Dependencies.Exists(dpn => dpn.Id == id)))
+        if (!(DataSource.Dependencies.Any(dpn => dpn.Id == id)))
             throw new Exception($"Dependency with ID={id} does Not exist");
         foreach (var x in DataSource.Dependencies)
         {
@@ -34,7 +35,7 @@ internal class DependencyImplementation : IDependency
 
     public Dependency? Read(int id)
     {
-        return DataSource.Dependencies.Find(dpn => dpn.Id == id);
+        return DataSource.Dependencies.FirstOrDefault(dpn => dpn.Id == id);
     }
 
     public List<Dependency> ReadAll()
@@ -44,7 +45,7 @@ internal class DependencyImplementation : IDependency
 
     public void Update(Dependency item)
     {
-        if (!(DataSource.Dependencies.Exists(dpn => dpn.Id == item.Id)))
+        if (!(DataSource.Dependencies.Any(dpn => dpn.Id == item.Id)))
             throw new Exception($"Dependency with ID={item.Id} does Not exist");
         foreach (var x in DataSource.Dependencies)
         {
