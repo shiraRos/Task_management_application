@@ -1,12 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\dotNet5783_6836_4770",
-    "\\dotNet5783_6836_4770\\DalFacade",
-    "\\dotNet5783_6836_4770\\DalFacade\\DO",
-    "\\dotNet5783_6836_4770\\DalList",
-    "\\dotNet5783_6836_4770\\DalTest"
+    "\\dotNet5783_6836_4770"
   ],
-  "SelectedNode": "\\dotNet5783_6836_4770\\DalFacade\\DO\\Engineer.cs",
+  "SelectedNode": "\\dotNet5783_6836_4770\\Stage0",
   "PreviewInSolutionExplorer": false
 }
