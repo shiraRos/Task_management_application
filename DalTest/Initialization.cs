@@ -11,13 +11,10 @@ using System.Xml.Linq;
 /// </summary>
 public static class Initialization
 {
-    ////declaration  the objects of their entities
-    //private static IEngineer? e_dalEngineer;     //stage1
-    //private static IDependency? d_dalDependency; //stage1
-    //private static ITask? t_dalTask;             //stage1
-
-    private static IDal? s_dal;
-
+    //declaration  the objects of their entities
+    private static IEngineer? e_dalEngineer;
+    private static IDependency? d_dalDependency;
+    private static ITask? t_dalTask;
     //Declaration random object in order to initializ by random way
     private static readonly Random s_rand = new();
     //create objects Engineer type
@@ -35,14 +32,14 @@ public static class Initialization
             int _id;
             do
                 _id = s_rand.Next(200000000, 400000000);
-            while (s_dal!.Engineer.Read(_id) != null);
+            while (e_dalEngineer!.Read(_id) != null);
             EngineerExperience _level = (EngineerExperience)s_rand.Next(0, 4);
             double? _cost = s_rand.Next(1000, 400000);
             string? _email = _name + "@gmail.com";
             //creating a new object
             Engineer newEng = new(_id, _level, _cost, _name, _email);
             //Add to data by calling create operation
-            _id = s_dal!.Engineer.Create(newEng);
+            _id = e_dalEngineer!.Create(newEng);
         }
     }
     //create objects Dependenct type
@@ -54,26 +51,26 @@ public static class Initialization
         _dependenTask = GetRanTask().Id;
         nextRanTask = GetRanTask().Id;
         //loop for checking the dependency
-        while (nextRanTask == _dependenTask || s_dal!.Dependency.ReadAll().Exists(dep => dep.DependenTask == _dependenTask && dep.DependensOnTask == nextRanTask) || s_dal!.Dependency.ReadAll().Exists(dep => dep.DependenTask == nextRanTask && dep.DependensOnTask == _dependenTask))
+        while (nextRanTask == _dependenTask || d_dalDependency!.ReadAll().Exists(dep => dep.DependenTask == _dependenTask && dep.DependensOnTask == nextRanTask) || d_dalDependency!.ReadAll().Exists(dep => dep.DependenTask == nextRanTask && dep.DependensOnTask == _dependenTask))
             nextRanTask = GetRanTask().Id;
         int _dependensOnTask = nextRanTask;
         //creating a new object
         Dependency newDpn = new(otomatId, _dependenTask, _dependensOnTask);
         //Add to data by calling  cerate operation
-        otomatId = s_dal!.Dependency.Create(newDpn);
+        otomatId = d_dalDependency!.Create(newDpn);
         //a loop for crating 2 different dependencies with the same depend on task
         for (int i = 0; i < 3; i++)
         {
             nextRanTask = GetRanTask().Id;
             //loop for checking the dependency
-            while (nextRanTask == dep1 || nextRanTask == dep2 || s_dal!.Dependency.ReadAll().Exists(dep => dep.DependenTask == dep1 && dep.DependensOnTask == nextRanTask) || s_dal!.Dependency.ReadAll().Exists(dep => dep.DependenTask == dep2 && dep.DependensOnTask == nextRanTask) || s_dal!.Dependency.ReadAll().Exists(dep => dep.DependenTask == nextRanTask && dep.DependensOnTask == dep1) || s_dal!.Dependency.ReadAll().Exists(dep => dep.DependenTask == nextRanTask && dep.DependensOnTask == dep2))
+            while (nextRanTask == dep1 || nextRanTask == dep2 || d_dalDependency!.ReadAll().Exists(dep => dep.DependenTask == dep1 && dep.DependensOnTask == nextRanTask) || d_dalDependency!.ReadAll().Exists(dep => dep.DependenTask == dep2 && dep.DependensOnTask == nextRanTask) || d_dalDependency!.ReadAll().Exists(dep => dep.DependenTask == nextRanTask && dep.DependensOnTask == dep1) || d_dalDependency!.ReadAll().Exists(dep => dep.DependenTask == nextRanTask && dep.DependensOnTask == dep2))
                 nextRanTask = GetRanTask().Id;
             //creating a new object
             Dependency newDpn1 = new(otomatId, dep1, nextRanTask);
             Dependency newDpn2 = new(otomatId, dep2, nextRanTask);
             //Add to data by calling  cerate operation
-            otomatId = s_dal!.Dependency.Create(newDpn1);
-            otomatId = s_dal!.Dependency.Create(newDpn2);
+            otomatId = d_dalDependency!.Create(newDpn1);
+            otomatId = d_dalDependency!.Create(newDpn2);
 
         }
         //a loop for the rest of the regular deendencies
@@ -83,12 +80,12 @@ public static class Initialization
             _dependenTask = GetRanTask().Id;
             nextRanTask = GetRanTask().Id;
             //loop for checking the dependency
-            while (nextRanTask == _dependenTask || s_dal!.Dependency.ReadAll().Exists(dep => dep.DependenTask == _dependenTask && dep.DependensOnTask == nextRanTask) || s_dal!.Dependency.ReadAll().Exists(dep => dep.DependenTask == nextRanTask && dep.DependensOnTask == _dependenTask))
+            while (nextRanTask == _dependenTask || d_dalDependency!.ReadAll().Exists(dep => dep.DependenTask == _dependenTask && dep.DependensOnTask == nextRanTask) || d_dalDependency!.ReadAll().Exists(dep => dep.DependenTask == nextRanTask && dep.DependensOnTask == _dependenTask))
                 nextRanTask = GetRanTask().Id;
             //creating a new object
             Dependency newDpn3 = new(otomatId, _dependenTask, nextRanTask);
             //Add to data by calling  cerate operation
-            otomatId = s_dal!.Dependency.Create(newDpn3);
+            otomatId = d_dalDependency!.Create(newDpn3);
         }
     }
     //External helper function to draw a random dependency assignment
@@ -97,7 +94,7 @@ public static class Initialization
         //declaretioN of Task arr in size of existing tasks
         Task[] tempArr = new Task[20];
         //converting the list to array
-        tempArr = s_dal!.Task.ReadAll().ToArray();
+        tempArr = t_dalTask!.ReadAll().ToArray();
         //Return random index that contains item
         int temp = s_rand.Next(0, 19);
         return tempArr[temp];
@@ -129,7 +126,7 @@ public static class Initialization
             //Creating a new object
             Task newTsk = new(otamtId, _idEngineer, _isMileston, _startDate, _deadlineDate, _completeDate, _scheduledDate, _requiredEffortTime, _deliverables, _remarks, _complexityLevel, _description, _alias);
             //Add to data by calling an external operation
-            otamtId = s_dal!.Task.Create(newTsk);
+            otamtId = t_dalTask!.Create(newTsk);
         }
     }
     //External helper function to draw a random programmer number
@@ -138,18 +135,17 @@ public static class Initialization
         //Declaretion of  Engineer arr  in size of existing engineers
         Engineer[] tempArr = new Engineer[9];
         //converting the list to array
-        tempArr = s_dal!.Engineer.ReadAll().ToArray();
+        tempArr = e_dalEngineer!.ReadAll().ToArray();
         //Return random index that contains item
         return tempArr[s_rand.Next(0, 8)];
     }
     //A public method for calling all private methods
-    public static void DO(IDal dal)//stage2
+    public static void DO(IEngineer? dalEngineer, IDependency? dalDependency, ITask? dalTask)
     {
-        s_dal= dal ?? throw new NullReferenceException("DAL can not be null!");
-        ////Throwing exception if the objects are null
-        //e_dalEngineer = dalEngineer ?? throw new NullReferenceException("DAL can not be null!");
-        //d_dalDependency = dalDependency ?? throw new NullReferenceException("DAL can not be null!");
-        //t_dalTask = dalTask ?? throw new NullReferenceException("DAL can not be null!");
+        //Throwing exception if the objects are null
+        e_dalEngineer = dalEngineer ?? throw new NullReferenceException("DAL can not be null!");
+        d_dalDependency = dalDependency ?? throw new NullReferenceException("DAL can not be null!");
+        t_dalTask = dalTask ?? throw new NullReferenceException("DAL can not be null!");
         //Calling all the initializiation function of the different entitites
         createEngineer();
         createTask();
