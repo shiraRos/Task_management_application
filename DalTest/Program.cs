@@ -10,17 +10,20 @@ namespace DalTest
 {
     internal class Program
     {
-        //Initialize items for using the interface
-        private static ITask t_dalTask = new TaskImplementation();
-        private static IDependency d_dalDependecy = new DependencyImplementation();
-        private static IEngineer e_dalEngineer = new EngineerImplementation();
+        ////Initialize items for using the interface
+        //private static ITask t_dalTask = new TaskImplementation();                   //stage 1
+        //private static IDependency d_dalDependecy = new DependencyImplementation();  //stage 1
+        //private static IEngineer e_dalEngineer = new EngineerImplementation();       //stage 1
+
+        static readonly IDal s_dal = new DalList(); //stage 2
+
 
         //converting the level
         private static int? GetComplexityLevel()
         {
             while (true)
             {
-
+              
                 if (int.TryParse(Console.ReadLine(), out int parsedComplexityLevel))
                 {
                     return parsedComplexityLevel; // Exit the loop and return the value if parsing is successful and within the range
@@ -29,7 +32,7 @@ namespace DalTest
                 {
                     return null;
                 }
-
+                
             }
         }
         //Convertig Dates
@@ -54,7 +57,7 @@ namespace DalTest
             }
             else
             {
-                return false; // Default value if parsing fails
+                return  false; // Default value if parsing fails
             }
 
         }
@@ -63,7 +66,7 @@ namespace DalTest
         {
             //Receipt of data by the user
             int _idEngineer;
-            int? _complexityLevel;
+            int?_complexityLevel;
             bool _isMileston;
             DateTime? _startDate, _deadlineDate, _completeDate, _scheduledDate;
             TimeSpan? _requiredEffortTime;
@@ -113,7 +116,7 @@ namespace DalTest
             //creating a new object
             DO.Task newTsk = new(0, _idEngineer, _isMileston, _startDate, _deadlineDate, _completeDate, _scheduledDate, _requiredEffortTime, _deliverables, _remarks, (_complexityLevel != null ? (EngineerExperience)_complexityLevel : null), _description, _alias);
             //Add to data by calling an external operation
-            int idnt = t_dalTask.Create(newTsk);
+            int idnt = s_dal.Task.Create(newTsk);
         }
 
         //Creating a new dependency and adding it to the existing data
@@ -128,7 +131,7 @@ namespace DalTest
             //creating a new object
             Dependency newDpn = new(0, _dependenTask, _dependensOnTask);
             //Add to data by calling an external operation
-            int temp = d_dalDependecy.Create(newDpn);
+            int temp = s_dal.Dependency.Create(newDpn);
         }
 
         //Creating a new engineer and adding it to the existing data
@@ -159,9 +162,9 @@ namespace DalTest
             Console.WriteLine("insert email");
             _email = Console.ReadLine() ?? " ";
             //creating a new object
-            Engineer newEng = new(_id, (_level != null ? (EngineerExperience)_level : null), _cost, _name, _email);
+            Engineer newEng = new(_id, (_level!=null? (EngineerExperience)_level:null), _cost, _name, _email);
             //Add to data by calling an external operation
-            _id = e_dalEngineer.Create(newEng);
+            _id = s_dal.Engineer.Create(newEng);
         }
 
         //Deleting a task from the existing data
@@ -170,7 +173,7 @@ namespace DalTest
             Console.WriteLine("insert task code to remove");
             int taskId = int.Parse(Console.ReadLine()!);
             //delete from the data by calling an external operation
-            t_dalTask.Delete(taskId);
+            s_dal.Task.Delete(taskId);
         }
 
         //Deleting an engineer from the existing data
@@ -179,7 +182,7 @@ namespace DalTest
             Console.WriteLine("insert engineer to remove");
             int engineerId = int.Parse(Console.ReadLine()!);
             //delete from the data by calling an external operation
-            e_dalEngineer.Delete(engineerId);
+            s_dal.Engineer.Delete(engineerId);
         }
 
         //Deleting a dependency from the existing data
@@ -188,7 +191,7 @@ namespace DalTest
             Console.WriteLine("insert dependeny to remove");
             int dependencyId = int.Parse(Console.ReadLine() ?? " ");
             //delete from the data by calling an external operation
-            d_dalDependecy.Delete(dependencyId);
+            s_dal.Dependency.Delete(dependencyId);
         }
 
         //Reading a certain task from the existing data
@@ -197,7 +200,7 @@ namespace DalTest
             Console.WriteLine("insert task code to print");
             int taskId = int.Parse(Console.ReadLine()!);
             //print the data by calling an external operation
-            Console.WriteLine(t_dalTask.Read(taskId));
+            Console.WriteLine(s_dal.Task.Read(taskId));
         }
 
         //Reading a certain dependency from the existing data
@@ -206,7 +209,7 @@ namespace DalTest
             Console.WriteLine("insert dependency code to print");
             int dependencyId = int.Parse(Console.ReadLine()!);
             //print the data by calling an external operation
-            Console.WriteLine(d_dalDependecy.Read(dependencyId));
+            Console.WriteLine(s_dal.Dependency.Read(dependencyId));
         }
 
         //Reading a certain engineer from the existing data
@@ -215,7 +218,7 @@ namespace DalTest
             Console.WriteLine("insert engineer code to print");
             int engineerId = int.Parse(Console.ReadLine()!);
             //print the data by calling an external operation
-            Console.WriteLine(e_dalEngineer.Read(engineerId));
+            Console.WriteLine(s_dal.Engineer.Read(engineerId));
         }
 
         //Reading all of the engineers from the data
@@ -223,7 +226,7 @@ namespace DalTest
         {
             Console.WriteLine("the all engineers:");
             //getting all the engineers to a new item
-            List<Engineer> engList = e_dalEngineer!.ReadAll();
+            List<Engineer> engList = s_dal!.Engineer.ReadAll();
             //print evey item
             foreach (var item in engList)
             {
@@ -236,7 +239,7 @@ namespace DalTest
         {
             Console.WriteLine("the all Dependencies:");
             //getting all the dependencies to a new item
-            List<Dependency> depList = d_dalDependecy!.ReadAll();
+            List<Dependency> depList = s_dal!.Dependency.ReadAll();
             //print evey item
             foreach (var item in depList)
             {
@@ -249,7 +252,7 @@ namespace DalTest
         {
             Console.WriteLine("the all Tasks:");
             //getting all the tasks to a new item
-            List<DO.Task> tskList = t_dalTask!.ReadAll();
+            List<DO.Task> tskList = s_dal!.Task.ReadAll();
             //print evey item
             foreach (var item in tskList)
             {
@@ -263,7 +266,7 @@ namespace DalTest
             //Receipt of data by the user by id
             Console.WriteLine("insert id");
             int id = int.Parse(Console.ReadLine()!);
-            t_dalTask.Read(id);
+            s_dal.Task.Read(id);
             int _idEngineer;
             int? _complexityLevel;
             bool? _isMileston;
@@ -286,7 +289,7 @@ namespace DalTest
             _completeDate = ParseDate();
             Console.WriteLine("Complete Date: " + (_completeDate.HasValue ? _completeDate.Value.ToString("yyyy-MM-dd") : null));
             Console.WriteLine("insert scheduled date ");
-            _scheduledDate = ParseDate();
+            _scheduledDate =ParseDate();
             Console.WriteLine("Scheduled Date: Date: " + (_scheduledDate.HasValue ? _scheduledDate.Value.ToString("yyyy-MM-dd") : null));
             Console.WriteLine("insert required Effort Time");
             _requiredEffortTime = TimeSpan.Parse(Console.ReadLine() ?? " ");
@@ -305,7 +308,7 @@ namespace DalTest
             //creating a new object
             DO.Task newTsk = new(id, _idEngineer, _isMileston, _startDate, _deadlineDate, _completeDate, _scheduledDate, _requiredEffortTime, _deliverables, _remarks, (_complexityLevel != null ? (EngineerExperience)_complexityLevel : null), _description, _alias);
             //Update the data by calling an external operation
-            t_dalTask.Update(newTsk);
+            s_dal.Task.Update(newTsk);
         }
 
         //Updating information about a dependency that already exists in the system
@@ -314,7 +317,7 @@ namespace DalTest
             //Receipt of data by the user by id
             Console.WriteLine("insert id");
             int id = int.Parse(Console.ReadLine()!);
-            d_dalDependecy.Read(id);
+            s_dal.Dependency.Read(id);
             int _dependenTask, _dependensOnTask;
             Console.WriteLine("insert depeden task ");
             _dependenTask = int.Parse(Console.ReadLine()!);
@@ -323,7 +326,7 @@ namespace DalTest
             //creating a new object
             Dependency newDpn = new(id, _dependenTask, _dependensOnTask);
             //Update the data by calling an external operation
-            d_dalDependecy.Update(newDpn);
+            s_dal.Dependency.Update(newDpn);
         }
 
         //Updating information about an engineer that already exists in the system
@@ -332,7 +335,7 @@ namespace DalTest
             //Receipt of data by the user by id
             Console.WriteLine("insert id");
             int id = int.Parse(Console.ReadLine()!);
-            e_dalEngineer.Read(id);
+            s_dal.Engineer.Read(id);
             int? _level;
             double? _cost;
             string _name, _email;
@@ -354,28 +357,28 @@ namespace DalTest
             //creating a new object
             Engineer newEng = new(id, (_level != null ? (EngineerExperience)_level : null), _cost, _name, _email);
             //Update the data by calling an external operation
-            e_dalEngineer.Update(newEng);
+            s_dal.Engineer.Update(newEng);
         }
 
         //delete all the dependencies
         private static void ResetDependency()
         {
             //Reste the data by calling an external operation
-            d_dalDependecy.Reset();
+            s_dal.Dependency.Reset();
         }
 
         //delete all the engineers
         private static void ResetEngineer()
         {
             //Reste the data by calling an external operation
-            e_dalEngineer.Reset();
+            s_dal.Engineer.Reset();
         }
 
         //delete all the tasks
         private static void ResetTask()
         {
             //Reste the data by calling an external operation
-            t_dalTask.Reset();
+            s_dal.Task.Reset();
         }
         //A function for checking validiation of choice
         static int GetValidChoice(int min, int max)
@@ -383,8 +386,8 @@ namespace DalTest
             int choice;
             do
             {
-
-                if (int.TryParse(Console.ReadLine(), out choice) && choice >= min && choice <= max)
+               
+                if (int.TryParse(Console.ReadLine(),out choice) && choice >= min && choice <= max)
                 {
                     break; // Exit the loop if parsing is successful and within the range
                 }
@@ -403,7 +406,7 @@ namespace DalTest
             {
                 Console.WriteLine("press 0 to exit\n press 1 create a new task\n press 2 to read task\npress 3 to read all tasks\npress 4 to update \npress 5 to delete\npress 6 to reset\n");
                 int choice = GetValidChoice(0, 6);
-
+         
                 while (choice != 0)
                 {
                     switch (choice)
@@ -427,6 +430,7 @@ namespace DalTest
                             ResetTask();
                             break;
                     }
+                    Console.WriteLine("press 0 to exit\n press 1 create a new task\n press 2 to read task\npress 3 to read all tasks\npress 4 to update \npress 5 to delete\npress 6 to reset\n");
                     choice = GetValidChoice(0, 6);
                 }
 
@@ -474,6 +478,7 @@ namespace DalTest
                             ResetDependency();
                             break;
                     }
+                    Console.WriteLine("press 0 to exit\n press 1 create a new Dependency\n press 2 to read Dependency\npress 3 to read all Dependencies\npress 4 to update \npress 5 to delete\npress 6 to reset\n");
                     choice = GetValidChoice(0, 6);
                 }
 
@@ -516,7 +521,7 @@ namespace DalTest
                             ResetEngineer();
                             break;
                     }
-                    Console.WriteLine("insert number between 0-6");
+                    Console.WriteLine("press 0 to exit\n press 1 create a new Engineer\n press 2 to read Engineer\npress 3 to read all Engineers\npress 4 to update \npress 5 to delete\npress 6 to reset\n");
                     choice = GetValidChoice(0, 6);
                 }
 
@@ -556,7 +561,7 @@ namespace DalTest
         {
             try
             {
-                Initialization.DO(e_dalEngineer, d_dalDependecy, t_dalTask);
+                Initialization.DO(s_dal);
                 MainManu();
             }
             catch (Exception e)

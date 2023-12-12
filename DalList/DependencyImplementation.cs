@@ -4,23 +4,24 @@ using DO;
 using Microsoft.VisualBasic.FileIO;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Linq;
 
 // implementation off the dependency entity
-public class DependencyImplementation : IDependency
+internal class DependencyImplementation : IDependency
 {
     // function for create an item of Dependency object
     public int Create(Dependency item)
-    {
-        int newId = DataSource.Config.NextDepenId;
-        Dependency dep = new Dependency(newId, item.DependenTask, item.DependensOnTask);
+    { 
+        int newId= DataSource.Config.NextDepenId ;
+        Dependency dep = new Dependency(newId,item.DependenTask,item.DependensOnTask);
         DataSource.Dependencies.Add(dep);
-        return newId;
+        return newId;   
     }
     // function for delete an item of dependency object
     public void Delete(int id)
     {
         //if the id of dependency not exists -no need for delete
-        if (!(DataSource.Dependencies.Exists(dpn => dpn.Id == id)))
+        if (!(DataSource.Dependencies.Any(dpn => dpn.Id == id)))
             throw new Exception($"Dependency with ID={id} does Not exist");
         foreach (var x in DataSource.Dependencies)
         {
@@ -34,7 +35,7 @@ public class DependencyImplementation : IDependency
 
     public Dependency? Read(int id)
     {
-        return DataSource.Dependencies.Find(dpn => dpn.Id == id);
+        return DataSource.Dependencies.FirstOrDefault(dpn => dpn.Id == id);
     }
 
     public List<Dependency> ReadAll()
@@ -44,7 +45,7 @@ public class DependencyImplementation : IDependency
 
     public void Update(Dependency item)
     {
-        if (!(DataSource.Dependencies.Exists(dpn => dpn.Id == item.Id)))
+        if (!(DataSource.Dependencies.Any(dpn => dpn.Id == item.Id)))
             throw new Exception($"Dependency with ID={item.Id} does Not exist");
         foreach (var x in DataSource.Dependencies)
         {
@@ -62,13 +63,13 @@ public class DependencyImplementation : IDependency
     {
 
         DO.Dependency[] arrDpnd = DataSource.Dependencies.ToArray();
-        for (int i = 0; i < arrDpnd.Length; i++)
+        for(int i=0;i<arrDpnd.Length;i++)
         {
             try
             {
                 Delete(arrDpnd[i].Id);
             }
-            catch (Exception e) { Console.WriteLine(e); }
+            catch(Exception e) { Console.WriteLine(e); }
         }
     }
 }
