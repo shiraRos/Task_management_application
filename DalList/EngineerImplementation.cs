@@ -41,11 +41,37 @@ internal class EngineerImplementation : IEngineer
     {
             return DataSource.Engineers.FirstOrDefault(eng => eng.Id ==id);
     }
-    //function  for get all the list of Engineer items
-    public List<Engineer> ReadAll()
+
+    //function to read a single object by a condition
+    public Engineer? Read(Func<Engineer, bool> filter) // stage 2
     {
-        return new List<Engineer>(DataSource.Engineers);
+        return DataSource.Engineers.FirstOrDefault(filter) ?? throw new Exception("No engineer found matching the specified condition.");
     }
+
+    /// <summary>
+    /// function for reading all of the objects in the list
+    /// </summary>
+    /// <param name="filter"> the condition what to read</param>
+    /// <returns></returns>
+    //public IEnumerable<Engineer?> ReadAll(Func<Engineer?, bool>? filter = null) //stage 2
+    //{
+    //    if (filter == null)
+    //        return DataSource.Engineers.Select(item => item);
+    //    else if (DataSource.Dependencies.Where(filter) == null)
+    //        throw new Exception("this list is not exist");
+    //    return DataSource.Dependencies.Where(filter);
+    //}
+    public IEnumerable<Engineer?> ReadAll(Func<Engineer?, bool>? filter = null) //stage 2
+    {
+        if (filter == null)
+            return DataSource.Engineers.Select(item => item);
+        else if (DataSource.Engineers == null)
+                  throw new Exception("this list is not exist");
+            return DataSource.Engineers.Where(filter);
+    }
+
+
+
     //function for update details of Engineer
     public void Update(Engineer item)
     {

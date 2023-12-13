@@ -11,11 +11,11 @@ internal class DependencyImplementation : IDependency
 {
     // function for create an item of Dependency object
     public int Create(Dependency item)
-    { 
-        int newId= DataSource.Config.NextDepenId ;
-        Dependency dep = new Dependency(newId,item.DependenTask,item.DependensOnTask);
+    {
+        int newId = DataSource.Config.NextDepenId;
+        Dependency dep = new Dependency(newId, item.DependenTask, item.DependensOnTask);
         DataSource.Dependencies.Add(dep);
-        return newId;   
+        return newId;
     }
     // function for delete an item of dependency object
     public void Delete(int id)
@@ -38,10 +38,27 @@ internal class DependencyImplementation : IDependency
         return DataSource.Dependencies.FirstOrDefault(dpn => dpn.Id == id);
     }
 
-    public List<Dependency> ReadAll()
+    //function to read a single object by a condition
+   public Dependency? Read(Func<Dependency, bool> filter) // stage 2
     {
-        return new List<Dependency>(DataSource.Dependencies);
+        return DataSource.Dependencies.FirstOrDefault(filter) ?? throw new Exception("No Dependency found matching the specified condition.");
     }
+
+    /// function for reading all of the objects in the list
+    /// <param name="filter"> the condition what to read</param>
+    public IEnumerable<Dependency?> ReadAll(Func<Dependency?, bool>? filter = null) //stage 2
+    {
+        return filter == null ? DataSource.Dependencies.Select(item => item) : DataSource.Dependencies.Where(filter!) ?? throw new Exception("not exist");
+
+        //if (filter == null)
+        //    return DataSource.Dependencies.Select(item => item);
+        //else if (DataSource.Dependencies== null)
+        //    throw new Exception("this list is not exist");
+        //return DataSource.Dependencies.Where(filter);
+    }
+
+
+
 
     public void Update(Dependency item)
     {
@@ -63,13 +80,13 @@ internal class DependencyImplementation : IDependency
     {
 
         DO.Dependency[] arrDpnd = DataSource.Dependencies.ToArray();
-        for(int i=0;i<arrDpnd.Length;i++)
+        for (int i = 0; i < arrDpnd.Length; i++)
         {
             try
             {
                 Delete(arrDpnd[i].Id);
             }
-            catch(Exception e) { Console.WriteLine(e); }
+            catch (Exception e) { Console.WriteLine(e); }
         }
     }
 }

@@ -226,7 +226,8 @@ namespace DalTest
         {
             Console.WriteLine("the all engineers:");
             //getting all the engineers to a new item
-            List<Engineer> engList = s_dal!.Engineer.ReadAll();
+            //List<Engineer> engList = s_dal!.Engineer.ReadAll();
+            List<Engineer> engList = s_dal!.Engineer.ReadAll()?.Where(e => e != null).Select(e => e!).ToList() ?? new List<Engineer>();
             //print evey item
             foreach (var item in engList)
             {
@@ -239,7 +240,7 @@ namespace DalTest
         {
             Console.WriteLine("the all Dependencies:");
             //getting all the dependencies to a new item
-            List<Dependency> depList = s_dal!.Dependency.ReadAll();
+            List<Dependency> depList = s_dal!.Dependency.ReadAll()?.Where(d=>d !=null).Select(d=>d!).ToList()?? new List<Dependency>();
             //print evey item
             foreach (var item in depList)
             {
@@ -252,7 +253,7 @@ namespace DalTest
         {
             Console.WriteLine("the all Tasks:");
             //getting all the tasks to a new item
-            List<DO.Task> tskList = s_dal!.Task.ReadAll();
+            List<DO.Task> tskList = s_dal!.Task.ReadAll()?.Where(t => t != null).Select(t => t!).ToList() ?? new List<DO.Task>();
             //print evey item
             foreach (var item in tskList)
             {

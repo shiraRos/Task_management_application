@@ -54,7 +54,10 @@ public static class Initialization
         _dependenTask = GetRanTask().Id;
         nextRanTask = GetRanTask().Id;
         //loop for checking the dependency
-        while (nextRanTask == _dependenTask || s_dal!.Dependency.ReadAll().Exists(dep => dep.DependenTask == _dependenTask && dep.DependensOnTask == nextRanTask) || s_dal!.Dependency.ReadAll().Exists(dep => dep.DependenTask == nextRanTask && dep.DependensOnTask == _dependenTask))
+        //while (nextRanTask == _dependenTask || s_dal!.Dependency.ReadAll().Any(dep => dep.DependenTask == _dependenTask && dep.DependensOnTask == nextRanTask) || s_dal!.Dependency.ReadAll().Exists(dep => dep.DependenTask == nextRanTask && dep.DependensOnTask == _dependenTask))
+        while (nextRanTask == _dependenTask ||
+       s_dal!.Dependency.ReadAll()?.Any(dep => dep?.DependenTask == _dependenTask && dep?.DependensOnTask == nextRanTask) == true ||
+       s_dal!.Dependency.ReadAll()?.Any(dep => dep?.DependenTask == nextRanTask && dep?.DependensOnTask == _dependenTask) == true)
             nextRanTask = GetRanTask().Id;
         int _dependensOnTask = nextRanTask;
         //creating a new object
@@ -66,7 +69,14 @@ public static class Initialization
         {
             nextRanTask = GetRanTask().Id;
             //loop for checking the dependency
-            while (nextRanTask == dep1 || nextRanTask == dep2 || s_dal!.Dependency.ReadAll().Exists(dep => dep.DependenTask == dep1 && dep.DependensOnTask == nextRanTask) || s_dal!.Dependency.ReadAll().Exists(dep => dep.DependenTask == dep2 && dep.DependensOnTask == nextRanTask) || s_dal!.Dependency.ReadAll().Exists(dep => dep.DependenTask == nextRanTask && dep.DependensOnTask == dep1) || s_dal!.Dependency.ReadAll().Exists(dep => dep.DependenTask == nextRanTask && dep.DependensOnTask == dep2))
+            //while (nextRanTask == dep1 || nextRanTask == dep2 || s_dal!.Dependency.ReadAll().Exists(dep => dep.DependenTask == dep1 && dep.DependensOnTask == nextRanTask) || s_dal!.Dependency.ReadAll().Exists(dep => dep.DependenTask == dep2 && dep.DependensOnTask == nextRanTask) || s_dal!.Dependency.ReadAll().Exists(dep => dep.DependenTask == nextRanTask && dep.DependensOnTask == dep1) || s_dal!.Dependency.ReadAll().Exists(dep => dep.DependenTask == nextRanTask && dep.DependensOnTask == dep2))
+            while (nextRanTask == dep1 ||
+       nextRanTask == dep2 ||
+       s_dal!.Dependency.ReadAll()?.Any(dep => dep?.DependenTask == dep1 && dep?.DependensOnTask == nextRanTask) == true ||
+       s_dal!.Dependency.ReadAll()?.Any(dep => dep?.DependenTask == dep2 && dep?.DependensOnTask == nextRanTask) == true ||
+       s_dal!.Dependency.ReadAll()?.Any(dep => dep?.DependenTask == nextRanTask && dep?.DependensOnTask == dep1) == true ||
+       s_dal!.Dependency.ReadAll()?.Any(dep => dep?.DependenTask == nextRanTask && dep?.DependensOnTask == dep2) == true)
+
                 nextRanTask = GetRanTask().Id;
             //creating a new object
             Dependency newDpn1 = new(otomatId, dep1, nextRanTask);
@@ -83,7 +93,11 @@ public static class Initialization
             _dependenTask = GetRanTask().Id;
             nextRanTask = GetRanTask().Id;
             //loop for checking the dependency
-            while (nextRanTask == _dependenTask || s_dal!.Dependency.ReadAll().Exists(dep => dep.DependenTask == _dependenTask && dep.DependensOnTask == nextRanTask) || s_dal!.Dependency.ReadAll().Exists(dep => dep.DependenTask == nextRanTask && dep.DependensOnTask == _dependenTask))
+            //while (nextRanTask == _dependenTask || s_dal!.Dependency.ReadAll().Exists(dep => dep.DependenTask == _dependenTask && dep.DependensOnTask == nextRanTask) || s_dal!.Dependency.ReadAll().Exists(dep => dep.DependenTask == nextRanTask && dep.DependensOnTask == _dependenTask))
+            while (nextRanTask == _dependenTask ||
+            s_dal!.Dependency.ReadAll()?.Any(dep => dep?.DependenTask == _dependenTask && dep?.DependensOnTask == nextRanTask) == true ||
+            s_dal!.Dependency.ReadAll()?.Any(dep => dep?.DependenTask == nextRanTask && dep?.DependensOnTask == _dependenTask) == true)
+
                 nextRanTask = GetRanTask().Id;
             //creating a new object
             Dependency newDpn3 = new(otomatId, _dependenTask, nextRanTask);
@@ -145,7 +159,7 @@ public static class Initialization
     //A public method for calling all private methods
     public static void DO(IDal dal)//stage2
     {
-        s_dal= dal ?? throw new NullReferenceException("DAL can not be null!");
+        s_dal = dal ?? throw new NullReferenceException("DAL can not be null!");
         ////Throwing exception if the objects are null
         //e_dalEngineer = dalEngineer ?? throw new NullReferenceException("DAL can not be null!");
         //d_dalDependency = dalDependency ?? throw new NullReferenceException("DAL can not be null!");

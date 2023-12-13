@@ -38,10 +38,23 @@ internal class TaskImplementation : ITask
     {
         return DataSource.Tasks.FirstOrDefault(tsk => tsk.Id == id);
     }
-    //function  for get all the list of Tasks items
-    public List<Task> ReadAll()
+
+
+    //function to read a single object by a condition
+    public Task? Read(Func<Task, bool> filter) // stage 2
     {
-        return new List<Task>(DataSource.Tasks);
+        return DataSource.Tasks.FirstOrDefault(filter) ?? throw new Exception("No task found matching the specified condition.");
+    }
+
+    /// function for reading all of the objects in the list
+    /// <param name="filter"> the condition what to read</param>
+    public IEnumerable<Task?> ReadAll(Func<Task?, bool>? filter = null) //stage 2
+    {
+        if (filter == null)
+            return DataSource.Tasks.Select(item => item);
+        else if (DataSource.Tasks == null)
+            throw new Exception("this list is not exist");
+        return DataSource.Tasks.Where(filter);
     }
     //function for update details of Task
     public void Update(Task item)
