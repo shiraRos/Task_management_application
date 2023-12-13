@@ -20,10 +20,10 @@ internal class TaskImplementation : ITask
     {
         //if the id of task  not exists -no need for delete
         if (!(DataSource.Tasks.Any(tsk => tsk.Id == id)))
-            throw new Exception($"Task with ID={id} does Not exist");
+            throw new DalDoesNotExistException($"Task with ID={id} does Not exist");
         //if the id of task exists in the dependency-cannot be deleted
         if (DataSource.Dependencies.Exists(idTs=> idTs.DependensOnTask == id ))
-            throw new Exception($"There is a task that depends on a task with ID={id},so you can not delete it");
+            throw new DalDeletionImpossible($"There is a task that depends on a task with ID={id},so you can not delete it");
         foreach (var x in DataSource.Tasks)
         {
             if (id == x.Id)
@@ -43,7 +43,7 @@ internal class TaskImplementation : ITask
     //function to read a single object by a condition
     public Task? Read(Func<Task, bool> filter) // stage 2
     {
-        return DataSource.Tasks.FirstOrDefault(filter) ?? throw new Exception("No task found matching the specified condition.");
+        return DataSource.Tasks.FirstOrDefault(filter) ?? throw new DalDoesNotExistException("No task found matching the specified condition.");
     }
 
     /// function for reading all of the objects in the list
@@ -53,7 +53,7 @@ internal class TaskImplementation : ITask
         if (filter == null)
             return DataSource.Tasks.Select(item => item);
         else if (DataSource.Tasks == null)
-            throw new Exception("this list is not exist");
+            throw new DalDoesNotExistException("this list is not exist");
         return DataSource.Tasks.Where(filter);
     }
     //function for update details of Task
@@ -61,7 +61,7 @@ internal class TaskImplementation : ITask
     {
         //if id doesnt exist-no need for updating
         if (!(DataSource.Tasks.Any(tsk => tsk.Id == item.Id)))
-            throw new Exception($"Task with ID={item.Id} does Not exist");
+            throw new DalDoesNotExistException($"Task with ID={item.Id} does Not exist");
         foreach (var x in DataSource.Tasks)
         {
             if (item.Id == x.Id)
@@ -81,14 +81,14 @@ internal class TaskImplementation : ITask
         {
             Delete(arrtsk[0].Id);
         }
-        catch (Exception e) { Console.WriteLine(e); }
+        catch (DalDeletionImpossible e) { Console.WriteLine(e); }
         for (int i = 1; i < arrtsk.Length; i++)
         {
             try
             {
                 Delete(arrtsk[i].Id);
             }
-            catch (Exception e) { Console.WriteLine(e); }
+            catch (DalDeletionImpossible e) { Console.WriteLine(e); }
         }
     }
 }

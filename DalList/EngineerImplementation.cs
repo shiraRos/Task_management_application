@@ -12,7 +12,7 @@ internal class EngineerImplementation : IEngineer
         // Checking if the id is new
         if (DataSource.Engineers.FirstOrDefault(x => x.Id == item.Id) != null)
         {
-            throw new Exception($"Engineer with ID={item.Id} already exists");
+            throw new DalAlreadyExistsException($"Engineer with ID={item.Id} already exists");
         }
 
         // Adding the item
@@ -24,10 +24,10 @@ internal class EngineerImplementation : IEngineer
     {
         //if the id of engineer not exists -no need for delete
         if (!(DataSource.Engineers.Any(eng => eng.Id == id)))
-            throw new Exception($"Engineer with ID={id} does Not exist");
+            throw new DalDoesNotExistException($"Engineer with ID={id} does Not exist");
         //if the id of engineer exists in the task-cannot be deleted
         if( DataSource.Tasks.Any(tsk=>tsk.EngineerId==id) )
-            throw new Exception($"Engineer with ID={id} can not be deleted because, he still has task");
+            throw new DalDeletionImpossible($"Engineer with ID={id} can not be deleted because, he still has task");
         foreach (var x in DataSource.Engineers)
         {
             if (id == x.Id)
@@ -45,7 +45,7 @@ internal class EngineerImplementation : IEngineer
     //function to read a single object by a condition
     public Engineer? Read(Func<Engineer, bool> filter) // stage 2
     {
-        return DataSource.Engineers.FirstOrDefault(filter) ?? throw new Exception("No engineer found matching the specified condition.");
+        return DataSource.Engineers.FirstOrDefault(filter) ?? throw new DalDoesNotExistException("No engineer found matching the specified condition.");
     }
 
     /// <summary>
@@ -66,7 +66,7 @@ internal class EngineerImplementation : IEngineer
         if (filter == null)
             return DataSource.Engineers.Select(item => item);
         else if (DataSource.Engineers == null)
-                  throw new Exception("this list is not exist");
+                  throw new DalDoesNotExistException("this list is not exist");
             return DataSource.Engineers.Where(filter);
     }
 
@@ -77,7 +77,7 @@ internal class EngineerImplementation : IEngineer
     {
         //if id doesnt exist-no need for updating
         if(!(DataSource.Engineers.Any(eng => eng.Id == item.Id)))
-          throw new Exception($"Engineer with ID={item.Id} does Not exist");
+          throw new DalDoesNotExistException($"Engineer with ID={item.Id} does Not exist");
         foreach (var x in DataSource.Engineers)
         {
             if (item.Id == x.Id)
@@ -99,7 +99,7 @@ internal class EngineerImplementation : IEngineer
             {
                 Delete(arreng[i].Id);
             }
-            catch (Exception e) { Console.WriteLine(e); }
+            catch (DalDeletionImpossible e) { Console.WriteLine(e); }
         }
     }
 }

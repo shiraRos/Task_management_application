@@ -22,7 +22,7 @@ internal class DependencyImplementation : IDependency
     {
         //if the id of dependency not exists -no need for delete
         if (!(DataSource.Dependencies.Any(dpn => dpn.Id == id)))
-            throw new Exception($"Dependency with ID={id} does Not exist");
+            throw new DalDoesNotExistException($"Dependency with ID={id} does Not exist");
         foreach (var x in DataSource.Dependencies)
         {
             if (id == x.Id)
@@ -41,14 +41,14 @@ internal class DependencyImplementation : IDependency
     //function to read a single object by a condition
    public Dependency? Read(Func<Dependency, bool> filter) // stage 2
     {
-        return DataSource.Dependencies.FirstOrDefault(filter) ?? throw new Exception("No Dependency found matching the specified condition.");
+        return DataSource.Dependencies.FirstOrDefault(filter) ?? throw new DalDoesNotExistException("No Dependency found matching the specified condition.");
     }
 
     /// function for reading all of the objects in the list
     /// <param name="filter"> the condition what to read</param>
     public IEnumerable<Dependency?> ReadAll(Func<Dependency?, bool>? filter = null) //stage 2
     {
-        return filter == null ? DataSource.Dependencies.Select(item => item) : DataSource.Dependencies.Where(filter!) ?? throw new Exception("not exist");
+        return filter == null ? DataSource.Dependencies.Select(item => item) : DataSource.Dependencies.Where(filter!) ?? throw new DalDoesNotExistException("no dependencies exist");
 
         //if (filter == null)
         //    return DataSource.Dependencies.Select(item => item);
@@ -63,7 +63,7 @@ internal class DependencyImplementation : IDependency
     public void Update(Dependency item)
     {
         if (!(DataSource.Dependencies.Any(dpn => dpn.Id == item.Id)))
-            throw new Exception($"Dependency with ID={item.Id} does Not exist");
+            throw new DalDoesNotExistException($"Dependency with ID={item.Id} does Not exist");
         foreach (var x in DataSource.Dependencies)
         {
             if (item.Id == x.Id)
@@ -86,7 +86,7 @@ internal class DependencyImplementation : IDependency
             {
                 Delete(arrDpnd[i].Id);
             }
-            catch (Exception e) { Console.WriteLine(e); }
+            catch (DalDeletionImpossible e) { Console.WriteLine(e); }
         }
     }
 }
