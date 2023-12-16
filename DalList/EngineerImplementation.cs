@@ -48,19 +48,8 @@ internal class EngineerImplementation : IEngineer
         return DataSource.Engineers.FirstOrDefault(filter) ?? throw new DalDoesNotExistException("No engineer found matching the specified condition.");
     }
 
-    /// <summary>
     /// function for reading all of the objects in the list
-    /// </summary>
     /// <param name="filter"> the condition what to read</param>
-    /// <returns></returns>
-    //public IEnumerable<Engineer?> ReadAll(Func<Engineer?, bool>? filter = null) //stage 2
-    //{
-    //    if (filter == null)
-    //        return DataSource.Engineers.Select(item => item);
-    //    else if (DataSource.Dependencies.Where(filter) == null)
-    //        throw new Exception("this list is not exist");
-    //    return DataSource.Dependencies.Where(filter);
-    //}
     public IEnumerable<Engineer?> ReadAll(Func<Engineer, bool>? filter = null) //stage 2
     {
         if (filter == null)
