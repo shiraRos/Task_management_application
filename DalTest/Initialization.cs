@@ -54,10 +54,9 @@ public static class Initialization
         _dependenTask = GetRanTask().Id;
         nextRanTask = GetRanTask().Id;
         //loop for checking the dependency
-        //while (nextRanTask == _dependenTask || s_dal!.Dependency.ReadAll().Any(dep => dep.DependenTask == _dependenTask && dep.DependensOnTask == nextRanTask) || s_dal!.Dependency.ReadAll().Exists(dep => dep.DependenTask == nextRanTask && dep.DependensOnTask == _dependenTask))
         while (nextRanTask == _dependenTask ||
-       s_dal!.Dependency.ReadAll()?.Any(dep => dep?.DependenTask == _dependenTask && dep?.DependensOnTask == nextRanTask) == true ||
-       s_dal!.Dependency.ReadAll()?.Any(dep => dep?.DependenTask == nextRanTask && dep?.DependensOnTask == _dependenTask) == true)
+s_dal!.Dependency.ReadAll()?.Any(dep => dep?.DependenTask == _dependenTask && dep?.DependensOnTask == nextRanTask) == true ||
+s_dal!.Dependency.ReadAll()?.Any(dep => dep?.DependenTask == nextRanTask && dep?.DependensOnTask == _dependenTask) == true)
             nextRanTask = GetRanTask().Id;
         int _dependensOnTask = nextRanTask;
         //creating a new object
@@ -69,13 +68,12 @@ public static class Initialization
         {
             nextRanTask = GetRanTask().Id;
             //loop for checking the dependency
-            //while (nextRanTask == dep1 || nextRanTask == dep2 || s_dal!.Dependency.ReadAll().Exists(dep => dep.DependenTask == dep1 && dep.DependensOnTask == nextRanTask) || s_dal!.Dependency.ReadAll().Exists(dep => dep.DependenTask == dep2 && dep.DependensOnTask == nextRanTask) || s_dal!.Dependency.ReadAll().Exists(dep => dep.DependenTask == nextRanTask && dep.DependensOnTask == dep1) || s_dal!.Dependency.ReadAll().Exists(dep => dep.DependenTask == nextRanTask && dep.DependensOnTask == dep2))
             while (nextRanTask == dep1 ||
-       nextRanTask == dep2 ||
-       s_dal!.Dependency.ReadAll()?.Any(dep => dep?.DependenTask == dep1 && dep?.DependensOnTask == nextRanTask) == true ||
-       s_dal!.Dependency.ReadAll()?.Any(dep => dep?.DependenTask == dep2 && dep?.DependensOnTask == nextRanTask) == true ||
-       s_dal!.Dependency.ReadAll()?.Any(dep => dep?.DependenTask == nextRanTask && dep?.DependensOnTask == dep1) == true ||
-       s_dal!.Dependency.ReadAll()?.Any(dep => dep?.DependenTask == nextRanTask && dep?.DependensOnTask == dep2) == true)
+   nextRanTask == dep2 ||
+   s_dal!.Dependency.ReadAll()?.Any(dep => dep?.DependenTask == dep1 && dep?.DependensOnTask == nextRanTask) == true ||
+   s_dal!.Dependency.ReadAll()?.Any(dep => dep?.DependenTask == dep2 && dep?.DependensOnTask == nextRanTask) == true ||
+   s_dal!.Dependency.ReadAll()?.Any(dep => dep?.DependenTask == nextRanTask && dep?.DependensOnTask == dep1) == true ||
+   s_dal!.Dependency.ReadAll()?.Any(dep => dep?.DependenTask == nextRanTask && dep?.DependensOnTask == dep2) == true)
 
                 nextRanTask = GetRanTask().Id;
             //creating a new object
@@ -111,7 +109,8 @@ public static class Initialization
         //declaretioN of Task arr in size of existing tasks
         Task[] tempArr = new Task[20];
         //converting the list to array
-        tempArr = s_dal!.Task.ReadAll().ToArray();
+        tempArr = (s_dal?.Task.ReadAll()?.Where(task => task != null).ToArray() ?? Array.Empty<Task>())!;
+
         //Return random index that contains item
         int temp = s_rand.Next(0, 19);
         return tempArr[temp];
@@ -152,7 +151,7 @@ public static class Initialization
         //Declaretion of  Engineer arr  in size of existing engineers
         Engineer[] tempArr = new Engineer[9];
         //converting the list to array
-        tempArr = s_dal!.Engineer.ReadAll().ToArray();
+        tempArr = (s_dal?.Engineer.ReadAll()?.Where(eng => eng != null).ToArray() ?? Array.Empty<Engineer>())!;
         //Return random index that contains item
         return tempArr[s_rand.Next(0, 8)];
     }
@@ -160,10 +159,6 @@ public static class Initialization
     public static void DO(IDal dal)//stage2
     {
         s_dal = dal ?? throw new NullReferenceException("DAL can not be null!");
-        ////Throwing exception if the objects are null
-        //e_dalEngineer = dalEngineer ?? throw new NullReferenceException("DAL can not be null!");
-        //d_dalDependency = dalDependency ?? throw new NullReferenceException("DAL can not be null!");
-        //t_dalTask = dalTask ?? throw new NullReferenceException("DAL can not be null!");
         //Calling all the initializiation function of the different entitites
         createEngineer();
         createTask();
