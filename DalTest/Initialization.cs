@@ -111,7 +111,8 @@ public static class Initialization
         //declaretioN of Task arr in size of existing tasks
         Task[] tempArr = new Task[20];
         //converting the list to array
-        tempArr = s_dal!.Task.ReadAll().ToArray();
+        tempArr = (s_dal?.Task.ReadAll()?.Where(task => task != null).ToArray() ?? Array.Empty<Task>())!;
+
         //Return random index that contains item
         int temp = s_rand.Next(0, 19);
         return tempArr[temp];
@@ -152,7 +153,7 @@ public static class Initialization
         //Declaretion of  Engineer arr  in size of existing engineers
         Engineer[] tempArr = new Engineer[9];
         //converting the list to array
-        tempArr = s_dal!.Engineer.ReadAll().ToArray();
+        tempArr = (s_dal?.Engineer.ReadAll()?.Where(eng => eng != null).ToArray() ?? Array.Empty<Engineer>())!;
         //Return random index that contains item
         return tempArr[s_rand.Next(0, 8)];
     }
