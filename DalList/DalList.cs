@@ -7,4 +7,13 @@ sealed public class DalList : IDal
     public IDependency Dependency => new DependencyImplementation();
 
     public ITask Task =>  new TaskImplementation();
+    public DateTime? StartDate {  get; set; }
+    //complete date
+    public DateTime? CompleteDate {  get; set; }
+    public void Reset()
+    {
+        DataSource.Dependencies.Clear();
+        DataSource.Engineers.Clear();
+        DataSource.Tasks.Clear();
+    }
 }
