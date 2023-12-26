@@ -49,12 +49,6 @@ internal class DependencyImplementation : IDependency
     public IEnumerable<Dependency?> ReadAll(Func<Dependency, bool>? filter = null) //stage 2
     {
         return filter == null ? DataSource.Dependencies.Select(item => item) : DataSource.Dependencies.Where(filter!) ?? throw new DalDoesNotExistException("no dependencies exist");
-
-        //if (filter == null)
-        //    return DataSource.Dependencies.Select(item => item);
-        //else if (DataSource.Dependencies== null)
-        //    throw new Exception("this list is not exist");
-        //return DataSource.Dependencies.Where(filter);
     }
 
 
