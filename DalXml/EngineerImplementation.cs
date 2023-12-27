@@ -39,7 +39,7 @@ internal class EngineerImplementation : IEngineer
                 eng.Remove(x);
             }
         }
-        XMLTools.SaveListToXMLSerializer(tsk, s_task);
+        //XMLTools.SaveListToXMLSerializer(tsk, s_task);
         XMLTools.SaveListToXMLSerializer(eng, s_engineer);
     }
 

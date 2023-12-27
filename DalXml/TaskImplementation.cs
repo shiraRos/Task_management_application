@@ -39,7 +39,7 @@ internal class TaskImplementation : ITask
             }
         }
         XMLTools.SaveListToXMLSerializer(tsk, s_task);
-        XMLTools.SaveListToXMLSerializer(dep, s_dependency);
+        //XMLTools.SaveListToXMLSerializer(dep, s_dependency);
     }
 
     // function for get an item of task by checking the id

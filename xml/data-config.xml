@@ -2,6 +2,6 @@
 <config>
 	<startDepenId>10</startDepenId>
 	<startTaskId>200</startTaskId>
-	<StartDate>10</StartDate>
-	<CompleteDate>200</CompleteDate>
+	<StartDate>"01/01/1970"</StartDate>
+	<CompleteDate>"12/12/2024"</CompleteDate>
 </config>

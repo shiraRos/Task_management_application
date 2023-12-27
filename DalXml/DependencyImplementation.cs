@@ -15,7 +15,7 @@ internal class DependencyImplementation : IDependency
     {
         return new Dependency
         {
-            Id = XMLTools.GetAndIncreaseNextId("data-config.xml", "startDepenId"),
+            Id = d.ToIntNullable("Id") ?? throw new DalXmlFormatException("id"),
             DependenTask = d.ToIntNullable("DependenTask") ?? throw new DalXmlFormatException("id"),
             DependensOnTask = d.ToIntNullable("DependensOnTask") ?? throw new DalXmlFormatException("id")
         };
