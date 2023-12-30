@@ -23,6 +23,7 @@ namespace DalApi
         void Delete(int id); //Deletes an object by its Id
 
         void Reset();// Delete all the existing items 
+       
     }
 
 }

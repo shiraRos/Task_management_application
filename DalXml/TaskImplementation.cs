@@ -10,12 +10,14 @@ internal class TaskImplementation : ITask
 {
     const string s_task = @"tasks";
     const string s_dependency = @"dependendys";
+ 
     public int Create(DO.Task item)
     {
         List<DO.Task> tsk = XMLTools.LoadListFromXMLSerializer<DO.Task>(s_task);
-        int newId = XMLTools.GetAndIncreaseNextId("data-config.xml", "startTaskId");
+        int newId = XMLTools.GetAndIncreaseNextId("data-config", "startTaskId");
         DO.Task ts = new DO.Task(newId, item.EngineerId, item.IsMileston, item.StartDate, item.DeadlineDate, item.CompleteDate, item.ScheduledDate, item.RequiredEffortTime, item.Deliverables, item.Remarks, item.ComplexityLevel, item.Description, item.Alias);
         tsk.Add(ts);
+        XMLTools.SaveListToXMLSerializer(tsk, s_task);
         return newId;
     }
 
@@ -35,6 +37,7 @@ internal class TaskImplementation : ITask
             if (id == x.Id)
             {
                 tsk.Remove(x);
+                break;
 
             }
         }

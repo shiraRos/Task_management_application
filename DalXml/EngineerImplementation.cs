@@ -37,6 +37,7 @@ internal class EngineerImplementation : IEngineer
             if (id == x.Id)
             {
                 eng.Remove(x);
+                break;
             }
         }
         //XMLTools.SaveListToXMLSerializer(tsk, s_task);

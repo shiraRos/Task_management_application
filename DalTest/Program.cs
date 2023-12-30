@@ -15,7 +15,8 @@ namespace DalTest
         //private static IDependency d_dalDependecy = new DependencyImplementation();  //stage 1
         //private static IEngineer e_dalEngineer = new EngineerImplementation();       //stage 1
 
-        static readonly IDal s_dal = new DalList(); //stage 2
+        //static readonly IDal s_dal = new DalList(); //stage 2
+        static readonly IDal s_dal = new DalXml(); //stage 3
 
 
         //converting the level
@@ -73,6 +74,7 @@ namespace DalTest
             string? _alias, _deliverables, _remarks, _description;
             Console.WriteLine("insert engineer id");
             _idEngineer = int.Parse(Console.ReadLine()!);
+
             Console.WriteLine("is it a miles tone?");
             _isMileston = ParseMilestone();
             // Now 'isMilestone' will be a bool value based on user input, or false if parsing failed.
@@ -533,11 +535,22 @@ namespace DalTest
             }
         }
 
+        private static void InitializationData()
+        {
+            Console.Write("Would you like to create Initial data? (Y/N)"); //stage 3
+            string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input"); //stage 3
+            if (ans == "Y")
+            {
+                s_dal.Reset();
+                Initialization.DO(s_dal);
+            }
+        }
+
         //The main menu where the user can choose which entity to enter
         private static void MainManu()
         {
-            Console.WriteLine("hi here is an options namu \npress 0 to exit\npress 1 to task\n press 2 to dependendy\npress 3 to engineer\n");
-            int choice = GetValidChoice(0, 3);
+            Console.WriteLine("hi here is an options namu \npress 0 to exit\npress 1 to task\n press 2 to dependendy\npress 3 to engineer\n press 4 to reset all Data\n");
+            int choice = GetValidChoice(0, 4);
             while (choice > 0)
             {
 
@@ -552,9 +565,12 @@ namespace DalTest
                     case 3:
                         OptionsEngineerManu();
                         break;
+                    case 4:
+                        InitializationData();
+                        break;
                 }
-                Console.WriteLine("hi here is an options namu \npress 0 to exit\npress 1 to task\n press 2 to dependendy\npress 3 to engineer\n");
-                choice = GetValidChoice(0, 3);
+                Console.WriteLine("hi here is an options namu \npress 0 to exit\npress 1 to task\n press 2 to dependendy\npress 3 to engineer\n press 4 to reset all Data\n");
+                choice = GetValidChoice(0, 4);
             }
         }
 
@@ -562,7 +578,7 @@ namespace DalTest
         {
             try
             {
-                Initialization.DO(s_dal);
+                //Initialization.DO(s_dal);
                 MainManu();
             }
             catch (Exception e)

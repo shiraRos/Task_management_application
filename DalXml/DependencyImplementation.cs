@@ -23,7 +23,7 @@ internal class DependencyImplementation : IDependency
     public int Create(Dependency item)
     {
         XElement rootDep = XMLTools.LoadListFromXMLElement(s_dependencies);
-        int elemId = XMLTools.GetAndIncreaseNextId("data-config.xml", "startDepenId");
+        int elemId = XMLTools.GetAndIncreaseNextId("data-config", "startDepenId");
         XElement dependElemnt = new XElement("Dependency",
           new XElement("Id", elemId),
           new XElement("DependenTask", item.DependenTask),

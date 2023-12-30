@@ -14,5 +14,15 @@ namespace DalApi
         IEngineer Engineer { get; }
         IDependency Dependency { get; }
         ITask Task { get; }
+        //general reset method
+        void Reset();
+        //Method for updating  the project start date
+        public void ProjectStartDateUpdate(DateTime date);
+        //Method for updating  the project end date
+        public void ProjectEndDateUpdate(DateTime date);
+        //Method for retrieving the project start date
+        public  DateTime? ReturnTheStartDate();
+       //Method for retrieving the project End date
+        public DateTime? ReturnTheEndDate();
     }
 }
