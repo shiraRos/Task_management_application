@@ -19,7 +19,12 @@ sealed public class DalList : IDal
     {
         Config.startDate = date;
     }
-    //Implementation of methods for get the start ,end date from the config
+
+
+    /// <summary>
+    /// Implementation of methods for get the start ,end date from the config
+    /// </summary>
+    /// <returns></returns>
 
     public DateTime? ReturnTheEndDate()
     {
@@ -31,10 +36,9 @@ sealed public class DalList : IDal
         return Config.startDate;
     }
 
-  
-    //public DateTime? ReturnTheStartDate {  get; set; }
-    ////complete date
-    //public DateTime? ReturnTheEndDate {  get; set; }
+    /// <summary>
+    /// function for delete every value from the data base
+    /// </summary>
     public void Reset()
     {
         DataSource.Dependencies.Clear();

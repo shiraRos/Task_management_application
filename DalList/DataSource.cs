@@ -8,17 +8,25 @@ internal class DataSource
     internal static List<DO.Task> Tasks { get; } = new();
     internal static class Config
     {
-        //id for dependency entity
+        /// <summary>
+        /// id for dependency entity
+        /// </summary>
         internal const int startDepenId = 10;
         private static int nextDepenId = startDepenId;
         internal static int NextDepenId { get => nextDepenId++; }
-        //id for Task entity
+        /// <summary>
+        /// id for Task entity
+        /// </summary>
         internal const int startTaskId = 200;
         private static int nextTaskId = startTaskId;
         internal static int NextTaskId { get => nextTaskId++; }
-        //start date
+        /// <summary>
+        /// start date
+        /// </summary>
         internal static DateTime? startDate = null;
-        //complete date
+        /// <summary>
+        /// complete date
+        /// </summary>
         internal static DateTime? endDate = null;
     }
 

@@ -6,10 +6,16 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Linq;
 
-// implementation off the dependency entity
+/// <summary>
+/// implementation off the dependency entity
+/// </summary>
 internal class DependencyImplementation : IDependency
 {
-    // function for create an item of Dependency object
+    /// <summary>
+    /// function for create an item of Dependency object
+    /// </summary>
+    /// <param name="item">the new item values to create</param>
+    /// <returns>the id of the new dependency</returns>
     public int Create(Dependency item)
     {
         int newId = DataSource.Config.NextDepenId;
@@ -17,7 +23,11 @@ internal class DependencyImplementation : IDependency
         DataSource.Dependencies.Add(dep);
         return newId;
     }
-    // function for delete an item of dependency object
+    /// <summary>
+    /// function for delete an item of dependency object
+    /// </summary>
+    /// <param name="id">the id of the deleted item</param>
+    /// <exception cref="DalDoesNotExistException"></exception>
     public void Delete(int id)
     {
         //if the id of dependency not exists -no need for delete
@@ -33,12 +43,22 @@ internal class DependencyImplementation : IDependency
         }
     }
 
+    /// <summary>
+    /// getting a single item by id
+    /// </summary>
+    /// <param name="id">getting the id of the present item</param>
+    /// <returns>the item of the accepted id</returns>
     public Dependency? Read(int id)
     {
         return DataSource.Dependencies.FirstOrDefault(dpn => dpn.Id == id);
     }
 
-    //function to read a single object by a condition
+    /// <summary>
+    /// function to read a single object by a condition
+    /// </summary>
+    /// <param name="filter">a condition for filtering the items</param>
+    /// <returns></returns>
+    /// <exception cref="DalDoesNotExistException"></exception>
    public Dependency? Read(Func<Dependency, bool> filter) // stage 2
     {
         return DataSource.Dependencies.FirstOrDefault(filter) ?? throw new DalDoesNotExistException("No Dependency found matching the specified condition.");
@@ -69,7 +89,9 @@ internal class DependencyImplementation : IDependency
             }
         }
     }
-    //function for reset all the list of Dependency
+    /// <summary>
+    /// function for reset all the list of Dependency
+    /// </summary>
     public void Reset()
     {
 

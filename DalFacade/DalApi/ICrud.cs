@@ -13,16 +13,57 @@ namespace DalApi
     /// <typeparam name="T"></typeparam>
     public interface ICrud<T> where T : class
     {
-        int Create(T item); //Creates new entity object in DAL
-        T? Read(int id); //Reads entity object by its ID
+        /// <summary>
+        /// Creates new entity object in DAL
+        /// </summary>
+        /// <param name="item">the accepted data</param>
+        /// <returns></returns>
+        /// 
+
+        int Create(T item); 
+        /// <summary>
+        /// Reads entity object by its ID
+        /// </summary>
+        /// <param name="id">the id of the item we want to read</param>
+        /// <returns></returns>
+        T? Read(int id);
+
+
+        /// <summary>
+        /// Reads entity object by filter
+        /// </summary>
+        /// <param name="filter">a condition from the user</param>
+        /// <returns></returns>
         T? Read(Func<T, bool> filter); // stage 2
 
+        /// <summary>
+        /// read all the objects in the entity
+        /// </summary>
+        /// <param name="filter">a condotion for getting all of the items </param>
+        /// <returns></returns>
+        IEnumerable<T?> ReadAll(Func<T, bool>? filter = null);//stage 2 
 
-        IEnumerable<T?> ReadAll(Func<T, bool>? filter = null);//stage 2 read all the objects in the entity
-        void Update(T item); //Updates entity object
-        void Delete(int id); //Deletes an object by its Id
 
-        void Reset();// Delete all the existing items 
+        /// <summary>
+        /// Updates entity object
+        /// </summary>
+        /// <param name="item">getting the item we want to update</param>
+        void Update(T item); 
+        
+        
+        
+        /// <summary>
+        /// Deletes an object by its Id
+        /// </summary>
+        /// <param name="id">the id of the item to delete</param>
+        void Delete(int id); 
+
+        
+        
+        /// <summary>
+        /// Delete all the existing items 
+        /// </summary>
+        void Reset();
        
     }
 

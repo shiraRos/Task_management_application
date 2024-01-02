@@ -4,7 +4,9 @@ using DO;
 using System.Collections.Generic;
 using System.Linq;
 
-// implementation of the Engineer entity
+/// <summary>
+/// implementation of the Engineer entity
+/// </summary>
 internal class TaskImplementation : ITask
 {
     // function for create an item of Task object
@@ -15,7 +17,12 @@ internal class TaskImplementation : ITask
         DataSource.Tasks.Add(ts);
         return newId;
     }
-    // function for delete an item of Task object
+    /// <summary>
+    /// function for delete an item of Task object
+    /// </summary>
+    /// <param name="id">the id of the deleted item</param>
+    /// <exception cref="DalDoesNotExistException"></exception>
+    /// <exception cref="DalDeletionImpossible"></exception>
     public void Delete(int id)
     {
         //if the id of task  not exists -no need for delete
@@ -33,14 +40,24 @@ internal class TaskImplementation : ITask
             }
         }
     }
-    // function for get an item of task by checking the id
+    
+    /// <summary>
+    /// function for get an item of task by checking the id
+    /// </summary>
+    /// <param name="id">id of the returns item</param>
+    /// <returns>the item of thw accepted id</returns>
     public Task? Read(int id)
     {
         return DataSource.Tasks.FirstOrDefault(tsk => tsk.Id == id);
     }
 
 
-    //function to read a single object by a condition
+    /// <summary>
+    /// function to read a single object by a condition
+    /// </summary>
+    /// <param name="filter">a condition for getting an item</param>
+    /// <returns>the item of the accepted id</returns>
+    /// <exception cref="DalDoesNotExistException"></exception>
     public Task? Read(Func<Task, bool> filter) // stage 2
     {
         return DataSource.Tasks.FirstOrDefault(filter) ?? throw new DalDoesNotExistException("No task found matching the specified condition.");
@@ -56,7 +73,12 @@ internal class TaskImplementation : ITask
             throw new DalDoesNotExistException("this list is not exist");
         return DataSource.Tasks.Where(filter);
     }
-    //function for update details of Task
+    
+    /// <summary>
+    /// function for update details of Task
+    /// </summary>
+    /// <param name="item">the fix item to repalce and update</param>
+    /// <exception cref="DalDoesNotExistException"></exception>
     public void Update(Task item)
     {
         //if id doesnt exist-no need for updating
@@ -73,7 +95,11 @@ internal class TaskImplementation : ITask
             }
         }
     }
-    //function for reset all the list of Tasks
+    
+    
+    /// <summary>
+    /// function for reset all the list of Tasks
+    /// </summary>
     public void Reset()
     {
         DO.Task[] arrtsk = DataSource.Tasks.ToArray();

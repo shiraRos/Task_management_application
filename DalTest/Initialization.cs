@@ -18,9 +18,13 @@ public static class Initialization
 
     private static IDal? s_dal;
 
-    //Declaration random object in order to initializ by random way
+    /// <summary>
+    /// Declaration random object in order to initializ by random way
+    /// </summary>
     private static readonly Random s_rand = new();
-    //create objects Engineer type
+    /// <summary>
+    /// create objects Engineer type
+    /// </summary>
     private static void createEngineer()
     {
         //create array for the names of engineer
@@ -45,7 +49,9 @@ public static class Initialization
             _id = s_dal!.Engineer.Create(newEng);
         }
     }
-    //create objects Dependenct type
+    /// <summary>
+    /// create objects Dependenct type
+    /// </summary>
     private static void createDependency()
     {
         int otomatId = 0, _dependenTask, nextRanTask;
@@ -103,7 +109,12 @@ s_dal!.Dependency.ReadAll()?.Any(dep => dep?.DependenTask == nextRanTask && dep?
             otomatId = s_dal!.Dependency.Create(newDpn3);
         }
     }
-    //External helper function to draw a random dependency assignment
+    
+    
+    /// <summary>
+    /// External helper function to draw a random dependency assignment
+    /// </summary>
+    /// <returns></returns>
     private static Task GetRanTask()
     {
         //declaretioN of Task arr in size of existing tasks
@@ -115,7 +126,11 @@ s_dal!.Dependency.ReadAll()?.Any(dep => dep?.DependenTask == nextRanTask && dep?
         int temp = s_rand.Next(0, 19);
         return tempArr[temp];
     }
-    //Create objects Task type
+    
+    
+    /// <summary>
+    /// Create objects Task type
+    /// </summary>
     private static void createTask()
     {
 
@@ -145,7 +160,13 @@ s_dal!.Dependency.ReadAll()?.Any(dep => dep?.DependenTask == nextRanTask && dep?
             otamtId = s_dal!.Task.Create(newTsk);
         }
     }
-    //External helper function to draw a random programmer number
+    
+    
+    
+    /// <summary>
+    /// External helper function to draw a random programmer number
+    /// </summary>
+    /// <returns>the next random engineer</returns>
     private static Engineer GetRanEng()
     {
         //Declaretion of  Engineer arr  in size of existing engineers
@@ -155,7 +176,13 @@ s_dal!.Dependency.ReadAll()?.Any(dep => dep?.DependenTask == nextRanTask && dep?
         //Return random index that contains item
         return tempArr[s_rand.Next(0, 8)];
     }
-    //A public method for calling all private methods
+
+
+    /// <summary>
+    /// A public method for calling all private methods
+    /// </summary>
+    /// <param name="dal"></param>
+    /// <exception cref="NullReferenceException"></exception>
     public static void DO(IDal dal)//stage2
     {
         s_dal = dal ?? throw new NullReferenceException("DAL can not be null!");

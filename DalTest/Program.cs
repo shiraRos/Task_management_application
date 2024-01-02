@@ -36,7 +36,10 @@ namespace DalTest
                 
             }
         }
-        //Convertig Dates
+        /// <summary>
+        /// Convertig Dates
+        /// </summary>
+        /// <returns>the converted date</returns>
         private static DateTime? ParseDate()
         {
             DateTime result;
@@ -62,7 +65,11 @@ namespace DalTest
             }
 
         }
-        //Creating a new task and adding it to the existing data
+        
+        
+        /// <summary>
+        /// Creating a new task and adding it to the existing data
+        /// </summary>
         private static void CreateTask()
         {
             //Receipt of data by the user
@@ -121,7 +128,9 @@ namespace DalTest
             int idnt = s_dal.Task.Create(newTsk);
         }
 
-        //Creating a new dependency and adding it to the existing data
+        /// <summary>
+        /// Creating a new dependency and adding it to the existing data
+        /// </summary>
         private static void CreateDependency()
         {
             //Receipt of data by the user
@@ -136,7 +145,9 @@ namespace DalTest
             int temp = s_dal.Dependency.Create(newDpn);
         }
 
-        //Creating a new engineer and adding it to the existing data
+        /// <summary>
+        /// Creating a new engineer and adding it to the existing data
+        /// </summary>
         private static void CreateEngineer()
         {
             //Receipt of data by the user
@@ -169,7 +180,9 @@ namespace DalTest
             _id = s_dal.Engineer.Create(newEng);
         }
 
-        //Deleting a task from the existing data
+        /// <summary>
+        /// Deleting a task from the existing data
+        /// </summary>
         private static void DeleteTask()
         {
             Console.WriteLine("insert task code to remove");
@@ -178,7 +191,9 @@ namespace DalTest
             s_dal.Task.Delete(taskId);
         }
 
-        //Deleting an engineer from the existing data
+        /// <summary>
+        /// Deleting an engineer from the existing data
+        /// </summary>
         private static void DeleteEngineer()
         {
             Console.WriteLine("insert engineer to remove");
@@ -187,7 +202,9 @@ namespace DalTest
             s_dal.Engineer.Delete(engineerId);
         }
 
-        //Deleting a dependency from the existing data
+        /// <summary>
+        /// Deleting a dependency from the existing data
+        /// </summary>
         private static void DeleteDependency()
         {
             Console.WriteLine("insert dependeny to remove");
@@ -196,7 +213,9 @@ namespace DalTest
             s_dal.Dependency.Delete(dependencyId);
         }
 
-        //Reading a certain task from the existing data
+        /// <summary>
+        /// Reading a certain task from the existing data
+        /// </summary>
         private static void ReadTask()
         {
             Console.WriteLine("insert task code to print");
@@ -205,7 +224,9 @@ namespace DalTest
             Console.WriteLine(s_dal.Task.Read(taskId));
         }
 
-        //Reading a certain dependency from the existing data
+        /// <summary>
+        /// Reading a certain dependency from the existing data
+        /// </summary>
         private static void ReadDependency()
         {
             Console.WriteLine("insert dependency code to print");
@@ -214,7 +235,9 @@ namespace DalTest
             Console.WriteLine(s_dal.Dependency.Read(dependencyId));
         }
 
-        //Reading a certain engineer from the existing data
+        /// <summary>
+        /// Reading a certain engineer from the existing data
+        /// </summary>
         private static void ReadEngineer()
         {
             Console.WriteLine("insert engineer code to print");
@@ -223,7 +246,9 @@ namespace DalTest
             Console.WriteLine(s_dal.Engineer.Read(engineerId));
         }
 
-        //Reading all of the engineers from the data
+        /// <summary>
+        /// Reading all of the engineers from the data
+        /// </summary>
         private static void ReadAllEngineers()
         {
             Console.WriteLine("the all engineers:");
@@ -237,7 +262,9 @@ namespace DalTest
             }
         }
 
-        //Reading all of the dependencies from the data
+        /// <summary>
+        /// Reading all of the dependencies from the data
+        /// </summary>
         private static void ReadAllDependencies()
         {
             Console.WriteLine("the all Dependencies:");
@@ -250,7 +277,9 @@ namespace DalTest
             }
         }
 
-        //Reading all of the tasks from the data
+        /// <summary>
+        /// Reading all of the tasks from the data
+        /// </summary>
         private static void ReadAllTasks()
         {
             Console.WriteLine("the all Tasks:");
@@ -263,7 +292,9 @@ namespace DalTest
             }
         }
 
-        //Updating information about a task that already exists in the system
+        /// <summary>
+        /// Updating information about a task that already exists in the system
+        /// </summary>
         private static void UpdateTask()
         {
             //Receipt of data by the user by id
@@ -314,7 +345,9 @@ namespace DalTest
             s_dal.Task.Update(newTsk);
         }
 
-        //Updating information about a dependency that already exists in the system
+        /// <summary>
+        /// Updating information about a dependency that already exists in the system
+        /// </summary>
         private static void UpdateDependency()
         {
             //Receipt of data by the user by id
@@ -332,7 +365,9 @@ namespace DalTest
             s_dal.Dependency.Update(newDpn);
         }
 
-        //Updating information about an engineer that already exists in the system
+        /// <summary>
+        /// Updating information about an engineer that already exists in the system
+        /// </summary>
         private static void UpdateEngineer()
         {
             //Receipt of data by the user by id
@@ -363,27 +398,38 @@ namespace DalTest
             s_dal.Engineer.Update(newEng);
         }
 
-        //delete all the dependencies
+        /// <summary>
+        /// delete all the dependencies
+        /// </summary>
         private static void ResetDependency()
         {
             //Reste the data by calling an external operation
             s_dal.Dependency.Reset();
         }
 
-        //delete all the engineers
+        /// <summary>
+        /// delete all the engineers
+        /// </summary>
         private static void ResetEngineer()
         {
             //Reste the data by calling an external operation
             s_dal.Engineer.Reset();
         }
 
-        //delete all the tasks
+        /// <summary>
+        /// delete all the tasks
+        /// </summary>
         private static void ResetTask()
         {
             //Reste the data by calling an external operation
             s_dal.Task.Reset();
         }
-        //A function for checking validiation of choice
+        /// <summary>
+        /// A function for checking validiation of choice
+        /// </summary>
+        /// <param name="min">nimimum number to press</param>
+        /// <param name="max">maximum number to press</param>
+        /// <returns></returns>
         static int GetValidChoice(int min, int max)
         {
             int choice;
@@ -402,7 +448,9 @@ namespace DalTest
         }
 
 
-        //A menu for the user selection for the tasks
+       /// <summary>
+       /// A menu for the user selection for the tasks
+       /// </summary>
         private static void OptionsTaskManu()
         {
             try
@@ -444,7 +492,9 @@ namespace DalTest
             }
         }
 
-        //A menu for the user selection for the dependencies
+        /// <summary>
+        /// A menu for the user selection for the dependencies
+        /// </summary>
         private static void OptionsDependencykManu()
         {
             try
@@ -492,7 +542,9 @@ namespace DalTest
             }
         }
 
-        //A menu for the user selection for the engineers
+        /// <summary>
+        /// A menu for the user selection for the engineers
+        /// </summary>
         private static void OptionsEngineerManu()
         {
             try
@@ -535,6 +587,10 @@ namespace DalTest
             }
         }
 
+        /// <summary>
+        /// resetting all of the data base 
+        /// </summary>
+        /// <exception cref="FormatException"></exception>
         private static void InitializationData()
         {
             Console.Write("Would you like to create Initial data? (Y/N)"); //stage 3
@@ -546,7 +602,9 @@ namespace DalTest
             }
         }
 
-        //The main menu where the user can choose which entity to enter
+        /// <summary>
+        /// The main menu where the user can choose which entity to enter
+        /// </summary>
         private static void MainManu()
         {
             Console.WriteLine("hi here is an options namu \npress 0 to exit\npress 1 to task\n press 2 to dependendy\npress 3 to engineer\n press 4 to reset all Data\n");
@@ -578,7 +636,6 @@ namespace DalTest
         {
             try
             {
-                //Initialization.DO(s_dal);
                 MainManu();
             }
             catch (Exception e)
