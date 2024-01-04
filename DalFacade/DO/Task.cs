@@ -19,7 +19,7 @@ namespace DO;
 public record Task
 (
    int Id,
-   int EngineerId,
+   int? EngineerId=null,
    bool? IsMileston=false,
    DateTime? StartDate=null,
    DateTime? DeadlineDate = null,
@@ -34,7 +34,7 @@ public record Task
 )
 {
     //empy builder
-    public Task():this(0,0) { }
+    public Task():this(0) { }
     public DateTime CreateAtDate => DateTime.Now;
 
     public override string ToString()

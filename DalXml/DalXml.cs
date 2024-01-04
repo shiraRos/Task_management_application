@@ -11,7 +11,10 @@ sealed public class DalXml : IDal
     public IDependency Dependency => new DependencyImplementation();
 
     public ITask Task =>  new TaskImplementation();
-    //Implementation of methods for updating  the start,end dates by the config
+    /// <summary>
+    /// Implementation of methods for updating  the start,end dates by the config
+    /// </summary>
+    /// <param name="date">the date to update</param>
     public void ProjectEndDateUpdate(DateTime date)
     {
         Config.endDate = date;
@@ -21,13 +24,20 @@ sealed public class DalXml : IDal
     {
         Config.startDate = date;
     }
-    //Implementation of methods for get the start ,end date from the config
+    /// <summary>
+    /// Implementation of methods for get the start ,end date from the config
+    /// </summary>
+    /// <returns>the end date</returns>
 
     public DateTime? ReturnTheEndDate()
     {
         return Config.endDate;
     }
 
+    /// <summary>
+    /// Implementation of methods for get the start ,end date from the config
+    /// </summary>
+    /// <returns>the start date</returns>
     public DateTime? ReturnTheStartDate()
     {
         return Config.startDate;

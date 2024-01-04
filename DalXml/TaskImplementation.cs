@@ -10,7 +10,12 @@ internal class TaskImplementation : ITask
 {
     const string s_task = @"tasks";
     const string s_dependency = @"dependendys";
- 
+
+    /// <summary>
+    /// the function gets a task and save it it the list in XMLSerializer way
+    /// </summary>
+    /// <param name="item">the task to add</param>
+    /// <returns>the id of the new task</returns>
     public int Create(DO.Task item)
     {
         List<DO.Task> tsk = XMLTools.LoadListFromXMLSerializer<DO.Task>(s_task);
@@ -21,7 +26,12 @@ internal class TaskImplementation : ITask
         return newId;
     }
 
-    // function for delete an item of task object
+    /// <summary>
+    /// function for delete an item of task object
+    /// </summary>
+    /// <param name="id">code of the item to delete</param>
+    /// <exception cref="DalDoesNotExistException"></exception>
+    /// <exception cref="DalDeletionImpossible"></exception>
     public void Delete(int id)
     {
         List<Dependency> dep = XMLTools.LoadListFromXMLSerializer<Dependency>(s_dependency);
@@ -42,24 +52,39 @@ internal class TaskImplementation : ITask
             }
         }
         XMLTools.SaveListToXMLSerializer(tsk, s_task);
-        //XMLTools.SaveListToXMLSerializer(dep, s_dependency);
     }
 
-    // function for get an item of task by checking the id
+    /// <summary>
+    /// function for get an item of task by checking the id
+    /// </summary>
+    /// <param name="id">the id ot the task to read</param>
+    /// <returns>the task with the accepted id</returns>
     public DO.Task? Read(int id)
     {
         List<DO.Task> tsk = XMLTools.LoadListFromXMLSerializer<DO.Task>(s_task);
         return tsk.FirstOrDefault(tsk => tsk.Id == id);
     }
 
-    //function to read a single object by a condition
+    /// <summary>
+    /// function to read a single task by a condition
+    /// </summary> 
+    /// <param name="filter">filter received from the user</param>
+    /// <returns>The task we found after filtering</returns>
+    /// <exception cref="DalDoesNotExistException"></exception>
     public DO.Task? Read(Func<DO.Task, bool> filter)
     {
         List<DO.Task> tsk = XMLTools.LoadListFromXMLSerializer<DO.Task>(s_task);
         return tsk.FirstOrDefault(filter) ?? throw new DalDoesNotExistException("No task found matching the specified condition.");
     }
 
+    /// <summary>
     /// function for reading all of the objects in the list
+    /// </summary>
+    /// Returning all tasks according to a received filter 
+    /// If no filter was received, the function will return all tasks
+    /// </summary>
+    /// <param name="filter">A condition received from the user is set to null by default</param>
+    /// <returns>all the  tasks according to the filter</returns>
     public IEnumerable<DO.Task?> ReadAll(Func<DO.Task, bool>? filter = null) 
     {
         List<DO.Task> tsk = XMLTools.LoadListFromXMLSerializer<DO.Task>(s_task);
@@ -70,7 +95,9 @@ internal class TaskImplementation : ITask
         return tsk.Where(filter);
     }
 
-    //function for reset all the list of tasks
+    /// <summary>
+    /// function for reset all the list of tasks
+    /// </summary>
     public void Reset()
     {
         List<DO.Task> tsk = XMLTools.LoadListFromXMLSerializer<DO.Task>(s_task);
@@ -85,7 +112,11 @@ internal class TaskImplementation : ITask
         }
     }
 
-    //function for update details of task
+    /// <summary>
+    /// function for update details of task
+    /// </summary>
+    /// <param name="item">the updated task to replase</param>
+    /// <exception cref="DalDoesNotExistException"></exception>
     public void Update(DO.Task item)
     {
         List<DO.Task> tsk = XMLTools.LoadListFromXMLSerializer<DO.Task>(s_task);

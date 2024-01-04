@@ -9,6 +9,12 @@ internal class EngineerImplementation : IEngineer
 {
     const string s_engineer = @"engineers";
     const string s_task = @"tasks";
+    /// <summary>
+    /// the function gets an engineer and save it it the list in XMLSerializer way
+    /// </summary>
+    /// <param name="item">the engineer to add</param>
+    /// <returns>the id ot the added engineer</returns>
+    /// <exception cref="DalAlreadyExistsException"></exception>
     public int Create(Engineer item)
     {
         List<Engineer> eng = XMLTools.LoadListFromXMLSerializer<Engineer>(s_engineer);
@@ -21,7 +27,12 @@ internal class EngineerImplementation : IEngineer
         return item.Id;
     }
 
-    // function for delete an item of Engineer object
+    /// <summary>
+    /// function for delete an item of Engineer object
+    /// </summary>
+    /// <param name="id">the id of the engineer to delete</param>
+    /// <exception cref="DalDoesNotExistException"></exception>
+    /// <exception cref="DalDeletionImpossible"></exception>
     public void Delete(int id)
     {
         List<Engineer> eng = XMLTools.LoadListFromXMLSerializer<Engineer>(s_engineer);
@@ -40,25 +51,41 @@ internal class EngineerImplementation : IEngineer
                 break;
             }
         }
-        //XMLTools.SaveListToXMLSerializer(tsk, s_task);
         XMLTools.SaveListToXMLSerializer(eng, s_engineer);
     }
 
-    // function for get an item of Engineer by checking the id
+    /// <summary>
+    /// function for get an item of Engineer by checking the id
+    /// </summary>
+    /// <param name="id">the id ot the engineer to read</param>
+    /// <returns>the engineer with the accepted id</returns>
     public Engineer? Read(int id)
     {
         List<Engineer> eng = XMLTools.LoadListFromXMLSerializer<Engineer>(s_engineer);
          return  eng.FirstOrDefault(eng => eng.Id == id);
     }
 
-    //function to read a single object by a condition
+    /// <summary>
+    /// function to read a single object by a condition
+    /// </summary> 
+    /// <param name="filter">filter received from the user</param>
+    /// <returns>The engineer we found after filtering</returns> /// <param name="filter">filter received from the user</param>
+    /// <exception cref="DalDoesNotExistException"></exception>
     public Engineer? Read(Func<Engineer, bool> filter)
     {
         List<Engineer> eng = XMLTools.LoadListFromXMLSerializer<Engineer>(s_engineer);
        return eng.FirstOrDefault(filter) ?? throw new DalDoesNotExistException("No engineer found matching the specified condition.");
     }
 
+    /// <summary>
     /// function for reading all of the objects in the list
+    /// </summary>
+    /// Returning all engineers according to a received filter 
+    /// If no filter was received, the function will return all engineers
+    /// </summary>
+    /// <param name="filter">A condition received from the user is set to null by default</param>
+    /// <returns>all the  engineers according to the filter</returns>
+    /// <exception cref="DalDoesNotExistException"></exception>
     public IEnumerable<Engineer?> ReadAll(Func<Engineer, bool>? filter = null) //stage 2
     {
         List<Engineer> eng = XMLTools.LoadListFromXMLSerializer<Engineer>(s_engineer);
@@ -69,7 +96,9 @@ internal class EngineerImplementation : IEngineer
         return eng.Where(filter);
     }
 
-    //function for reset all the list of Engineer
+    /// <summary>
+    /// function for reset all the list of Engineer
+    /// </summary>
     public void Reset()
     {
         List<Engineer> eng = XMLTools.LoadListFromXMLSerializer<Engineer>(s_engineer);
@@ -84,23 +113,17 @@ internal class EngineerImplementation : IEngineer
         }
     }
 
-    //function for update details of Engineer
+    /// <summary>
+    /// function for update details of Engineer
+    /// </summary>
+    /// <param name="item"></param>
+    /// <exception cref="DalDoesNotExistException"></exception>
     public void Update(Engineer item)
     {
         List<Engineer> eng = XMLTools.LoadListFromXMLSerializer<Engineer>(s_engineer);
         //if id doesnt exist-no need for updating
         if (!(eng.Any(eng => eng.Id == item.Id)))
             throw new DalDoesNotExistException($"Engineer with ID={item.Id} does Not exist");
-        //foreach (var x in eng)
-        //{
-        //    if (item.Id == x.Id)
-        //    {
-        //        //first- remove the existing item
-        //        eng.Remove(x);
-        //        //second- adding the new item
-        //        eng.Add(item);
-        //    }
-        //}
         eng.RemoveAll(x => x.Id == item.Id);
         eng.Add(item);
         XMLTools.SaveListToXMLSerializer(eng, s_engineer);

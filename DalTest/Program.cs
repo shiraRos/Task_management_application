@@ -73,14 +73,19 @@ namespace DalTest
         private static void CreateTask()
         {
             //Receipt of data by the user
-            int _idEngineer;
+            int? _idEngineer;
             int?_complexityLevel;
             bool _isMileston;
             DateTime? _startDate, _deadlineDate, _completeDate, _scheduledDate;
             TimeSpan? _requiredEffortTime;
             string? _alias, _deliverables, _remarks, _description;
             Console.WriteLine("insert engineer id");
-            _idEngineer = int.Parse(Console.ReadLine()!);
+            if (int.TryParse(Console.ReadLine(), out int parsedId))
+            {
+                _idEngineer = parsedId;
+            }
+            else
+                _idEngineer = null;
 
             Console.WriteLine("is it a miles tone?");
             _isMileston = ParseMilestone();
@@ -109,7 +114,6 @@ namespace DalTest
             }
             // Now 'requiredEffortTime' will be a TimeSpan value if parsing was successful, or null if it failed.
             Console.WriteLine("Required Effort Time: " + (_requiredEffortTime.HasValue ? _requiredEffortTime.ToString() : null));
-            //_requiredEffortTime = TimeSpan.Parse(Console.ReadLine() ?? " ");
             Console.WriteLine("insert deliverables");
             _deliverables = Console.ReadLine() ?? " ";
             Console.WriteLine("insert remarks");
@@ -301,14 +305,19 @@ namespace DalTest
             Console.WriteLine("insert id");
             int id = int.Parse(Console.ReadLine()!);
             s_dal.Task.Read(id);
-            int _idEngineer;
+            int? _idEngineer;
             int? _complexityLevel;
             bool? _isMileston;
             DateTime? _deadlineDate, _completeDate, _scheduledDate, _startDate;
             TimeSpan? _requiredEffortTime;
             string? _alias, _deliverables, _remarks, _description;
             Console.WriteLine("insert engineer id");
-            _idEngineer = int.Parse(Console.ReadLine()!);
+            if (int.TryParse(Console.ReadLine(), out int parsedId))
+            {
+                _idEngineer = parsedId;
+            }
+            else
+                _idEngineer = null;
             Console.WriteLine("is it a miles tone?");
             _isMileston = ParseMilestone();
             // Now 'isMilestone' will be a bool value based on user input, or false if parsing failed.
@@ -326,7 +335,15 @@ namespace DalTest
             _scheduledDate =ParseDate();
             Console.WriteLine("Scheduled Date: Date: " + (_scheduledDate.HasValue ? _scheduledDate.Value.ToString("yyyy-MM-dd") : null));
             Console.WriteLine("insert required Effort Time");
-            _requiredEffortTime = TimeSpan.Parse(Console.ReadLine() ?? " ");
+            if (TimeSpan.TryParse(Console.ReadLine(), out TimeSpan result))
+            {
+                _requiredEffortTime = result;
+            }
+            else
+            {
+                _requiredEffortTime = null;
+            }
+            Console.WriteLine("Required Effort Time: " + (_requiredEffortTime.HasValue ? _requiredEffortTime.ToString() : null));
             Console.WriteLine("insert deliverables");
             _deliverables = Console.ReadLine() ?? " ";
             Console.WriteLine("insert remarks");
