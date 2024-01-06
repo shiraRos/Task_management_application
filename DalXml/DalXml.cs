@@ -1,11 +1,28 @@
 ﻿using DalApi;
 using DO;
+using System.Diagnostics;
 using System.Xml.Linq;
 
 namespace Dal;
 
-sealed public class DalXml : IDal
+sealed internal class DalXml : IDal
 {
+
+    public static IDal Instance { get; } = new DalXml();
+    private DalXml() { }
+
+    //במקרה שרוצים לעשות את הרשות...
+    //// משתנה סטטי של Lazy<IDal> המכיל את האובייקט היחיד של DalList
+    //private static readonly Lazy<IDal> lazyInstance = new Lazy<IDal>(() => new DalXml());
+
+    //// פרופרטי שמשתמש ב-Value של Lazy כדי לקבל את האינסטנס היחיד של DalList
+    //public static IDal Instance => lazyInstance.Value;
+
+    //// הגדרת קונסטרקטור פרטי כדי למנוע יצירה חיצונית של אובייקטים
+    //private DalXml() { }
+
+
+
     public IEngineer Engineer => new EngineerImplementation();
 
     public IDependency Dependency => new DependencyImplementation();
@@ -24,11 +41,11 @@ sealed public class DalXml : IDal
     {
         Config.startDate = date;
     }
+
     /// <summary>
     /// Implementation of methods for get the start ,end date from the config
     /// </summary>
     /// <returns>the end date</returns>
-
     public DateTime? ReturnTheEndDate()
     {
         return Config.endDate;
