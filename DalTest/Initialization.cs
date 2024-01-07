@@ -1,5 +1,6 @@
 ﻿namespace DalTest;
 
+
 using Dal;
 using DalApi;
 using DO;
@@ -183,9 +184,11 @@ s_dal!.Dependency.ReadAll()?.Any(dep => dep?.DependenTask == nextRanTask && dep?
     /// </summary>
     /// <param name="dal"></param>
     /// <exception cref="NullReferenceException"></exception>
-    public static void DO(IDal dal)//stage2
+    //public static void DO(IDal dal)//stage2
+    public static void Do() //stage 4
     {
-        s_dal = dal ?? throw new NullReferenceException("DAL can not be null!");
+        // s_dal = dal ?? throw new NullReferenceException("DAL can not be null!");//stage2
+        s_dal = DalApi.Factory.Get; //stage 4
         //Calling all the initializiation function of the different entitites
         createEngineer();
         createTask();
