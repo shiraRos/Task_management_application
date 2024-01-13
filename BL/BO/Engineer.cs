@@ -1,6 +1,8 @@
 ﻿
 namespace BO;
-
+/// <summary>
+/// class Engineer 
+/// </summary>
 public class Engineer
 {
    public int Id {  get; init; }

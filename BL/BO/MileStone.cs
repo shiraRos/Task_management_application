@@ -1,6 +1,8 @@
 ﻿
 namespace BO;
-
+/// <summary>
+/// class of MileStone
+/// </summary>
 public class MileStone
 {
     public int Id { get; init; }
