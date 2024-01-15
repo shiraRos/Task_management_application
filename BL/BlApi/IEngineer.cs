@@ -25,7 +25,7 @@ public interface IEngineer
     /// reads all the engineers objects 
     /// </summary>
     /// <returns></returns>
-    public BO.Engineer? ReadAll();
+    public IEnumerable<BO.Engineer> ReadAll();
 
 
     /// <summary>
@@ -49,5 +49,5 @@ public interface IEngineer
     /// <param name="EngineerId"></param>
     /// <param name="Task"></param>
     /// <returns></returns>
-    public BO.EngineerInTask GetTasksForEngineer(int EngineerId, int Task);
+    //public BO.EngineerInTask GetTasksForEngineer(int EngineerId, int Task);
 }

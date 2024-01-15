@@ -61,14 +61,14 @@ internal class DependencyImplementation : IDependency
     /// <exception cref="DalDoesNotExistException"></exception>
    public Dependency? Read(Func<Dependency, bool> filter) // stage 2
     {
-        return DataSource.Dependencies.FirstOrDefault(filter) ?? throw new DalDoesNotExistException("No Dependency found matching the specified condition.");
+        return DataSource.Dependencies.FirstOrDefault(filter);
     }
 
     /// function for reading all of the objects in the list
     /// <param name="filter"> the condition what to read</param>
     public IEnumerable<Dependency?> ReadAll(Func<Dependency, bool>? filter = null) //stage 2
     {
-        return filter == null ? DataSource.Dependencies.Select(item => item) : DataSource.Dependencies.Where(filter!) ?? throw new DalDoesNotExistException("no dependencies exist");
+        return filter == null ? DataSource.Dependencies.Select(item => item) : DataSource.Dependencies.Where(filter!);
     }
 
 
