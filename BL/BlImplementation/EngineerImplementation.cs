@@ -9,14 +9,16 @@ internal class EngineerImplementation : IEngineer
     public int Create(BO.Engineer item)
     {
         DO.Engineer doEngineer = new DO.Engineer(item.Id,(DO.EngineerExperience?)item.Level, item.Cost, item.Name, item.Email);
-        try
+        //if (item.Id > 0 && item.Name != "" && item.Cost > 0 && item.Email!.Contains('@'))
+
+            try
         {
             int idEng = _dal.Engineer.Create(doEngineer);
             return idEng;
         }
         catch (DO.DalAlreadyExistsException ex)
         {
-            throw new BO.BlAlreadyExistsException($"Student with ID={item.Id} already exists", ex);
+            throw new BO.BlAlreadyExistsException($"Engineer with ID={item.Id} already exists", ex);
         }
 
     }
@@ -69,7 +71,15 @@ internal class EngineerImplementation : IEngineer
 
     public void Update(BO.Engineer item)
     {
-        Delete(item.Id);
-        Create(item);
+        DO.Engineer doEngineer = new DO.Engineer(item.Id, (DO.EngineerExperience?)item.Level, item.Cost, item.Name, item.Email);
+        //if (item.Id > 0 && item.Name != "" && item.Cost > 0 && item.Email!.Contains('@'))
+        try
+        {
+        _dal.Engineer.Update(doEngineer);
+        }
+        catch (DO.DalDoesNotExistException ex)
+        {
+            throw new BO.BlDoesNotExistException($"Engineer with ID={item.Id} does not exists", ex);
+        }
     }
 }

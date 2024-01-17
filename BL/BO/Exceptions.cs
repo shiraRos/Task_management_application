@@ -24,3 +24,8 @@ public class BlDeletionImpossible : Exception
     public BlDeletionImpossible(string message, Exception innerException)
                 : base(message, innerException) { }
 }
+[Serializable]
+public class BlValidationError : Exception
+{
+    public BlValidationError(string? message) : base(message) { }
+}
