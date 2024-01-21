@@ -26,5 +26,20 @@ public interface IMileStone
     /// </summary>
     /// <param name="item"></param>
     public void Update(BO.Engineer item);
+    /// <summary>
+    /// reads all the engineers objects 
+    /// </summary>
+    /// <returns></returns>
+    public IEnumerable<BO.Engineer> ReadAll();
+
+
+
+    /// <summary>
+    ///  Deletes Milestone object 
+    /// </summary>
+    /// <param name="id"></param>
+    public void Delete(int id);
+
+
 
 }
