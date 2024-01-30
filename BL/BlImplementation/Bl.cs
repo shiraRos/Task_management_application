@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using BlApi;
 
-namespace BlImplementation
+namespace BlImplementation;
+
+internal class Bl : IBl
 {
-    internal class Bl
-    {
-    }
+    public IEngineer Engineer => new EngineerImplementation();
+
+    public IMileStone MileStone =>new MileStoneImplementation();
+
+    public ITask Task => new TaskImplementation();
 }
