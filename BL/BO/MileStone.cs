@@ -9,7 +9,7 @@ public class MileStone
     public string? Alias { get; set; } = null;
     public string? Description { get; set; } = null;
     public DateTime CreateAtDate { get; init; }
-    public Status? status { get; set; } = null;
+    public Status? Status { get; set; } = null;
     public DateTime? ForecastDate { get; set; } = null;
     public DateTime? DeadlineDate { get; set; } = null;
     public DateTime? CompleteDate { get; set; } = null;

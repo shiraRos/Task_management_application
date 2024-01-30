@@ -23,7 +23,7 @@ public class Task
     public string? Alias { get; set; } = null;
     public string? Description { get; set; } = null;
     public DateTime CreateAtDate { get; init; }
-    public Status? status { get; set; } = null;
+    public Status? Status { get; set; } = null;
     public IEnumerable<TaskInList>? Dependencies { get; set; } = null;
     public MilestoneInTask? Milestone { get; set; } = null;
     public TimeSpan? RequiredEffortTime { get; set; } = null;

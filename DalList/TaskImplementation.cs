@@ -29,8 +29,8 @@ internal class TaskImplementation : ITask
         if (!(DataSource.Tasks.Any(tsk => tsk.Id == id)))
             throw new DalDoesNotExistException($"Task with ID={id} does Not exist");
         //if the id of task exists in the dependency-cannot be deleted
-        if (DataSource.Dependencies.Exists(idTs=> idTs.DependensOnTask == id ))
-            throw new DalDeletionImpossible($"There is a task that depends on a task with ID={id},so you can not delete it");
+        //if (DataSource.Dependencies.Exists(idTs=> idTs.DependensOnTask == id ))
+        //    throw new DalDeletionImpossible($"There is a task that depends on a task with ID={id},so you can not delete it");
         foreach (var x in DataSource.Tasks)
         {
             if (id == x.Id)

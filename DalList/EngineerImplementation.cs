@@ -51,7 +51,7 @@ internal class EngineerImplementation : IEngineer
     /// <returns>the item with the accepted id</returns>
     public Engineer? Read(int id)
     {
-            return DataSource.Engineers.FirstOrDefault(eng => eng.Id ==id);
+            return DataSource.Engineers.FirstOrDefault(eng => eng.Id ==id) ?? throw new DalDoesNotExistException($" engineer with id:{id} is not found ");
     }
 
     /// <summary>

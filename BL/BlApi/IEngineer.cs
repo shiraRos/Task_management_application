@@ -25,7 +25,7 @@ public interface IEngineer
     /// reads all the engineers objects 
     /// </summary>
     /// <returns></returns>
-    public IEnumerable<BO.Engineer> ReadAll();
+    public IEnumerable<BO.Engineer?> ReadAll();
 
 
     /// <summary>
