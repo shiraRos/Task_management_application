@@ -60,7 +60,7 @@ internal class TaskImplementation : ITask
     /// <exception cref="DalDoesNotExistException"></exception>
     public Task? Read(Func<Task, bool> filter) // stage 2
     {
-        return DataSource.Tasks.FirstOrDefault(filter) ?? throw new DalDoesNotExistException("No task found matching the specified condition.");
+        return DataSource.Tasks.FirstOrDefault(filter);
     }
 
     /// function for reading all of the objects in the list

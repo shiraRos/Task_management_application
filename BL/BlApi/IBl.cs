@@ -8,4 +8,10 @@ public interface IBl
     public IEngineer Engineer { get; }  
     public IMileStone MileStone { get; }
     public  ITask Task { get; }
+
+
+    /// <summary>
+    /// general reset method
+    /// </summary>
+    void Reset();
 }

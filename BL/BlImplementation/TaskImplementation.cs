@@ -12,26 +12,29 @@ internal class TaskImplementation : ITask
 
     public int Create(BO.Task item)
     {
-        if (item.Id < 0 || item.Alias == "")
-            throw new BO.BlValidationError("this task cant be created check the id and alias");
-        try
+        if ((item?.Alias != "" || item?.Alias == null))
         {
-            DO.Task doTask = new DO.Task(0, item.Engineer?.Id, null, item.StartDate, item.DeadlineDate, item.CompleteDate, item.ScheduledDate, item.RequiredEffortTime, item.Deliverables, item.Remarks, (DO.EngineerExperience?)item.ComplexityLevel, item.Description, item.Alias);
-            int idTsk = _dal.Task.Create(doTask);
-            if (item.Dependencies != null)
+            try
             {
-                foreach (var dep in item.Dependencies)
+                DO.Task doTask = new DO.Task(0, item?.Engineer?.Id, null, item?.StartDate, item?.DeadlineDate, item?.CompleteDate, item?.ScheduledDate, item?.RequiredEffortTime, item?.Deliverables, item?.Remarks, (DO.EngineerExperience?)item?.ComplexityLevel, item?.Description, item?.Alias);
+                int idTsk = _dal.Task.Create(doTask);
+                if (item?.Dependencies != null)
                 {
-                    DO.Dependency newDep = new DO.Dependency(0, idTsk, dep.Id);
-                    _dal.Dependency.Create(newDep);
+                    foreach (var dep in item.Dependencies)
+                    {
+                        DO.Dependency newDep = new DO.Dependency(0, idTsk, dep.Id);
+                        _dal.Dependency.Create(newDep);
+                    }
                 }
+                return idTsk;
             }
-            return idTsk;
+            catch (DO.DalAlreadyExistsException ex)
+            {
+                throw new BO.BlAlreadyExistsException($"Engineer with ID={item?.Id} already exists", ex);
+            }
         }
-        catch (DO.DalAlreadyExistsException ex)
-        {
-            throw new BO.BlAlreadyExistsException($"Engineer with ID={item.Id} already exists", ex);
-        }
+        else
+            throw new BO.BlValidationError("this task cant be created check the id and alias");
     }
 
     public void Delete(int id)
@@ -62,11 +65,11 @@ internal class TaskImplementation : ITask
                 Id = dependsOnTaskId,
                 Alias = currentTask?.Alias ?? "",
                 Description = currentTask?.Description ?? "",
-                Status=(Status?)0
+                Status = (Status?)0
             };
         }).ToList();
         return depList;
-             
+
     }
     internal MilestoneInTask createMileStone(int id)
     {
@@ -91,7 +94,7 @@ internal class TaskImplementation : ITask
         }
         catch (DO.DalDoesNotExistException ex)
         {
-            throw new BO.BlDoesNotExistException($"cannot find the engineer",ex);
+            throw new BO.BlDoesNotExistException($"cannot find the engineer", ex);
         }
 
 
@@ -143,6 +146,10 @@ internal class TaskImplementation : ITask
         {
             throw new BO.BlDoesNotExistException($"Task with ID={item.Id} does not exist exists", ex);
         }
+    }
+    public void Reset()
+    {
+        _dal.Reset();
     }
 }
 

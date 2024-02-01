@@ -74,7 +74,7 @@ internal class EngineerImplementation : IEngineer
     public Engineer? Read(Func<Engineer, bool> filter)
     {
         List<Engineer> eng = XMLTools.LoadListFromXMLSerializer<Engineer>(s_engineer);
-       return eng.FirstOrDefault(filter) ?? throw new DalDoesNotExistException("No engineer found matching the specified condition.");
+        return eng.FirstOrDefault(filter);
     }
 
     /// <summary>
