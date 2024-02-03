@@ -29,3 +29,24 @@ public class BlValidationError : Exception
 {
     public BlValidationError(string? message) : base(message) { }
 }
+
+
+[Serializable]
+public class BlStatusNotFit : Exception
+{
+    public BlStatusNotFit(string? message) : base(message) { }
+}
+
+
+[Serializable]
+public class BlEngineerHasTask : Exception
+{
+    public BlEngineerHasTask(string? message) : base(message) { }
+}
+
+[Serializable]
+public class BltaskHasEngineer : Exception
+{
+    public BltaskHasEngineer(string? message) : base(message) { }
+}
+

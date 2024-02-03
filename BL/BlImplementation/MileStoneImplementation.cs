@@ -76,7 +76,8 @@ internal class MileStoneImplementation : IMileStone
 
     public IEnumerable<Engineer> ReadAll()
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
+        return new Engineer[0];
     }
 
     public void Update(Engineer item)

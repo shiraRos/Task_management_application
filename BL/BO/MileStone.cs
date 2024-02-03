@@ -16,4 +16,7 @@ public class MileStone
     public double? completionPercentage { get; set; } = null;
     public string? Remarks { get; set; } = null;
     public IEnumerable<TaskInList>? Dependencies { get; set; } = null;
+
+    public override string ToString()
+    { return this.ToStringProperty(); }
 }

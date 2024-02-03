@@ -10,4 +10,7 @@ public class MilestoneInList
     public string? Alias { get; set; } = null;
     public Status? Status { get; set; } = null;
     public double? completionPercentage {  get; set; } = null;
+
+    public override string ToString()
+    { return this.ToStringProperty(); }
 }
