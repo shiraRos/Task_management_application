@@ -74,7 +74,7 @@ internal class TaskImplementation : ITask
     public DO.Task? Read(Func<DO.Task, bool> filter)
     {
         List<DO.Task> tsk = XMLTools.LoadListFromXMLSerializer<DO.Task>(s_task);
-        return tsk.FirstOrDefault(filter) ?? throw new DalDoesNotExistException("No task found matching the specified condition.");
+        return tsk.FirstOrDefault(filter);
     }
 
     /// <summary>

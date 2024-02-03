@@ -43,11 +43,11 @@ public interface IEngineer
     public void Delete(int id);
 
 
+
     /// <summary>
-    /// 
+    /// Resetting all the engineer objects
     /// </summary>
-    /// <param name="EngineerId"></param>
-    /// <param name="Task"></param>
-    /// <returns></returns>
-    //public BO.EngineerInTask GetTasksForEngineer(int EngineerId, int Task);
+    /// <param name="id"></param>
+    public void Reset();
+
 }

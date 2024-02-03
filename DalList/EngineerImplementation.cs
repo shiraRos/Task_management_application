@@ -51,7 +51,7 @@ internal class EngineerImplementation : IEngineer
     /// <returns>the item with the accepted id</returns>
     public Engineer? Read(int id)
     {
-            return DataSource.Engineers.FirstOrDefault(eng => eng.Id ==id) ?? throw new DalDoesNotExistException($" engineer with id:{id} is not found ");
+            return DataSource.Engineers.FirstOrDefault(eng => eng.Id ==id);
     }
 
     /// <summary>
@@ -62,7 +62,7 @@ internal class EngineerImplementation : IEngineer
     /// <exception cref="DalDoesNotExistException"></exception>
     public Engineer? Read(Func<Engineer, bool> filter) // stage 2
     {
-        return DataSource.Engineers.FirstOrDefault(filter) ?? throw new DalDoesNotExistException("No engineer found matching the specified condition.");
+        return DataSource.Engineers.FirstOrDefault(filter);
     }
 
     /// <summary>

@@ -1,12 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using BlApi;
+using System.Data.Common;
 
-namespace BlImplementation
+namespace BlImplementation;
+
+internal class Bl : IBl
 {
-    internal class Bl
+    public IEngineer Engineer => new EngineerImplementation();
+
+    public IMileStone MileStone =>new MileStoneImplementation();
+
+    public ITask Task => new TaskImplementation();
+
+
+    /// <summary>
+    /// function for delete every value from the data base
+    /// </summary>
+    public void Reset()
     {
+       Engineer.Reset();
+       Task.Reset();
+       // MileStone.Reset();
     }
 }
