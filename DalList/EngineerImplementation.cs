@@ -16,7 +16,6 @@ internal class EngineerImplementation : IEngineer
         {
             throw new DalAlreadyExistsException($"Engineer with ID={item.Id} already exists");
         }
-
         // Adding the item
         DataSource.Engineers.Add(item);
         return item.Id;

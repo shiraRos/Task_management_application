@@ -8,10 +8,7 @@ public interface IBl
     public IEngineer Engineer { get; }  
     public IMileStone MileStone { get; }
     public  ITask Task { get; }
-    public ITaskInEngineer TaskInEngineer { get; }
-    public ITaskInList TaskInList { get; }
-    public ITaskInList TaskInList { get; }
-    public ITaskInList TaskInList { get; }
+
 
     /// <summary>
     /// general reset method
