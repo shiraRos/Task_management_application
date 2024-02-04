@@ -11,5 +11,8 @@ public class Engineer
     public EngineerExperience? Level { get; set; } = null;
     public double? Cost { get; set; } = null;
     public TaskInEngineer? Task { get; set; } = null;
+
+    public override string ToString()
+    { return this.ToStringProperty(); }
 }
 

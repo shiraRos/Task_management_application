@@ -113,7 +113,7 @@ internal class TaskImplementation : ITask
             CreateAtDate = dotsk.CreateAtDate,
             Status = (BO.Status)stat,
             Dependencies = stat == 1 ? null : DepCreate(id),
-            Milestone = stat == 0 ? null : createMileStone(id),
+            Milestone =null,
             RequiredEffortTime = dotsk.RequiredEffortTime,
             StartDate = dotsk.StartDate,
             ScheduledDate = dotsk.ScheduledDate,

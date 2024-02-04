@@ -5,10 +5,13 @@ namespace BlApi;
 /// </summary>
 public interface IBl
 {
-    public IEngineer Engineer { get; }  
+    public IEngineer Engineer { get; }
     public IMileStone MileStone { get; }
-    public  ITask Task { get; }
+    public ITask Task { get; }
 
+    public DateTime? GetStartDate();
+
+    public bool GetProjectStatuse();
 
     /// <summary>
     /// general reset method

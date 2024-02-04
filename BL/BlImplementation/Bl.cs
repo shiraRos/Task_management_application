@@ -12,6 +12,16 @@ internal class Bl : IBl
 
     public ITask Task => new TaskImplementation();
 
+    public bool GetProjectStatuse()
+    {
+        return false;
+    }
+
+    public DateTime? GetStartDate()
+    {
+        return null;
+    }
+
 
     /// <summary>
     /// function for delete every value from the data base

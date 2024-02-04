@@ -9,4 +9,7 @@ public class TaskInList
     public string? Description { get; set; } = null;
     public string? Alias { get; set; } = null;
     public Status? Status { get; set; } = null;
+
+    public override string ToString()
+    { return this.ToStringProperty(); }
 }

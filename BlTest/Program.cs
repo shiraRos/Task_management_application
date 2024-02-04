@@ -155,23 +155,6 @@ internal class Program
     }
 
     /// <summary>
-    /// Creating a new dependency and adding it to the existing data
-    /// </summary>
-    //////////////////////////private static void CreateDependency()
-    //////////////////////////{
-    //////////////////////////    //Receipt of data by the user
-    //////////////////////////    int _dependenTask, _dependensOnTask;
-    //////////////////////////    Console.WriteLine("insert depeden task ");
-    //////////////////////////    _dependenTask = int.Parse(Console.ReadLine()!);
-    //////////////////////////    Console.WriteLine("depends on task ");
-    //////////////////////////    _dependensOnTask = int.Parse(Console.ReadLine()!);
-    //////////////////////////    //creating a new object
-    //////////////////////////    Dependency newDpn = new(0, _dependenTask, _dependensOnTask);
-    //////////////////////////    //Add to data by calling an external operation
-    //////////////////////////    int temp = s_dal.Dependency.Create(newDpn);
-    //////////////////////////}
-
-    /// <summary>
     /// Creating a new engineer and adding it to the existing data
     /// </summary>
     private static void CreateEngineer()
@@ -202,14 +185,6 @@ internal class Program
         Console.WriteLine("Cost: " + (_cost.HasValue ? _cost.ToString() : "null"));
         Console.WriteLine("insert email");
         _email = Console.ReadLine() ?? " ";
-        //Console.WriteLine("insert id of belong task:");
-        //int tskId=int.Parse(Console.ReadLine());
-        //tskById=s_bl.Task.Read(tskId);
-        //if (tskById != null)
-        //    tskInEng=new BO.TaskInEngineer { Id = tskId,Alias=tskById.Alias };
-        //else
-        //    Console.WriteLine("this task is not exist the task is null by deflut");
-
         //creating a new object
         BO.Engineer newEng = new BO.Engineer {Id= _id,Name=_name,Email=_email,Level= (_level != null ? (EngineerExperience)_level : null),Cost= _cost,Task= null };
         //Add to data by calling an external operation
@@ -238,16 +213,6 @@ internal class Program
         s_bl.Engineer.Delete(engineerId);
     }
 
-    ///////////////////////////// <summary>
-    ///////////////////////////// Deleting a dependency from the existing data
-    ///////////////////////////// </summary>
-    //////////////////////////private static void DeleteDependency()
-    //////////////////////////{
-    //////////////////////////    Console.WriteLine("insert dependeny to remove");
-    //////////////////////////    int dependencyId = int.Parse(Console.ReadLine() ?? " ");
-    //////////////////////////    //delete from the data by calling an external operation
-    //////////////////////////    s_dal.Dependency.Delete(dependencyId);
-    //////////////////////////}
 
     /// <summary>
     /// Reading a certain task from the existing data
@@ -259,17 +224,6 @@ internal class Program
         //print the data by calling an external operation
         Console.WriteLine(s_bl.Task.Read(taskId));
     }
-
-    /////////////////////////////// <summary>
-    /////////////////////////////// Reading a certain dependency from the existing data
-    /////////////////////////////// </summary>
-    ////////////////////////////private static void ReadDependency()
-    ////////////////////////////{
-    ////////////////////////////    Console.WriteLine("insert dependency code to print");
-    ////////////////////////////    int dependencyId = int.Parse(Console.ReadLine()!);
-    ////////////////////////////    //print the data by calling an external operation
-    ////////////////////////////    Console.WriteLine(s_dal.Dependency.Read(dependencyId));
-    ////////////////////////////}
 
     /// <summary>
     /// Reading a certain engineer from the existing data
@@ -298,20 +252,6 @@ internal class Program
         }
     }
 
-    /////////////////////////////// <summary>
-    /////////////////////////////// Reading all of the dependencies from the data
-    /////////////////////////////// </summary>
-    ////////////////////////////private static void ReadAllDependencies()
-    ////////////////////////////{
-    ////////////////////////////    Console.WriteLine("the all Dependencies:");
-    ////////////////////////////    //getting all the dependencies to a new item
-    ////////////////////////////    List<Dependency> depList = s_dal!.Dependency.ReadAll()?.Where(d => d != null).Select(d => d!).ToList() ?? new List<Dependency>();
-    ////////////////////////////    //print evey item
-    ////////////////////////////    foreach (var item in depList)
-    ////////////////////////////    {
-    ////////////////////////////        Console.WriteLine(item);
-    ////////////////////////////    }
-    ////////////////////////////}
 
     /// <summary>
     /// Reading all of the tasks from the data
