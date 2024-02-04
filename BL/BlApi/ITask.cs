@@ -43,9 +43,4 @@ public interface ITask
     public void Delete(int id);
 
 
-    /// <summary>
-    /// Resetting all the task objects
-    /// </summary>
-    /// <param name="id"></param>
-    public void Reset();
 }

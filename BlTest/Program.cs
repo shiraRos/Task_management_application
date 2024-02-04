@@ -1,5 +1,6 @@
 ﻿using BO;
 using BlApi;
+using DalTest;
 
 namespace BlTest;
 
@@ -64,29 +65,14 @@ internal class Program
     private static void CreateTask()
     {
         //Receipt of data by the user
-        int? _idEngineer;
         int? _complexityLevel;
         int _dependOnTaskId;
         bool _isMileston;
         DateTime? _startDate, _deadlineDate, _completeDate, _scheduledDate;
         TimeSpan? _requiredEffortTime;
         string? _alias, _deliverables, _remarks, _description;
-        List<TaskInList>? _dependencies=null;
-        BO.EngineerInTask? _engInTask=null;
-        BO.Task? dependTsk;
-        Console.WriteLine("insert engineer id");
-        if (int.TryParse(Console.ReadLine(), out int parsedId))
-        {
-            BO.Engineer? fullEngData = s_bl.Engineer.Read(parsedId);
-            if (fullEngData != null)
-            {
-                _engInTask = new BO.EngineerInTask { Id = parsedId, Name = fullEngData.Name };
-            }
-            else
-            {
-                Console.WriteLine("the id tou typed is not exist the engineer is null by defult");
-            }
-        }
+        List<TaskInList>? _dependencies=new List<TaskInList>();
+        BO.Task? dependTsk=null;
         Console.WriteLine("is it a miles tone?");
         _isMileston = ParseMilestone();
         // Now 'isMilestone' will be a bool value based on user input, or false if parsing failed.
@@ -126,30 +112,32 @@ internal class Program
         _description = Console.ReadLine() ?? " ";
         Console.WriteLine("insert alias");
         _alias = Console.ReadLine() ?? " ";
-        //Console.WriteLine("insert the ids of the tasks you denends on:");
-        //_dependOnTaskId = int.Parse(Console.ReadLine());
-        //while(_dependOnTaskId!=0)
-        //{
-        //   dependTsk= s_bl.Task.Read(_dependOnTaskId);
-        //    if (dependTsk != null) {
-        //        _dependencies.Add(new TaskInList
-        //        {
-        //            Id = _dependOnTaskId,
-        //            Description = dependTsk.Description,
-        //            Alias = dependTsk.Alias,
-        //            Status = dependTsk.Status
-        //        });
-        //        Console.WriteLine("insert the ids of the tasks you denends on:");
-        //        _dependOnTaskId = int.Parse(Console.ReadLine());
-        //    }
-        //    else
-        //    { Console.WriteLine("the task you typed is not exist try again");
-        //        Console.WriteLine("insert the ids of the tasks you denends on:");
-        //        _dependOnTaskId = int.Parse(Console.ReadLine());
-        //    }
-        //}
+        Console.WriteLine("insert the ids of the tasks you denends on:");
+        _dependOnTaskId = int.Parse(Console.ReadLine());
+        while (_dependOnTaskId != 0)
+        {
+            dependTsk = s_bl.Task.Read(_dependOnTaskId);
+            if (dependTsk != null)
+            {
+                _dependencies.Add(new TaskInList
+                {
+                    Id = _dependOnTaskId,
+                    Description = dependTsk.Description,
+                    Alias = dependTsk.Alias,
+                    Status = dependTsk.Status
+                });
+                Console.WriteLine("insert the ids of the tasks you denends on:");
+                _dependOnTaskId = int.Parse(Console.ReadLine());
+            }
+            else
+            {
+                Console.WriteLine("the task you typed is not exist try again");
+                Console.WriteLine("insert the ids of the tasks you denends on:");
+                _dependOnTaskId = int.Parse(Console.ReadLine());
+            }
+        }
         //creating a new object
-       BO.Task newTsk = new BO.Task { Id= 0, Alias= _alias,Description= _description,CreateAtDate= null, Status= (Status)0,Dependencies= null,Milestone= null,RequiredEffortTime= _requiredEffortTime,StartDate= _startDate,ScheduledDate= _scheduledDate, ForecastDate= null,DeadlineDate= _deadlineDate,CompleteDate= _completeDate,Deliverables= _deliverables,Remarks= _remarks,Engineer= _engInTask,ComplexityLevel=(EngineerExperience?)_complexityLevel };
+        BO.Task newTsk = new BO.Task { Id= 0, Alias= _alias,Description= _description,CreateAtDate= null, Status= (Status)0,Dependencies=_dependencies,Milestone= null,RequiredEffortTime= _requiredEffortTime,StartDate= _startDate,ScheduledDate= _scheduledDate, ForecastDate= null,DeadlineDate= _deadlineDate,CompleteDate= _completeDate,Deliverables= _deliverables,Remarks= _remarks,Engineer= null,ComplexityLevel=(EngineerExperience?)_complexityLevel };
         //Add to data by calling an external operation
         int idnt = s_bl.Task.Create(newTsk);
     }
@@ -276,7 +264,7 @@ internal class Program
         //Receipt of data by the user
         //int? _idEngineer;
         int? _complexityLevel;
-        int _dependOnTaskId;
+        int _dependOnTaskId,_taskId=0;
         bool _isMileston;
         DateTime? _startDate, _deadlineDate, _completeDate, _scheduledDate;
         TimeSpan? _requiredEffortTime;
@@ -284,6 +272,8 @@ internal class Program
         List<TaskInList>? _dependencies = null;
         BO.EngineerInTask? _engInTask = null;
         BO.Task? dependTsk;
+        Console.WriteLine("insert task id");
+        _taskId=int.Parse(Console.ReadLine());
         Console.WriteLine("insert engineer id");
         if (int.TryParse(Console.ReadLine(), out int parsedId))
         {
@@ -361,7 +351,7 @@ internal class Program
             }
         }
         //creating a new object
-        BO.Task newTsk = new BO.Task { Id = 0, Alias = _alias, Description = _description, CreateAtDate = null, Status = (Status)0, Dependencies = _dependencies, Milestone = null, RequiredEffortTime = _requiredEffortTime, StartDate = _startDate, ScheduledDate = _scheduledDate, ForecastDate = null, DeadlineDate = _deadlineDate, CompleteDate = _completeDate, Deliverables = _deliverables, Remarks = _remarks, Engineer = _engInTask, ComplexityLevel = (EngineerExperience?)_complexityLevel };
+        BO.Task newTsk = new BO.Task { Id = _taskId, Alias = _alias, Description = _description, CreateAtDate = null, Status = (Status)0, Dependencies = _dependencies, Milestone = null, RequiredEffortTime = _requiredEffortTime, StartDate = _startDate, ScheduledDate = _scheduledDate, ForecastDate = null, DeadlineDate = _deadlineDate, CompleteDate = _completeDate, Deliverables = _deliverables, Remarks = _remarks, Engineer = _engInTask, ComplexityLevel = (EngineerExperience?)_complexityLevel };
         //Update the data by calling an external operation
         s_bl.Task.Update(newTsk);
     }
@@ -431,14 +421,6 @@ internal class Program
         s_bl.Engineer.Update(newEng);
     }
 
-    /////////////////////// <summary>
-    /////////////////////// delete all the dependencies
-    /////////////////////// </summary>
-    ////////////////////private static void ResetDependency()
-    ////////////////////{
-    ////////////////////    //Reste the data by calling an external operation
-    ////////////////////    s_dal.Dependency.Reset();
-    ////////////////////}
 
     /// <summary>
     /// delete all the engineers
@@ -446,7 +428,7 @@ internal class Program
     private static void ResetEngineer()
     {
         //Reste the data by calling an external operation
-        s_bl.Engineer.Reset();
+        DalApi.Factory.Get.Engineer.Reset();
     }
 
     /// <summary>
@@ -455,7 +437,7 @@ internal class Program
     private static void ResetTask()
     {
         //Reste the data by calling an external operation
-        s_bl.Task.Reset();
+        DalApi.Factory.Get.Task.Reset();
     }
     /// <summary>
     /// A function for checking validiation of choice
@@ -525,55 +507,7 @@ internal class Program
         }
     }
 
-    ///////////////////////////// <summary>
-    ///////////////////////////// A menu for the user selection for the dependencies
-    ///////////////////////////// </summary>
-    //////////////////////////private static void OptionsDependencykManu()
-    //////////////////////////{
-    //////////////////////////    try
-    //////////////////////////    {
-    //////////////////////////        int choice;
-    //////////////////////////        Console.WriteLine("press 0 to exit\n press 1 create a new Dependency\n press 2 to read Dependency\npress 3 to read all Dependencies\npress 4 to update \npress 5 to delete\npress 6 to reset\n");
-    //////////////////////////        choice = int.Parse(Console.ReadLine() ?? " ");
-    //////////////////////////        while (choice < 0 || choice > 6)
-    //////////////////////////        {
-    //////////////////////////            Console.WriteLine("insert number between 0-6");
-    //////////////////////////            choice = int.Parse(Console.ReadLine() ?? " ");
-    //////////////////////////        }
-    //////////////////////////        while (choice != 0)
-    //////////////////////////        {
-
-    //////////////////////////            switch (choice)
-    //////////////////////////            {
-    //////////////////////////                case 1:
-    //////////////////////////                    CreateDependency();
-    //////////////////////////                    break;
-    //////////////////////////                case 2:
-    //////////////////////////                    ReadDependency();
-    //////////////////////////                    break;
-    //////////////////////////                case 3:
-    //////////////////////////                    ReadAllDependencies();
-    //////////////////////////                    break;
-    //////////////////////////                case 4:
-    //////////////////////////                    UpdateDependency();
-    //////////////////////////                    break;
-    //////////////////////////                case 5:
-    //////////////////////////                    DeleteDependency();
-    //////////////////////////                    break;
-    //////////////////////////                case 6:
-    //////////////////////////                    ResetDependency();
-    //////////////////////////                    break;
-    //////////////////////////            }
-    //////////////////////////            Console.WriteLine("press 0 to exit\n press 1 create a new Dependency\n press 2 to read Dependency\npress 3 to read all Dependencies\npress 4 to update \npress 5 to delete\npress 6 to reset\n");
-    //////////////////////////            choice = GetValidChoice(0, 6);
-    //////////////////////////        }
-
-    //////////////////////////    }
-    //////////////////////////    catch (Exception e)
-    //////////////////////////    {
-    //////////////////////////        Console.WriteLine(e.Message);
-    //////////////////////////    }
-    //////////////////////////}
+   
 
     /// <summary>
     /// A menu for the user selection for the engineers
@@ -632,7 +566,7 @@ internal class Program
         {
             s_bl.Reset();
             //Initialization.DO(s_dal);//stage 2
-          //  Initialization.Do(); //stage 4
+           DalTest.Initialization.Do(); //stage 4
         }
     }
 
@@ -658,7 +592,7 @@ internal class Program
                     InitializationData();
                     break;
             }
-            Console.WriteLine("hi here is an options namu \npress 0 to exit\npress 1 to task\n press 2 to dependendy\npress 3 to engineer\n press 4 to reset all Data\n");
+            Console.WriteLine("hi here is an options namu \npress 0 to exit\npress 1 to task\n press 2 to engineer\n press 3 to reset all Data\n");
             choice = GetValidChoice(0, 4);
         }
     }

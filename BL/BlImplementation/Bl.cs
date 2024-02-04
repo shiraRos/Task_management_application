@@ -28,9 +28,7 @@ internal class Bl : IBl
     /// </summary>
     public void Reset()
     {
-       Engineer.Reset();
-       Task.Reset();
-       // MileStone.Reset();
+        DalApi.Factory.Get.Reset();
     }
     //ממוש תאריך התחלה
 }

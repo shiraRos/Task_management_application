@@ -13,12 +13,16 @@ namespace BO
             foreach (PropertyInfo item in t!.GetType().GetProperties())
             {
                 str += "\n" + item.Name + ": " + item.GetValue(t, null);
+                bool isEnumerable = item.PropertyType.IsGenericType &&
+                                    item.PropertyType.GetGenericTypeDefinition() == typeof(IEnumerable<>);
 
-                // Check if the property is of type IEnumerable<>
-                if (typeof(IEnumerable<>).IsAssignableFrom(item.PropertyType))
+                if (isEnumerable)
+                    // Check if the property is of type IEnumerable<>
+                    //if (typeof(IEnumerable<>).IsAssignableFrom(item.PropertyType))
                 {
                     // If it is, get the value of the property
-                    var propertyValue = item.GetValue(t, null);
+                    var propertyValue = (IEnumerable<object>?)item.GetValue(t);
+
 
                     // Check if the value is not null
                     if (propertyValue != null)
@@ -33,5 +37,7 @@ namespace BO
             }
             return str;
         }
+
+
     }
 }

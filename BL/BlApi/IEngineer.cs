@@ -43,11 +43,4 @@ public interface IEngineer
     public void Delete(int id);
 
 
-
-    /// <summary>
-    /// Resetting all the engineer objects
-    /// </summary>
-    /// <param name="id"></param>
-    public void Reset();
-
 }

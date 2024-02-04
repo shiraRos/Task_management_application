@@ -80,46 +80,49 @@ internal class EngineerImplementation : IEngineer
         if (item.Id > 0 && (item.Name == null || item.Name != "") && (item.Cost == null || item.Cost > 0) && (item.Email == null || item.Email!.Contains('@')))
         {
 
-            try
+
+            if (item.Task != null)
+
             {
-                if (item.Task != null)
+                //////////////יוצר משתנה מסוג המשימה התלויה
+                TaskImplementation tskImp = new TaskImplementation();
+                BO.Task? dependTsk = tskImp.Read(item.Task.Id);
+                if (dependTsk == null)
+                    throw new BO.BlValidationError($"task with id:{item.Task.Id} is not exist");
+                //////////////..בודק שהמשימה לא במצב לא מאותחל או הסתיימה כבר
+                ////////////if (dependTsk.Status == (Status)0 || dependTsk.Status == (Status)3)
+                ////////////    throw new BO.BlStatusNotFit($"task with id:{item.Task.Id} cannt be taken");
+                //////////////בודק אם כל המשימות שהיא תלויה בהן הושלמו
+                ////////////if (dependTsk.Dependencies != null)
+                ////////////    foreach (var depOnTsk in dependTsk.Dependencies)
+                ////////////    {
+                ////////////        if (depOnTsk.Status != (Status)3)
+                ////////////            throw new BO.BlStatusNotFit($"the dependent task: {depOnTsk.Alias} is not done yet");
+                ////////////    }
+                //////////////בודק האם אין למהנדס משימה קודמת
+                ////////////if (_dal.Task.Read(tsk => tsk.EngineerId == item.Id) != null)
+                ////////////    throw new BO.BlEngineerHasTask("this engineer has already took another task");
+                //////////////בודק שאף מהנדס לא לקח את המשימה קודם
+                ////////////if (dependTsk.Engineer != null)
+                ////////////    throw new BO.BltaskHasEngineer($"the task: {item.Task.Id} had already taken by other engineer");
 
+
+                //DO.Task? updateTsk = _dal.Task.Read(item.Task.Id);
+                //updateTsk.EngineerId = item.Id;
+                dependTsk.Engineer = new BO.EngineerInTask
                 {
-                    //יוצר משתנה מסוג המשימה התלויה
-                    TaskImplementation tskImp = new TaskImplementation();
-                    BO.Task? dependTsk = tskImp.Read(item.Task.Id);
-                    if (dependTsk == null)
-                        throw new BO.BlValidationError($"task with id:{item.Task.Id} is not exist");
-                    //..בודק שהמשימה לא במצב לא מאותחל או הסתיימה כבר
-                    if (dependTsk.Status == (Status)0 || dependTsk.Status == (Status)3)
-                        throw new BO.BlStatusNotFit($"task with id:{item.Task.Id} cannt be taken");
-                    //בודק אם כל המשימות שהיא תלויה בהן הושלמו
-                    if (dependTsk.Dependencies != null)
-                        foreach (var depOnTsk in dependTsk.Dependencies)
-                        {
-                            if (depOnTsk.Status != (Status)3)
-                                throw new BO.BlStatusNotFit($"the dependent task: {depOnTsk.Alias} is not done yet");
-                        }
-                    //בודק האם אין למהנדס משימה קודמת
-                    if (_dal.Task.Read(tsk => tsk.EngineerId == item.Id) != null)
-                        throw new BO.BlEngineerHasTask("this engineer has already took another task");
-                    //בודק שאף מהנדס לא לקח את המשימה קודם
-                    if (dependTsk.Engineer != null)
-                        throw new BO.BltaskHasEngineer($"the task: {item.Task.Id} had already taken by other engineer");
-
+                    Id = item.Id,
+                    Name = item.Name
+                };
+                tskImp.Update(dependTsk);
+            }
+                try
+                {
                     //שולח לעדכון בשכבת הDL
                     _dal.Engineer.Update(doEngineer);
-                    //DO.Task? updateTsk = _dal.Task.Read(item.Task.Id);
-                    //updateTsk.EngineerId = item.Id;
-                    dependTsk.Engineer = new BO.EngineerInTask
-                    {
-                        Id = item.Id,
-                        Name = item.Name
-                    };
-                    tskImp.Update(dependTsk);  
 
                 }
-            }
+            
             catch (DO.DalDoesNotExistException ex)
             {
                 throw new BO.BlDoesNotExistException($"Engineer with ID={item.Id} does not exists", ex);
@@ -128,8 +131,5 @@ internal class EngineerImplementation : IEngineer
         else
             throw new BO.BlValidationError($"one of the details you insert is un valid");
     }
-    public void Reset()
-    {
-        _dal.Reset();
-    }
+  
 }

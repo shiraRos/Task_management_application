@@ -121,7 +121,7 @@ internal class TaskImplementation : ITask
     {
         List<DO.Task> tsk = XMLTools.LoadListFromXMLSerializer<DO.Task>(s_task);
         //if id doesnt exist-no need for updating
-        if (!(tsk.Any(tsk => tsk.Id == item.Id)))
+        if (!(tsk.Any(tsk1 => tsk1.Id == item.Id)))
             throw new DalDoesNotExistException($"Task with ID={item.Id} does Not exist");
         tsk.RemoveAll(x => x.Id == item.Id);
         tsk.Add(item);

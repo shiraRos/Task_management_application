@@ -2,7 +2,6 @@
 namespace BlImplementation;
 using BlApi;
 using BO;
-using DO;
 using System.ComponentModel.DataAnnotations;
 using System.Net.NetworkInformation;
 
@@ -113,7 +112,7 @@ internal class TaskImplementation : ITask
             CreateAtDate = dotsk.CreateAtDate,
             Status = (BO.Status)stat,
             Dependencies = stat == 1 ? null : DepCreate(id),
-            Milestone =null,
+            Milestone = null,
             RequiredEffortTime = dotsk.RequiredEffortTime,
             StartDate = dotsk.StartDate,
             ScheduledDate = dotsk.ScheduledDate,
@@ -137,9 +136,43 @@ internal class TaskImplementation : ITask
 
     public void Update(BO.Task item)
     {
-        DO.Task doTask = new DO.Task(0, item.Engineer?.Id, null, item.StartDate, item.DeadlineDate, item.CompleteDate, item.ScheduledDate, item.RequiredEffortTime, item.Deliverables, item.Remarks, (DO.EngineerExperience?)item.ComplexityLevel, item.Description, item.Alias);
         try
         {
+            if (item.Engineer != null)
+            {
+                DO.Engineer? engToAdd = _dal.Engineer.Read(item.Engineer.Id);
+                if (engToAdd == null)
+                    throw new BO.BlDoesNotExistException($"engineer with id {item.Engineer.Id} is not exist");
+                //יוצר משתנה מסוג המשימה התלויה
+                BO.Task? dependTsk = Read(item.Id);
+                if (dependTsk == null)
+                    throw new BO.BlValidationError($"task with id:{item.Id} is not exist");
+                //..בודק שהמשימה לא במצב לא מאותחל או הסתיימה כבר
+                if (dependTsk.Status == (Status)0 || dependTsk.Status == (Status)3)
+                    throw new BO.BlStatusNotFit($"task with id:{item.Id} cannt be taken");
+                //בודק אם כל המשימות שהיא תלויה בהן הושלמו
+                if (dependTsk.Dependencies != null)
+                    foreach (var depOnTsk in dependTsk.Dependencies)
+                    {
+                        if (depOnTsk.Status != (Status)3)
+                            throw new BO.BlStatusNotFit($"the dependent task: {depOnTsk.Alias} is not done yet");
+                    }
+                //בודק שאף מהנדס לא לקח את המשימה קודם
+                if (dependTsk.Engineer != null)
+                    throw new BO.BltaskHasEngineer($"the task: {item.Id} had already taken by other engineer");
+
+                //בודק האם אין למהנדס משימה קודמת
+                if (_dal.Task.Read(tsk => tsk.EngineerId == item.Id) != null)
+                    throw new BO.BlEngineerHasTask("this engineer has already took another task");
+
+                //בדיקה רמת המהנדס לא ריקה וגבוהה מרמת המשימה
+                if ((engToAdd.Level==null|| item.ComplexityLevel==null) &&(int)engToAdd.Level!<(int)item.ComplexityLevel!)
+                {
+                    throw new BO.BlValidationError("the engineer cant take this task becase his level is to low");
+                }
+            }
+            //שולח לעדכון בשכבת הDL
+            DO.Task doTask = new DO.Task(item.Id, item.Engineer?.Id, null, item.StartDate, item.DeadlineDate, item.CompleteDate, item.ScheduledDate, item.RequiredEffortTime, item.Deliverables, item.Remarks, (DO.EngineerExperience?)item.ComplexityLevel, item.Description, item.Alias);
             _dal.Task.Update(doTask);
         }
         catch (DO.DalDoesNotExistException ex)
@@ -147,9 +180,6 @@ internal class TaskImplementation : ITask
             throw new BO.BlDoesNotExistException($"Task with ID={item.Id} does not exist exists", ex);
         }
     }
-    public void Reset()
-    {
-        _dal.Reset();
-    }
+
 }
 
