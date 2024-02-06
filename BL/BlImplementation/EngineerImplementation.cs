@@ -11,7 +11,7 @@ internal class EngineerImplementation : IEngineer
     private DalApi.IDal _dal = DalApi.Factory.Get;
     public int Create(BO.Engineer item)
     {
-        if (item.Id > 0 && (item.Name != "" || item.Name == null) && (item.Cost > 0 || item.Cost == null) && (item.Email == null || item.Email.Contains('@')))
+        if (item.Id > 0 && (item.Name == null||item.Name != " " ) && (item.Cost > 0 || item.Cost == null) && (item.Email == null || item.Email.Contains('@')))
         {
             DO.Engineer doEngineer = new DO.Engineer(item.Id, (DO.EngineerExperience?)item.Level, item.Cost, item.Name, item.Email);
 

@@ -9,23 +9,29 @@ internal class Program
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
 
-   // static readonly IDal s_dal = Factory.Get; //stage 4
+    // static readonly IDal s_dal = Factory.Get; //stage 4
 
     //converting the level
     private static int? GetComplexityLevel()
     {
-        while (true)
+        if (int.TryParse(Console.ReadLine(), out int parsedComplexityLevel))
         {
-
-            if (int.TryParse(Console.ReadLine(), out int parsedComplexityLevel))
-            {
-                return parsedComplexityLevel; // Exit the loop and return the value if parsing is successful and within the range
-            }
-            else
-            {
-                return null;
-            }
-
+            return parsedComplexityLevel; // Exit the loop and return the value if parsing is successful and within the range
+        }
+        else
+        {
+            return null;
+        }
+    }
+    private static int? GetOptionalInt()
+    {
+        if (int.TryParse(Console.ReadLine(), out int parsedInt))
+        {
+            return parsedInt; // Exit the loop and return the value if parsing is successful and within the range
+        }
+        else
+        {
+            return null;
         }
     }
     /// <summary>
@@ -42,6 +48,7 @@ internal class Program
         }
         else
         {
+            Console.WriteLine("unvalid value accepted null as defult");
             return null; // Return null if parsing fails
         }
     }
@@ -65,14 +72,13 @@ internal class Program
     private static void CreateTask()
     {
         //Receipt of data by the user
-        int? _complexityLevel;
-        int _dependOnTaskId;
+        int? _complexityLevel, _dependOnTaskId;
         bool _isMileston;
         DateTime? _startDate, _deadlineDate, _completeDate, _scheduledDate;
         TimeSpan? _requiredEffortTime;
         string? _alias, _deliverables, _remarks, _description;
-        List<TaskInList>? _dependencies=new List<TaskInList>();
-        BO.Task? dependTsk=null;
+        List<TaskInList>? _dependencies = new List<TaskInList>();
+        BO.Task? dependTsk = null;
         Console.WriteLine("is it a miles tone?");
         _isMileston = ParseMilestone();
         // Now 'isMilestone' will be a bool value based on user input, or false if parsing failed.
@@ -106,40 +112,56 @@ internal class Program
         _remarks = Console.ReadLine() ?? " ";
         Console.WriteLine("insert complexity level between 0-4");
         _complexityLevel = GetComplexityLevel();
+        while (_complexityLevel < 0 || _complexityLevel > 4)
+        {
+            Console.WriteLine("the number must be between 0-4 insert again!");
+            _complexityLevel = GetComplexityLevel();
+        }
         // Now 'complexityLevel' will be an integer between 0-4 based on user input.
         Console.WriteLine("Complexity Level: " + _complexityLevel);
         Console.WriteLine("insert description");
         _description = Console.ReadLine() ?? " ";
         Console.WriteLine("insert alias");
-        _alias = Console.ReadLine() ?? " ";
+        _alias = Console.ReadLine();
+        if (_alias == "")
+            _alias = null;
         Console.WriteLine("insert the ids of the tasks you denends on:");
-        _dependOnTaskId = int.Parse(Console.ReadLine());
-        while (_dependOnTaskId != 0)
+        _dependOnTaskId =GetOptionalInt();
+        while (_dependOnTaskId !=null)
         {
-            dependTsk = s_bl.Task.Read(_dependOnTaskId);
+            dependTsk = s_bl.Task.Read((int)_dependOnTaskId);
             if (dependTsk != null)
             {
                 _dependencies.Add(new TaskInList
                 {
-                    Id = _dependOnTaskId,
+                    Id = (int)_dependOnTaskId,
                     Description = dependTsk.Description,
                     Alias = dependTsk.Alias,
                     Status = dependTsk.Status
                 });
                 Console.WriteLine("insert the ids of the tasks you denends on:");
-                _dependOnTaskId = int.Parse(Console.ReadLine());
+
+                _dependOnTaskId = GetOptionalInt();
             }
             else
             {
                 Console.WriteLine("the task you typed is not exist try again");
                 Console.WriteLine("insert the ids of the tasks you denends on:");
-                _dependOnTaskId = int.Parse(Console.ReadLine());
+                _dependOnTaskId = GetOptionalInt();
             }
         }
         //creating a new object
-        BO.Task newTsk = new BO.Task { Id= 0, Alias= _alias,Description= _description,CreateAtDate= null, Status= (Status)0,Dependencies=_dependencies,Milestone= null,RequiredEffortTime= _requiredEffortTime,StartDate= _startDate,ScheduledDate= _scheduledDate, ForecastDate= null,DeadlineDate= _deadlineDate,CompleteDate= _completeDate,Deliverables= _deliverables,Remarks= _remarks,Engineer= null,ComplexityLevel=(EngineerExperience?)_complexityLevel };
+        BO.Task newTsk = new BO.Task { Id = 0, Alias = _alias, Description = _description, CreateAtDate = null, Status = (Status)0, Dependencies = _dependencies, Milestone = null, RequiredEffortTime = _requiredEffortTime, StartDate = _startDate, ScheduledDate = _scheduledDate, ForecastDate = null, DeadlineDate = _deadlineDate, CompleteDate = _completeDate, Deliverables = _deliverables, Remarks = _remarks, Engineer = null, ComplexityLevel = (EngineerExperience?)_complexityLevel };
         //Add to data by calling an external operation
-        int idnt = s_bl.Task.Create(newTsk);
+        try
+        {
+
+            int idnt = s_bl.Task.Create(newTsk);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
     }
 
     /// <summary>
@@ -152,14 +174,19 @@ internal class Program
         int? _level;
         double? _cost;
         string? _name, _email;
-        TaskInEngineer? tskInEng = null;
-        BO.Task? tskById = null;
         Console.WriteLine("insert id");
         _id = int.Parse(Console.ReadLine()!);
         Console.WriteLine(" insert name");
-        _name = Console.ReadLine() ?? " ";
+        _name = Console.ReadLine();
+        if (_name == "")
+            _name = null;
         Console.WriteLine("insert complexity level between 0-4");
         _level = GetComplexityLevel();
+        while (_level < 0 || _level > 4)
+        {
+            Console.WriteLine("the number must be between 0-4 insert again!");
+            _level = GetComplexityLevel();
+        }
         // Now 'complexityLevel' will be an integer between 0-4 based on user input.
         Console.WriteLine("Complexity Level: " + _level);
         Console.WriteLine("insert cost");
@@ -172,11 +199,17 @@ internal class Program
         // Now 'cost' will be a double value if parsing was successful, or null if it failed or the input was blank.
         Console.WriteLine("Cost: " + (_cost.HasValue ? _cost.ToString() : "null"));
         Console.WriteLine("insert email");
-        _email = Console.ReadLine() ?? " ";
+        _email = Console.ReadLine();
+        if (_email == "")
+            _email = null;
         //creating a new object
-        BO.Engineer newEng = new BO.Engineer {Id= _id,Name=_name,Email=_email,Level= (_level != null ? (EngineerExperience)_level : null),Cost= _cost,Task= null };
+        BO.Engineer newEng = new BO.Engineer { Id = _id, Name = _name, Email = _email, Level = (_level != null ? (EngineerExperience)_level : null), Cost = _cost, Task = null };
         //Add to data by calling an external operation
-        _id = s_bl.Engineer.Create(newEng);
+        try
+        {
+            _id = s_bl.Engineer.Create(newEng);
+        }
+        catch (Exception ex) { Console.WriteLine(ex.Message); }
     }
 
     /// <summary>
@@ -187,7 +220,7 @@ internal class Program
         Console.WriteLine("insert task code to remove");
         int taskId = int.Parse(Console.ReadLine()!);
         //delete from the data by calling an external operation
-       s_bl.Task.Delete(taskId);
+        s_bl.Task.Delete(taskId);
     }
 
     /// <summary>
@@ -262,18 +295,20 @@ internal class Program
     private static void UpdateTask()
     {
         //Receipt of data by the user
-        //int? _idEngineer;
-        int? _complexityLevel;
-        int _dependOnTaskId,_taskId=0;
+        int? _complexityLevel = null, _dependOnTaskId;
+        int  _taskId = 0;
         bool _isMileston;
         DateTime? _startDate, _deadlineDate, _completeDate, _scheduledDate;
         TimeSpan? _requiredEffortTime;
         string? _alias, _deliverables, _remarks, _description;
-        List<TaskInList>? _dependencies = null;
+        List<TaskInList>? _dependencies = new List<TaskInList>();
         BO.EngineerInTask? _engInTask = null;
         BO.Task? dependTsk;
         Console.WriteLine("insert task id");
-        _taskId=int.Parse(Console.ReadLine());
+        _taskId = int.Parse(Console.ReadLine()!);
+        BO.Task? previousTsk = s_bl.Task.Read(_taskId);
+        if (previousTsk == null)
+            throw new Exception("the task is not found");
         Console.WriteLine("insert engineer id");
         if (int.TryParse(Console.ReadLine(), out int parsedId))
         {
@@ -287,22 +322,32 @@ internal class Program
                 Console.WriteLine("the id tou typed is not exist the engineer is null by defult");
             }
         }
+        else
+        { _engInTask = previousTsk.Engineer; }
         Console.WriteLine("is it a miles tone?");
         _isMileston = ParseMilestone();
         // Now 'isMilestone' will be a bool value based on user input, or false if parsing failed.
         Console.WriteLine("Is Milestone: " + _isMileston);
         Console.WriteLine("insert start date");
         _startDate = ParseDate();
-        Console.WriteLine("Start Date: " + (_startDate.HasValue ? _startDate.Value.ToString("yyyy-MM-dd") : null));
+        if (_startDate == null)
+            _startDate = previousTsk.StartDate;
+        Console.WriteLine("Start Date: " + (_startDate != null ? _startDate.Value.ToString("yyyy-MM-dd") : null));
         Console.WriteLine("insert deadline date");
         _deadlineDate = ParseDate();
-        Console.WriteLine("DeadLine Date: " + (_deadlineDate.HasValue ? _deadlineDate.Value.ToString("yyyy-MM-dd") : null));
+        if (_deadlineDate == null)
+            _deadlineDate = previousTsk.DeadlineDate;
+        Console.WriteLine("DeadLine Date: " + (_deadlineDate != null ? _deadlineDate.Value.ToString("yyyy-MM-dd") : null));
         Console.WriteLine("insert complete date");
         _completeDate = ParseDate();
-        Console.WriteLine("Complete Date: " + (_completeDate.HasValue ? _completeDate.Value.ToString("yyyy-MM-dd") : null));
+        if (_completeDate == null)
+            _completeDate = previousTsk.CompleteDate;
+        Console.WriteLine("Complete Date: " + (_completeDate != null ? _completeDate.Value.ToString("yyyy-MM-dd") : null));
         Console.WriteLine("insert scheduled date ");
         _scheduledDate = ParseDate();
-        Console.WriteLine("Scheduled Date: " + (_scheduledDate.HasValue ? _scheduledDate.Value.ToString("yyyy-MM-dd") : null));
+        if (_scheduledDate == null)
+            _scheduledDate = previousTsk.ScheduledDate;
+        Console.WriteLine("Scheduled Date: " + (_scheduledDate != null ? _scheduledDate.Value.ToString("yyyy-MM-dd") : null));
         Console.WriteLine("insert requiredEffortTime");
         if (TimeSpan.TryParse(Console.ReadLine(), out TimeSpan result))
         {
@@ -310,71 +355,71 @@ internal class Program
         }
         else
         {
-            _requiredEffortTime = null;
+            _requiredEffortTime = previousTsk.RequiredEffortTime;
         }
         // Now 'requiredEffortTime' will be a TimeSpan value if parsing was successful, or null if it failed.
-        Console.WriteLine("Required Effort Time: " + (_requiredEffortTime.HasValue ? _requiredEffortTime.ToString() : null));
+        Console.WriteLine("Required Effort Time: " + (_requiredEffortTime != null ? _requiredEffortTime.ToString() : null));
         Console.WriteLine("insert deliverables");
-        _deliverables = Console.ReadLine() ?? " ";
+        _deliverables = Console.ReadLine();
+        if (_deliverables == "")
+            _deliverables = previousTsk.Deliverables;
         Console.WriteLine("insert remarks");
-        _remarks = Console.ReadLine() ?? " ";
+        _remarks = Console.ReadLine();
+        if (_remarks == "")
+            _remarks = previousTsk.Remarks;
         Console.WriteLine("insert complexity level between 0-4");
-        _complexityLevel = GetComplexityLevel();
+        if (int.TryParse(Console.ReadLine(), out int parsedComplexityLevel))
+        {
+            if (parsedComplexityLevel >= 0 && parsedComplexityLevel <= 4)
+                _complexityLevel = parsedComplexityLevel;
+        }
+        else
+        {
+            _complexityLevel = (int?)previousTsk.ComplexityLevel;
+        }
         // Now 'complexityLevel' will be an integer between 0-4 based on user input.
         Console.WriteLine("Complexity Level: " + _complexityLevel);
         Console.WriteLine("insert description");
-        _description = Console.ReadLine() ?? " ";
+        _description = Console.ReadLine();
+        if (_description == "")
+            _description = previousTsk.Description;
         Console.WriteLine("insert alias");
-        _alias = Console.ReadLine() ?? " ";
+        _alias = Console.ReadLine();
+        if (_alias == "")
+            _alias = previousTsk.Alias;
         Console.WriteLine("insert the ids of the tasks you denends on:");
-        _dependOnTaskId = int.Parse(Console.ReadLine());
-        while (_dependOnTaskId != 0)
+        _dependOnTaskId = GetOptionalInt();
+        while (_dependOnTaskId != null)
         {
-            dependTsk = s_bl.Task.Read(_dependOnTaskId);
+            dependTsk = s_bl.Task.Read((int)_dependOnTaskId);
             if (dependTsk != null)
             {
                 _dependencies.Add(new TaskInList
                 {
-                    Id = _dependOnTaskId,
+                    Id = (int)_dependOnTaskId,
                     Description = dependTsk.Description,
                     Alias = dependTsk.Alias,
                     Status = dependTsk.Status
                 });
                 Console.WriteLine("insert the ids of the tasks you denends on:");
-                _dependOnTaskId = int.Parse(Console.ReadLine());
+                _dependOnTaskId = GetOptionalInt();
             }
             else
             {
                 Console.WriteLine("the task you typed is not exist try again");
                 Console.WriteLine("insert the ids of the tasks you denends on:");
-                _dependOnTaskId = int.Parse(Console.ReadLine());
+                _dependOnTaskId = GetOptionalInt();
             }
         }
         //creating a new object
         BO.Task newTsk = new BO.Task { Id = _taskId, Alias = _alias, Description = _description, CreateAtDate = null, Status = (Status)0, Dependencies = _dependencies, Milestone = null, RequiredEffortTime = _requiredEffortTime, StartDate = _startDate, ScheduledDate = _scheduledDate, ForecastDate = null, DeadlineDate = _deadlineDate, CompleteDate = _completeDate, Deliverables = _deliverables, Remarks = _remarks, Engineer = _engInTask, ComplexityLevel = (EngineerExperience?)_complexityLevel };
         //Update the data by calling an external operation
-        s_bl.Task.Update(newTsk);
+        try
+        {
+            s_bl.Task.Update(newTsk);
+        }
+        catch (Exception ex) { Console.WriteLine(ex.Message); }
     }
-
-    /////////////////////// <summary>
-    /////////////////////// Updating information about a dependency that already exists in the system
-    /////////////////////// </summary>
-    ////////////////////private static void UpdateDependency()
-    ////////////////////{
-    ////////////////////    //Receipt of data by the user by id
-    ////////////////////    Console.WriteLine("insert id");
-    ////////////////////    int id = int.Parse(Console.ReadLine()!);
-    ////////////////////    s_dal.Dependency.Read(id);
-    ////////////////////    int _dependenTask, _dependensOnTask;
-    ////////////////////    Console.WriteLine("insert depeden task ");
-    ////////////////////    _dependenTask = int.Parse(Console.ReadLine()!);
-    ////////////////////    Console.WriteLine("depends on task ");
-    ////////////////////    _dependensOnTask = int.Parse(Console.ReadLine()!);
-    ////////////////////    //creating a new object
-    ////////////////////    Dependency newDpn = new(id, _dependenTask, _dependensOnTask);
-    ////////////////////    //Update the data by calling an external operation
-    ////////////////////    s_dal.Dependency.Update(newDpn);
-    ////////////////////}
 
     /// <summary>
     /// Updating information about an engineer that already exists in the system
@@ -383,42 +428,62 @@ internal class Program
     {
         //Receipt of data by the user
         int _id;
-        int? _level;
+        int? _level=null;
         double? _cost;
         string? _name, _email;
         TaskInEngineer? tskInEng = null;
         BO.Task? tskById = null;
         Console.WriteLine("insert id");
         _id = int.Parse(Console.ReadLine()!);
+        BO.Engineer? previousEng = s_bl.Engineer.Read(_id);
+        if (previousEng == null)
+            throw new BO.BlDoesNotExistException($"engineer with id {_id} does not exist");
         Console.WriteLine(" insert name");
-        _name = Console.ReadLine() ?? " ";
+        _name = Console.ReadLine();
+        if (_name == "")
+            _name = previousEng.Name;
         Console.WriteLine("insert complexity level between 0-4");
-        _level = GetComplexityLevel();
-        // Now 'complexityLevel' will be an integer between 0-4 based on user input.
-        Console.WriteLine("Complexity Level: " + _level);
+        if (int.TryParse(Console.ReadLine(), out int parsedComplexityLevel))
+        {
+            if (parsedComplexityLevel >= 0 && parsedComplexityLevel <= 4)
+                _level = parsedComplexityLevel;
+        }
+        else
+        {
+            _level = (int?)previousEng.Level;
+        }
         Console.WriteLine("insert cost");
         if (double.TryParse(Console.ReadLine(), out double parsedCost))
         {
             _cost = parsedCost;
         }
         else
-            _cost = null;
+            _cost = previousEng.Cost;
         // Now 'cost' will be a double value if parsing was successful, or null if it failed or the input was blank.
         Console.WriteLine("Cost: " + (_cost.HasValue ? _cost.ToString() : "null"));
         Console.WriteLine("insert email");
-        _email = Console.ReadLine() ?? " ";
+        _email = Console.ReadLine();
+        if (_email == "")
+            _email = previousEng.Email;
         Console.WriteLine("insert id of belong task:");
-        int tskId = int.Parse(Console.ReadLine());
-        tskById = s_bl.Task.Read(tskId);
-        if (tskById != null)
-            tskInEng = new BO.TaskInEngineer { Id = tskId, Alias = tskById.Alias };
-        else
-            Console.WriteLine("this task is not exist the task is null by deflut");
+        int? tskId = GetOptionalInt();
+        if (tskId != null)
+        {
+            tskById = s_bl.Task.Read((int)tskId);
+            if (tskById != null)
+                tskInEng = new BO.TaskInEngineer { Id = (int)tskId, Alias = tskById.Alias };
+            else
+                Console.WriteLine("this task is not exist the task is null by deflut");
+        }
 
         //creating a new object
         BO.Engineer newEng = new BO.Engineer { Id = _id, Name = _name, Email = _email, Level = (_level != null ? (EngineerExperience)_level : null), Cost = _cost, Task = tskInEng };
         //Update the data by calling an external operation
-        s_bl.Engineer.Update(newEng);
+        try
+        {
+            s_bl.Engineer.Update(newEng);
+        }
+        catch (Exception ex) { Console.WriteLine(ex.Message); }
     }
 
 
@@ -507,7 +572,7 @@ internal class Program
         }
     }
 
-   
+
 
     /// <summary>
     /// A menu for the user selection for the engineers
@@ -566,7 +631,7 @@ internal class Program
         {
             s_bl.Reset();
             //Initialization.DO(s_dal);//stage 2
-           DalTest.Initialization.Do(); //stage 4
+            DalTest.Initialization.Do(); //stage 4
         }
     }
 

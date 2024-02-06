@@ -158,15 +158,17 @@ internal class TaskImplementation : ITask
                             throw new BO.BlStatusNotFit($"the dependent task: {depOnTsk.Alias} is not done yet");
                     }
                 //בודק שאף מהנדס לא לקח את המשימה קודם
-                if (dependTsk.Engineer != null)
+                if (dependTsk.Engineer != null&& dependTsk.Engineer.Id!=item.Engineer.Id)
                     throw new BO.BltaskHasEngineer($"the task: {item.Id} had already taken by other engineer");
 
                 //בודק האם אין למהנדס משימה קודמת
-                if (_dal.Task.Read(tsk => tsk.EngineerId == item.Id) != null)
-                    throw new BO.BlEngineerHasTask("this engineer has already took another task");
+                DO.Task? previousTsk = _dal.Task.Read(tsk => tsk.EngineerId == item.Id);
+                if (previousTsk != null)
+                    if (Read(previousTsk.Id)!.Status != (Status)4)
+                        throw new BO.BlEngineerHasTask("this engineer has already took another task");
 
                 //בדיקה רמת המהנדס לא ריקה וגבוהה מרמת המשימה
-                if ((engToAdd.Level==null|| item.ComplexityLevel==null) &&(int)engToAdd.Level!<(int)item.ComplexityLevel!)
+                if ((engToAdd.Level == null || item.ComplexityLevel == null) && (int)engToAdd.Level! < (int)item.ComplexityLevel!)
                 {
                     throw new BO.BlValidationError("the engineer cant take this task becase his level is to low");
                 }
