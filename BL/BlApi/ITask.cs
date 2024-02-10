@@ -26,7 +26,7 @@ public interface ITask
     ///  Reads all tasks objects  
     /// </summary>
     /// <returns></returns>
-    public IEnumerable<BO.Task?> ReadAll();
+    public IEnumerable<BO.Task> ReadAll(Func<BO.Task, bool>? filter = null);
 
 
     /// <summary>

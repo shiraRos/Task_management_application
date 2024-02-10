@@ -2,6 +2,7 @@
 namespace BlImplementation;
 using BlApi;
 using BO;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.Net.NetworkInformation;
 
@@ -126,13 +127,6 @@ internal class TaskImplementation : ITask
         };
     }
 
-    public IEnumerable<BO.Task?> ReadAll()
-    {
-        var list = _dal.Task.ReadAll();
-        if (list != null)
-            return list.Select(tsk => Read(tsk!.Id));
-        throw new BO.BlValidationError("list is null");
-    }
 
     public void Update(BO.Task item)
     {
@@ -183,5 +177,33 @@ internal class TaskImplementation : ITask
         }
     }
 
+    public IEnumerable<BO.Task> ReadAll(Func<BO.Task, bool>? filter = null)
+    {
+        try
+        {
+            var listFromDl = _dal.Task.ReadAll();
+            try
+            {
+                var listFromBl = listFromDl.Select(tsk => Read(tsk!.Id));
+
+                if (filter == null)
+                {
+                    return listFromBl!;
+                }
+                else
+                {
+                    return listFromBl.Where(filter!)!;
+                }
+            }
+            catch (BO.BlDoesNotExistException ex)
+            {
+                throw new BO.BlDoesNotExistException(ex.Message);
+            }
+        }
+        catch (DO.DalDoesNotExistException ex)
+        {
+            throw new BO.BlDoesNotExistException(ex.Message);
+        }
+    }
 }
 

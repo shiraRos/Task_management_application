@@ -65,7 +65,7 @@ internal class TaskImplementation : ITask
 
     /// function for reading all of the objects in the list
     /// <param name="filter"> the condition what to read</param>
-    public IEnumerable<Task?> ReadAll(Func<Task, bool>? filter = null) //stage 2
+    public IEnumerable<Task> ReadAll(Func<Task, bool>? filter = null) //stage 2
     {
         if (filter == null)
             return DataSource.Tasks.Select(item => item);

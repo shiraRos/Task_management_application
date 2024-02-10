@@ -21,11 +21,13 @@ public interface IEngineer
     public BO.Engineer? Read(int id);
 
 
+
     /// <summary>
     /// reads all the engineers objects 
     /// </summary>
     /// <returns></returns>
-    public IEnumerable<BO.Engineer?> ReadAll();
+    public IEnumerable<BO.Engineer> ReadAll(Func<BO.Engineer, bool>? filter = null);
+   
 
 
     /// <summary>

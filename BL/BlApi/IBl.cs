@@ -11,7 +11,9 @@ public interface IBl
 
     public DateTime? GetStartDate();
 
-    public bool GetProjectStatuse();
+    public bool isProjectStarted();
+
+    public void createSchedule();
 
     /// <summary>
     /// general reset method

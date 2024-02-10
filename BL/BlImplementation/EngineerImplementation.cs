@@ -5,13 +5,14 @@ using BO;
 using System.Collections.Generic;
 using System.Data.Common;
 using BlImplementation;
+using System;
 
 internal class EngineerImplementation : IEngineer
 {
     private DalApi.IDal _dal = DalApi.Factory.Get;
     public int Create(BO.Engineer item)
     {
-        if (item.Id > 0 && (item.Name == null||item.Name != " " ) && (item.Cost > 0 || item.Cost == null) && (item.Email == null || item.Email.Contains('@')))
+        if (item.Id > 0 && (item.Name == null || item.Name != " ") && (item.Cost > 0 || item.Cost == null) && (item.Email == null || item.Email.Contains('@')))
         {
             DO.Engineer doEngineer = new DO.Engineer(item.Id, (DO.EngineerExperience?)item.Level, item.Cost, item.Name, item.Email);
 
@@ -66,12 +67,34 @@ internal class EngineerImplementation : IEngineer
 
     }
 
-    public IEnumerable<BO.Engineer?> ReadAll()
+
+    public IEnumerable<BO.Engineer> ReadAll(Func<BO.Engineer, bool>? filter = null)
     {
-        var list = _dal.Engineer.ReadAll();
-        if (list != null)
-            return list.Select(eng => Read(eng!.Id));
-        throw new BO.BlValidationError("list is null");
+        try
+        {
+                var listFromDl = _dal.Engineer.ReadAll();
+            try
+            {
+                var listFromBl = listFromDl.Select(eng => Read(eng!.Id));
+
+                if (filter == null)
+                {
+                    return listFromBl!;
+                }
+                else
+                {
+                    return listFromBl.Where(filter!)!;
+                }
+            }
+            catch (BO.BlDoesNotExistException ex)
+            {
+                throw new BO.BlDoesNotExistException(ex.Message);
+            }
+        }
+        catch (DO.DalDoesNotExistException ex)
+        {
+            throw new BO.BlDoesNotExistException(ex.Message);
+        }
     }
 
     public void Update(BO.Engineer item)
@@ -116,13 +139,13 @@ internal class EngineerImplementation : IEngineer
                 };
                 tskImp.Update(dependTsk);
             }
-                try
-                {
-                    //שולח לעדכון בשכבת הDL
-                    _dal.Engineer.Update(doEngineer);
+            try
+            {
+                //שולח לעדכון בשכבת הDL
+                _dal.Engineer.Update(doEngineer);
 
-                }
-            
+            }
+
             catch (DO.DalDoesNotExistException ex)
             {
                 throw new BO.BlDoesNotExistException($"Engineer with ID={item.Id} does not exists", ex);
@@ -131,5 +154,5 @@ internal class EngineerImplementation : IEngineer
         else
             throw new BO.BlValidationError($"one of the details you insert is un valid");
     }
-  
+
 }

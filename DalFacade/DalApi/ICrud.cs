@@ -41,7 +41,7 @@ namespace DalApi
         /// </summary>
         /// <param name="filter">a condotion for getting all of the items </param>
         /// <returns></returns>
-        IEnumerable<T?> ReadAll(Func<T, bool>? filter = null);//stage 2 
+        IEnumerable<T> ReadAll(Func<T, bool>? filter = null);//stage 2 
 
 
         /// <summary>

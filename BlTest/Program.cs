@@ -265,7 +265,7 @@ internal class Program
         Console.WriteLine("the all engineers:");
         //getting all the engineers to a new item
         //List<Engineer> engList = s_dal!.Engineer.ReadAll();
-        List<Engineer> engList = s_bl!.Engineer.ReadAll()?.Where(e => e != null).Select(e => e!).ToList() ?? new List<Engineer>();
+        List<Engineer> engList = s_bl.Engineer.ReadAll()?.Where(e => e != null).Select(e => e!).ToList() ?? new List<Engineer>();
         //print evey item
         foreach (var item in engList)
         {

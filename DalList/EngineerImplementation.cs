@@ -70,7 +70,7 @@ internal class EngineerImplementation : IEngineer
     /// <param name="filter">a condition for group of items</param>
     /// <returns>all of the items in the list who suit the condition</returns>
     /// <exception cref="DalDoesNotExistException"></exception>
-    public IEnumerable<Engineer?> ReadAll(Func<Engineer, bool>? filter = null) //stage 2
+    public IEnumerable<Engineer> ReadAll(Func<Engineer, bool>? filter = null) //stage 2
     {
         if (filter == null)
             return DataSource.Engineers.Select(item => item);
