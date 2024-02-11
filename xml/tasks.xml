@@ -1,243 +1,258 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfTask xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Task>
-    <Id>272</Id>
-    <EngineerId>373827971</EngineerId>
-    <IsMileston>false</IsMileston>
+    <Id>307</Id>
+    <EngineerId>218549438</EngineerId>
+    <IsMileston xsi:nil="true" />
     <StartDate xsi:nil="true" />
-    <DeadlineDate>2024-02-16T00:00:00+02:00</DeadlineDate>
+    <DeadlineDate>2024-02-20T00:00:00+02:00</DeadlineDate>
     <CompleteDate xsi:nil="true" />
-    <ScheduledDate xsi:nil="true" />
-    <RequiredEffortTime xsi:nil="true" />
-    <ComplexityLevel>Proficient</ComplexityLevel>
-    <Alias>tsk35</Alias>
-  </Task>
-  <Task>
-    <Id>273</Id>
-    <EngineerId>373827971</EngineerId>
-    <IsMileston>false</IsMileston>
-    <StartDate xsi:nil="true" />
-    <DeadlineDate>2024-02-19T00:00:00+02:00</DeadlineDate>
-    <CompleteDate xsi:nil="true" />
-    <ScheduledDate xsi:nil="true" />
-    <RequiredEffortTime xsi:nil="true" />
-    <ComplexityLevel>Competent</ComplexityLevel>
-    <Alias>tsk76</Alias>
-  </Task>
-  <Task>
-    <Id>274</Id>
-    <EngineerId>373827971</EngineerId>
-    <IsMileston>false</IsMileston>
-    <StartDate xsi:nil="true" />
-    <DeadlineDate>2024-02-19T00:00:00+02:00</DeadlineDate>
-    <CompleteDate xsi:nil="true" />
-    <ScheduledDate xsi:nil="true" />
-    <RequiredEffortTime xsi:nil="true" />
-    <ComplexityLevel>Competent</ComplexityLevel>
-    <Alias>tsk113</Alias>
-  </Task>
-  <Task>
-    <Id>275</Id>
-    <EngineerId>261696083</EngineerId>
-    <IsMileston>false</IsMileston>
-    <StartDate xsi:nil="true" />
-    <DeadlineDate>2024-02-16T00:00:00+02:00</DeadlineDate>
-    <CompleteDate xsi:nil="true" />
-    <ScheduledDate xsi:nil="true" />
-    <RequiredEffortTime xsi:nil="true" />
+    <ScheduledDate>2024-02-20T00:00:00</ScheduledDate>
+    <RequiredEffortTime>P1D</RequiredEffortTime>
     <ComplexityLevel>Novice</ComplexityLevel>
-    <Alias>tsk58</Alias>
+    <Alias>tsk43</Alias>
   </Task>
   <Task>
-    <Id>276</Id>
-    <EngineerId>263269770</EngineerId>
-    <IsMileston>false</IsMileston>
+    <Id>308</Id>
+    <EngineerId>329797320</EngineerId>
+    <IsMileston xsi:nil="true" />
     <StartDate xsi:nil="true" />
-    <DeadlineDate>2024-02-15T00:00:00+02:00</DeadlineDate>
+    <DeadlineDate>2024-02-18T00:00:00+02:00</DeadlineDate>
     <CompleteDate xsi:nil="true" />
-    <ScheduledDate xsi:nil="true" />
-    <RequiredEffortTime xsi:nil="true" />
+    <ScheduledDate>2024-02-20T00:00:00</ScheduledDate>
+    <RequiredEffortTime>P1D</RequiredEffortTime>
+    <ComplexityLevel>Competent</ComplexityLevel>
+    <Alias>tsk90</Alias>
+  </Task>
+  <Task>
+    <Id>309</Id>
+    <EngineerId>241031893</EngineerId>
+    <IsMileston xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <DeadlineDate>2024-02-17T00:00:00+02:00</DeadlineDate>
+    <CompleteDate xsi:nil="true" />
+    <ScheduledDate>2024-02-20T00:00:00</ScheduledDate>
+    <RequiredEffortTime>P1D</RequiredEffortTime>
+    <ComplexityLevel>Novice</ComplexityLevel>
+    <Alias>tsk102</Alias>
+  </Task>
+  <Task>
+    <Id>310</Id>
+    <EngineerId>356627415</EngineerId>
+    <IsMileston xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <DeadlineDate>2024-02-14T00:00:00+02:00</DeadlineDate>
+    <CompleteDate xsi:nil="true" />
+    <ScheduledDate>2024-02-20T00:00:00</ScheduledDate>
+    <RequiredEffortTime>P1D</RequiredEffortTime>
+    <ComplexityLevel>AdvancedBeginner</ComplexityLevel>
+    <Alias>tsk102</Alias>
+  </Task>
+  <Task>
+    <Id>311</Id>
+    <EngineerId>313396821</EngineerId>
+    <IsMileston xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <DeadlineDate>2024-02-19T00:00:00+02:00</DeadlineDate>
+    <CompleteDate xsi:nil="true" />
+    <ScheduledDate>2024-02-20T00:00:00</ScheduledDate>
+    <RequiredEffortTime>P1D</RequiredEffortTime>
+    <ComplexityLevel>Proficient</ComplexityLevel>
+    <Alias>tsk80</Alias>
+  </Task>
+  <Task>
+    <Id>312</Id>
+    <EngineerId>241031893</EngineerId>
+    <IsMileston xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <DeadlineDate>2024-02-18T00:00:00+02:00</DeadlineDate>
+    <CompleteDate xsi:nil="true" />
+    <ScheduledDate>2024-02-20T00:00:00</ScheduledDate>
+    <RequiredEffortTime>P1D</RequiredEffortTime>
+    <ComplexityLevel>AdvancedBeginner</ComplexityLevel>
+    <Alias>tsk38</Alias>
+  </Task>
+  <Task>
+    <Id>313</Id>
+    <EngineerId>352014929</EngineerId>
+    <IsMileston xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <DeadlineDate>2024-02-18T00:00:00+02:00</DeadlineDate>
+    <CompleteDate xsi:nil="true" />
+    <ScheduledDate>2024-02-20T00:00:00</ScheduledDate>
+    <RequiredEffortTime>P1D</RequiredEffortTime>
+    <ComplexityLevel>Competent</ComplexityLevel>
+    <Alias>tsk49</Alias>
+  </Task>
+  <Task>
+    <Id>314</Id>
+    <EngineerId>287120380</EngineerId>
+    <IsMileston xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <DeadlineDate>2024-02-17T00:00:00+02:00</DeadlineDate>
+    <CompleteDate xsi:nil="true" />
+    <ScheduledDate>2024-02-20T00:00:00</ScheduledDate>
+    <RequiredEffortTime>P1D</RequiredEffortTime>
+    <ComplexityLevel>Proficient</ComplexityLevel>
+    <Alias>tsk47</Alias>
+  </Task>
+  <Task>
+    <Id>315</Id>
+    <EngineerId>352014929</EngineerId>
+    <IsMileston xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <DeadlineDate>2024-02-21T00:00:00+02:00</DeadlineDate>
+    <CompleteDate xsi:nil="true" />
+    <ScheduledDate>2024-02-20T00:00:00</ScheduledDate>
+    <RequiredEffortTime>P1D</RequiredEffortTime>
+    <ComplexityLevel>Proficient</ComplexityLevel>
+    <Alias>tsk42</Alias>
+  </Task>
+  <Task>
+    <Id>316</Id>
+    <EngineerId>352014929</EngineerId>
+    <IsMileston xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <DeadlineDate>2024-02-21T00:00:00+02:00</DeadlineDate>
+    <CompleteDate xsi:nil="true" />
+    <ScheduledDate>2024-02-20T00:00:00</ScheduledDate>
+    <RequiredEffortTime>P1D</RequiredEffortTime>
+    <ComplexityLevel>Competent</ComplexityLevel>
+    <Alias>tsk67</Alias>
+  </Task>
+  <Task>
+    <Id>317</Id>
+    <EngineerId>313396821</EngineerId>
+    <IsMileston xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <DeadlineDate>2024-02-19T00:00:00+02:00</DeadlineDate>
+    <CompleteDate xsi:nil="true" />
+    <ScheduledDate>2024-02-20T00:00:00</ScheduledDate>
+    <RequiredEffortTime>P1D</RequiredEffortTime>
+    <ComplexityLevel>AdvancedBeginner</ComplexityLevel>
+    <Alias>tsk34</Alias>
+  </Task>
+  <Task>
+    <Id>318</Id>
+    <EngineerId>241031893</EngineerId>
+    <IsMileston xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <DeadlineDate>2024-02-21T00:00:00+02:00</DeadlineDate>
+    <CompleteDate xsi:nil="true" />
+    <ScheduledDate>2024-02-20T00:00:00</ScheduledDate>
+    <RequiredEffortTime>P1D</RequiredEffortTime>
     <ComplexityLevel>Proficient</ComplexityLevel>
     <Alias>tsk115</Alias>
   </Task>
   <Task>
-    <Id>277</Id>
-    <EngineerId>370203523</EngineerId>
-    <IsMileston>false</IsMileston>
+    <Id>319</Id>
+    <EngineerId>218549438</EngineerId>
+    <IsMileston xsi:nil="true" />
     <StartDate xsi:nil="true" />
-    <DeadlineDate>2024-02-21T00:00:00+02:00</DeadlineDate>
+    <DeadlineDate>2024-02-18T00:00:00+02:00</DeadlineDate>
     <CompleteDate xsi:nil="true" />
-    <ScheduledDate xsi:nil="true" />
-    <RequiredEffortTime xsi:nil="true" />
-    <ComplexityLevel>Competent</ComplexityLevel>
-    <Alias>tsk59</Alias>
+    <ScheduledDate>2024-02-20T00:00:00</ScheduledDate>
+    <RequiredEffortTime>P1D</RequiredEffortTime>
+    <ComplexityLevel>AdvancedBeginner</ComplexityLevel>
+    <Alias>tsk77</Alias>
   </Task>
   <Task>
-    <Id>278</Id>
-    <EngineerId>261696083</EngineerId>
-    <IsMileston>false</IsMileston>
+    <Id>320</Id>
+    <EngineerId>352014929</EngineerId>
+    <IsMileston xsi:nil="true" />
     <StartDate xsi:nil="true" />
     <DeadlineDate>2024-02-13T00:00:00+02:00</DeadlineDate>
     <CompleteDate xsi:nil="true" />
-    <ScheduledDate xsi:nil="true" />
-    <RequiredEffortTime xsi:nil="true" />
-    <ComplexityLevel>Novice</ComplexityLevel>
-    <Alias>tsk48</Alias>
-  </Task>
-  <Task>
-    <Id>279</Id>
-    <EngineerId>370203523</EngineerId>
-    <IsMileston>false</IsMileston>
-    <StartDate xsi:nil="true" />
-    <DeadlineDate>2024-02-21T00:00:00+02:00</DeadlineDate>
-    <CompleteDate xsi:nil="true" />
-    <ScheduledDate xsi:nil="true" />
-    <RequiredEffortTime xsi:nil="true" />
+    <ScheduledDate>2024-02-20T00:00:00</ScheduledDate>
+    <RequiredEffortTime>P1D</RequiredEffortTime>
     <ComplexityLevel>Competent</ComplexityLevel>
-    <Alias>tsk67</Alias>
+    <Alias>tsk56</Alias>
   </Task>
   <Task>
-    <Id>280</Id>
-    <EngineerId>217982414</EngineerId>
-    <IsMileston>false</IsMileston>
-    <StartDate xsi:nil="true" />
-    <DeadlineDate>2024-02-14T00:00:00+02:00</DeadlineDate>
-    <CompleteDate xsi:nil="true" />
-    <ScheduledDate xsi:nil="true" />
-    <RequiredEffortTime xsi:nil="true" />
-    <ComplexityLevel>Competent</ComplexityLevel>
-    <Alias>tsk73</Alias>
-  </Task>
-  <Task>
-    <Id>281</Id>
-    <EngineerId>217982414</EngineerId>
-    <IsMileston>false</IsMileston>
-    <StartDate xsi:nil="true" />
-    <DeadlineDate>2024-02-14T00:00:00+02:00</DeadlineDate>
-    <CompleteDate xsi:nil="true" />
-    <ScheduledDate xsi:nil="true" />
-    <RequiredEffortTime xsi:nil="true" />
-    <ComplexityLevel>Proficient</ComplexityLevel>
-    <Alias>tsk83</Alias>
-  </Task>
-  <Task>
-    <Id>282</Id>
-    <EngineerId>261696083</EngineerId>
-    <IsMileston>false</IsMileston>
+    <Id>321</Id>
+    <EngineerId>329797320</EngineerId>
+    <IsMileston xsi:nil="true" />
     <StartDate xsi:nil="true" />
     <DeadlineDate>2024-02-15T00:00:00+02:00</DeadlineDate>
     <CompleteDate xsi:nil="true" />
-    <ScheduledDate xsi:nil="true" />
-    <RequiredEffortTime xsi:nil="true" />
+    <ScheduledDate>2024-02-20T00:00:00</ScheduledDate>
+    <RequiredEffortTime>P1D</RequiredEffortTime>
     <ComplexityLevel>Competent</ComplexityLevel>
-    <Alias>tsk38</Alias>
+    <Alias>tsk99</Alias>
   </Task>
   <Task>
-    <Id>283</Id>
-    <EngineerId>289711228</EngineerId>
-    <IsMileston>false</IsMileston>
+    <Id>322</Id>
+    <EngineerId>384369422</EngineerId>
+    <IsMileston xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <DeadlineDate>2024-02-19T00:00:00+02:00</DeadlineDate>
+    <CompleteDate xsi:nil="true" />
+    <ScheduledDate>2024-02-20T00:00:00</ScheduledDate>
+    <RequiredEffortTime>P1D</RequiredEffortTime>
+    <ComplexityLevel>Proficient</ComplexityLevel>
+    <Alias>tsk95</Alias>
+  </Task>
+  <Task>
+    <Id>323</Id>
+    <EngineerId>313396821</EngineerId>
+    <IsMileston xsi:nil="true" />
     <StartDate xsi:nil="true" />
     <DeadlineDate>2024-02-21T00:00:00+02:00</DeadlineDate>
     <CompleteDate xsi:nil="true" />
-    <ScheduledDate xsi:nil="true" />
-    <RequiredEffortTime xsi:nil="true" />
-    <ComplexityLevel>Proficient</ComplexityLevel>
-    <Alias>tsk35</Alias>
+    <ScheduledDate>2024-02-20T00:00:00</ScheduledDate>
+    <RequiredEffortTime>P1D</RequiredEffortTime>
+    <ComplexityLevel>Novice</ComplexityLevel>
+    <Alias>tsk108</Alias>
   </Task>
   <Task>
-    <Id>284</Id>
-    <EngineerId>289711228</EngineerId>
-    <IsMileston>false</IsMileston>
+    <Id>324</Id>
+    <EngineerId>287120380</EngineerId>
+    <IsMileston xsi:nil="true" />
     <StartDate xsi:nil="true" />
     <DeadlineDate>2024-02-15T00:00:00+02:00</DeadlineDate>
     <CompleteDate xsi:nil="true" />
-    <ScheduledDate xsi:nil="true" />
-    <RequiredEffortTime xsi:nil="true" />
-    <ComplexityLevel>AdvancedBeginner</ComplexityLevel>
-    <Alias>tsk67</Alias>
-  </Task>
-  <Task>
-    <Id>285</Id>
-    <EngineerId>289711228</EngineerId>
-    <IsMileston>false</IsMileston>
-    <StartDate xsi:nil="true" />
-    <DeadlineDate>2024-02-20T00:00:00+02:00</DeadlineDate>
-    <CompleteDate xsi:nil="true" />
-    <ScheduledDate xsi:nil="true" />
-    <RequiredEffortTime xsi:nil="true" />
-    <ComplexityLevel>AdvancedBeginner</ComplexityLevel>
-    <Alias>tsk57</Alias>
-  </Task>
-  <Task>
-    <Id>286</Id>
-    <EngineerId>217982414</EngineerId>
-    <IsMileston>false</IsMileston>
-    <StartDate xsi:nil="true" />
-    <DeadlineDate>2024-02-12T00:00:00+02:00</DeadlineDate>
-    <CompleteDate xsi:nil="true" />
-    <ScheduledDate xsi:nil="true" />
-    <RequiredEffortTime xsi:nil="true" />
+    <ScheduledDate>2024-02-20T00:00:00</ScheduledDate>
+    <RequiredEffortTime>P1D</RequiredEffortTime>
     <ComplexityLevel>Competent</ComplexityLevel>
-    <Alias>tsk62</Alias>
+    <Alias>tsk52</Alias>
   </Task>
   <Task>
-    <Id>287</Id>
-    <EngineerId>370203523</EngineerId>
-    <IsMileston>false</IsMileston>
+    <Id>325</Id>
+    <EngineerId>241031893</EngineerId>
+    <IsMileston xsi:nil="true" />
     <StartDate xsi:nil="true" />
-    <DeadlineDate>2024-02-20T00:00:00+02:00</DeadlineDate>
+    <DeadlineDate>2024-02-14T00:00:00+02:00</DeadlineDate>
     <CompleteDate xsi:nil="true" />
-    <ScheduledDate xsi:nil="true" />
-    <RequiredEffortTime xsi:nil="true" />
+    <ScheduledDate>2024-02-20T00:00:00</ScheduledDate>
+    <RequiredEffortTime>P1D</RequiredEffortTime>
+    <ComplexityLevel>AdvancedBeginner</ComplexityLevel>
+    <Alias>tsk42</Alias>
+  </Task>
+  <Task>
+    <Id>326</Id>
+    <EngineerId>287120380</EngineerId>
+    <IsMileston xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <DeadlineDate>2024-02-19T00:00:00+02:00</DeadlineDate>
+    <CompleteDate xsi:nil="true" />
+    <ScheduledDate>2024-02-20T00:00:00</ScheduledDate>
+    <RequiredEffortTime>P1D</RequiredEffortTime>
+    <ComplexityLevel>Competent</ComplexityLevel>
+    <Alias>tsk99</Alias>
+  </Task>
+  <Task>
+    <Id>327</Id>
+    <EngineerId xsi:nil="true" />
+    <IsMileston xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <ScheduledDate>2024-02-20T00:00:00</ScheduledDate>
+    <RequiredEffortTime>P1D</RequiredEffortTime>
+    <Deliverables />
+    <Remarks />
     <ComplexityLevel>Novice</ComplexityLevel>
-    <Alias>tsk63</Alias>
-  </Task>
-  <Task>
-    <Id>288</Id>
-    <EngineerId>289711228</EngineerId>
-    <IsMileston>false</IsMileston>
-    <StartDate xsi:nil="true" />
-    <DeadlineDate>2024-02-20T00:00:00+02:00</DeadlineDate>
-    <CompleteDate xsi:nil="true" />
-    <ScheduledDate xsi:nil="true" />
-    <RequiredEffortTime xsi:nil="true" />
-    <ComplexityLevel>AdvancedBeginner</ComplexityLevel>
-    <Alias>tsk111</Alias>
-  </Task>
-  <Task>
-    <Id>289</Id>
-    <EngineerId>263269770</EngineerId>
-    <IsMileston>false</IsMileston>
-    <StartDate xsi:nil="true" />
-    <DeadlineDate>2024-02-21T00:00:00+02:00</DeadlineDate>
-    <CompleteDate xsi:nil="true" />
-    <ScheduledDate xsi:nil="true" />
-    <RequiredEffortTime xsi:nil="true" />
-    <ComplexityLevel>AdvancedBeginner</ComplexityLevel>
-    <Alias>tsk106</Alias>
-  </Task>
-  <Task>
-    <Id>290</Id>
-    <EngineerId>390914833</EngineerId>
-    <IsMileston>false</IsMileston>
-    <StartDate xsi:nil="true" />
-    <DeadlineDate>2024-02-12T00:00:00+02:00</DeadlineDate>
-    <CompleteDate xsi:nil="true" />
-    <ScheduledDate xsi:nil="true" />
-    <RequiredEffortTime xsi:nil="true" />
-    <ComplexityLevel>Proficient</ComplexityLevel>
-    <Alias>tsk50</Alias>
-  </Task>
-  <Task>
-    <Id>291</Id>
-    <EngineerId>261696083</EngineerId>
-    <IsMileston>false</IsMileston>
-    <StartDate xsi:nil="true" />
-    <DeadlineDate>2024-02-16T00:00:00+02:00</DeadlineDate>
-    <CompleteDate xsi:nil="true" />
-    <ScheduledDate xsi:nil="true" />
-    <RequiredEffortTime xsi:nil="true" />
-    <ComplexityLevel>Proficient</ComplexityLevel>
-    <Alias>tsk110</Alias>
+    <Description>התחלהה</Description>
+    <Alias>שלב ראשון</Alias>
   </Task>
 </ArrayOfTask>

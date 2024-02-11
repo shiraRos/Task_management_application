@@ -54,7 +54,7 @@ internal class Bl : IBl
         DateTime result, maxTimeTask;
         TimeSpan? defaultTime = null;
         TimeSpan defResult;
-        Queue<BO.Task>? tasksToCheck = new Queue<BO.Task>();
+        Queue<BO.Task> tasksToCheck = new Queue<BO.Task>();
         BO.Task currentTask;
         Console.WriteLine("insert project start date:");
         while (statDate == null)
