@@ -126,8 +126,8 @@ internal class Program
         if (_alias == "")
             _alias = null;
         Console.WriteLine("insert the ids of the tasks you denends on:");
-        _dependOnTaskId =GetOptionalInt();
-        while (_dependOnTaskId !=null)
+        _dependOnTaskId = GetOptionalInt();
+        while (_dependOnTaskId != null)
         {
             dependTsk = s_bl.Task.Read((int)_dependOnTaskId);
             if (dependTsk != null)
@@ -296,7 +296,7 @@ internal class Program
     {
         //Receipt of data by the user
         int? _complexityLevel = null, _dependOnTaskId;
-        int  _taskId = 0;
+        int _taskId = 0;
         bool _isMileston;
         DateTime? _startDate, _deadlineDate, _completeDate, _scheduledDate;
         TimeSpan? _requiredEffortTime;
@@ -428,7 +428,7 @@ internal class Program
     {
         //Receipt of data by the user
         int _id;
-        int? _level=null;
+        int? _level = null;
         double? _cost;
         string? _name, _email;
         TaskInEngineer? tskInEng = null;
@@ -634,6 +634,10 @@ internal class Program
             DalTest.Initialization.Do(); //stage 4
         }
     }
+    private static void CreateSche()
+    {
+        s_bl.createSchedule();
+    }
 
     /// <summary>
     /// The main menu where the user can choose which entity to enter
@@ -656,8 +660,11 @@ internal class Program
                 case 3:
                     InitializationData();
                     break;
+                case 4:
+                    CreateSche();
+                    break;
             }
-            Console.WriteLine("hi here is an options namu \npress 0 to exit\npress 1 to task\n press 2 to engineer\n press 3 to reset all Data\n");
+            Console.WriteLine("hi here is an options namu \npress 0 to exit\npress 1 to task\n press 2 to engineer\n press 3 to reset all Data\n press 4 to create schedule");
             choice = GetValidChoice(0, 4);
         }
     }

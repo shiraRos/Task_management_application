@@ -152,7 +152,7 @@ internal class TaskImplementation : ITask
                             throw new BO.BlStatusNotFit($"the dependent task: {depOnTsk.Alias} is not done yet");
                     }
                 //בודק שאף מהנדס לא לקח את המשימה קודם
-                if (dependTsk.Engineer != null&& dependTsk.Engineer.Id!=item.Engineer.Id)
+                if (dependTsk.Engineer != null && dependTsk.Engineer.Id != item.Engineer.Id)
                     throw new BO.BltaskHasEngineer($"the task: {item.Id} had already taken by other engineer");
 
                 //בודק האם אין למהנדס משימה קודמת
@@ -204,6 +204,19 @@ internal class TaskImplementation : ITask
         {
             throw new BO.BlDoesNotExistException(ex.Message);
         }
+    }
+
+    public IEnumerable<Task> ReadAllDependentsTasks(int id)
+    {
+        BO.Task myTask = Read(id)!;
+        TaskInList myTaskInListTask = new BO.TaskInList
+        {
+            Id = id,
+            Alias = myTask.Alias,
+            Description = myTask.Description,
+            Status = myTask.Status
+        };
+        return ReadAll(tsk=>tsk.Dependencies!=null&&tsk.Dependencies.Contains(myTaskInListTask));
     }
 }
 

@@ -1,96 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfEngineer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Engineer>
-    <Id>235160345</Id>
-    <Level>AdvancedBeginner</Level>
-    <Cost>313622</Cost>
+    <Id>251866088</Id>
+    <Level>Novice</Level>
+    <Cost>162187</Cost>
     <Name>Kewin Klein</Name>
     <Email>Kewin Klein@gmail.com</Email>
   </Engineer>
   <Engineer>
-    <Id>328532238</Id>
-    <Level>AdvancedBeginner</Level>
-    <Cost>3895</Cost>
+    <Id>263269770</Id>
+    <Level>Competent</Level>
+    <Cost>19374</Cost>
+    <Name>Dan Segal</Name>
+    <Email>Dan Segal@gmail.com</Email>
+  </Engineer>
+  <Engineer>
+    <Id>390914833</Id>
+    <Level>Competent</Level>
+    <Cost>380688</Cost>
     <Name>Dave Jos</Name>
     <Email>Dave Jos@gmail.com</Email>
   </Engineer>
   <Engineer>
-    <Id>260331479</Id>
-    <Level>Competent</Level>
-    <Cost>197274</Cost>
+    <Id>261696083</Id>
+    <Level>AdvancedBeginner</Level>
+    <Cost>82568</Cost>
     <Name>noya go</Name>
     <Email>noya go@gmail.com</Email>
   </Engineer>
   <Engineer>
-    <Id>274831469</Id>
+    <Id>289711228</Id>
     <Level>Proficient</Level>
-    <Cost>243480</Cost>
+    <Cost>79823</Cost>
     <Name>kodi hh</Name>
     <Email>kodi hh@gmail.com</Email>
   </Engineer>
   <Engineer>
-    <Id>253459290</Id>
-    <Level>Novice</Level>
-    <Cost>148098</Cost>
+    <Id>370203523</Id>
+    <Level>AdvancedBeginner</Level>
+    <Cost>85033</Cost>
     <Name>Barbara Sol</Name>
     <Email>Barbara Sol@gmail.com</Email>
   </Engineer>
   <Engineer>
-    <Id>209337663</Id>
-    <Level>AdvancedBeginner</Level>
-    <Cost>176783</Cost>
+    <Id>217982414</Id>
+    <Level>Proficient</Level>
+    <Cost>310166</Cost>
     <Name>Alice Weiss</Name>
     <Email>Alice Weiss@gmail.com</Email>
   </Engineer>
   <Engineer>
-    <Id>335812491</Id>
-    <Level>Novice</Level>
-    <Cost>321571</Cost>
+    <Id>373827971</Id>
+    <Level>Proficient</Level>
+    <Cost>210673</Cost>
     <Name>Sara Finlan</Name>
     <Email>Sara Finlan@gmail.com</Email>
   </Engineer>
   <Engineer>
-    <Id>221942777</Id>
-    <Level>Proficient</Level>
-    <Cost>352270</Cost>
+    <Id>385083540</Id>
+    <Level>AdvancedBeginner</Level>
+    <Cost>136097</Cost>
     <Name>jonatan von</Name>
     <Email>jonatan von@gmail.com</Email>
-  </Engineer>
-  <Engineer>
-    <Id>587852</Id>
-    <Level>Proficient</Level>
-    <Cost xsi:nil="true" />
-    <Name>ol</Name>
-    <Email>;.x@</Email>
-  </Engineer>
-  <Engineer>
-    <Id>4856</Id>
-    <Level>Proficient</Level>
-    <Cost>23</Cost>
-    <Email>xed@</Email>
-  </Engineer>
-  <Engineer>
-    <Id>96</Id>
-    <Level xsi:nil="true" />
-    <Cost xsi:nil="true" />
-  </Engineer>
-  <Engineer>
-    <Id>963</Id>
-    <Level>Proficient</Level>
-    <Cost>21</Cost>
-    <Name />
-  </Engineer>
-  <Engineer>
-    <Id>9756236</Id>
-    <Level>Proficient</Level>
-    <Cost xsi:nil="true" />
-    <Name>ijkm,</Name>
-  </Engineer>
-  <Engineer>
-    <Id>378483067</Id>
-    <Level>Expert</Level>
-    <Cost>274646</Cost>
-    <Name>Dan Segal</Name>
-    <Email>Dan Segal@gmail.com</Email>
   </Engineer>
 </ArrayOfEngineer>

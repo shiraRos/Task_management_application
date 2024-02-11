@@ -28,6 +28,8 @@ public interface ITask
     /// <returns></returns>
     public IEnumerable<BO.Task> ReadAll(Func<BO.Task, bool>? filter = null);
 
+    public IEnumerable<BO.Task> ReadAllDependentsTasks(int id);
+
 
     /// <summary>
     ///  Updates  task object 
