@@ -673,8 +673,6 @@ internal class Program
     {
         try
         {
-            int x=int.Parse(Console.ReadLine());
-            IEnumerable<BO.Task> newtsk= s_bl.Task.ReadAllDependentsTasks(x);
             MainManu();
         }
         catch (Exception e)
