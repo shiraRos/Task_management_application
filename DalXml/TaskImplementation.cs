@@ -85,7 +85,7 @@ internal class TaskImplementation : ITask
     /// </summary>
     /// <param name="filter">A condition received from the user is set to null by default</param>
     /// <returns>all the  tasks according to the filter</returns>
-    public IEnumerable<DO.Task?> ReadAll(Func<DO.Task, bool>? filter = null) 
+    public IEnumerable<DO.Task> ReadAll(Func<DO.Task, bool>? filter = null) 
     {
         List<DO.Task> tsk = XMLTools.LoadListFromXMLSerializer<DO.Task>(s_task);
         if (filter == null)

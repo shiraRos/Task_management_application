@@ -631,7 +631,7 @@ internal class Program
         {
             s_bl.Reset();
             //Initialization.DO(s_dal);//stage 2
-            DalTest.Initialization.Do(); //stage 4
+       //     DalTest.Initialization.Do(); //stage 4
         }
     }
     private static void CreateSche()
@@ -644,7 +644,7 @@ internal class Program
     /// </summary>
     private static void MainManu()
     {
-        Console.WriteLine("hi here is an options namu \npress 0 to exit\npress 1 to task\npress 2 to engineer\n press 3 to reset all Data\n");
+        Console.WriteLine("hi here is an options namu \npress 0 to exit\npress 1 to task\n press 2 to engineer\n press 3 to reset all Data\n press 4 to create schedule");
         int choice = GetValidChoice(0, 4);
         while (choice > 0)
         {
@@ -673,6 +673,8 @@ internal class Program
     {
         try
         {
+            int x=int.Parse(Console.ReadLine());
+            IEnumerable<BO.Task> newtsk= s_bl.Task.ReadAllDependentsTasks(x);
             MainManu();
         }
         catch (Exception e)

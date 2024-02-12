@@ -58,13 +58,13 @@ internal class TaskImplementation : ITask
     {
         IEnumerable<BO.TaskInList> depList = _dal.Dependency.ReadAll(dep => dep.DependenTask == id).Select(dep =>
         {
-            var currentTask = _dal.Task.Read(task => task.Id == dep?.DependenTask);
             int dependsOnTaskId = dep?.DependensOnTask ?? throw new BO.BlDoesNotExistException("No task dependents found");
+            DO.Task? depTaskInfo = _dal.Task.Read(dependsOnTaskId);
             return new BO.TaskInList
             {
                 Id = dependsOnTaskId,
-                Alias = currentTask?.Alias ?? "",
-                Description = currentTask?.Description ?? "",
+                Alias = depTaskInfo?.Alias ?? "",
+                Description = depTaskInfo?.Description ?? "",
                 Status = (Status?)0
             };
         }).ToList();
@@ -111,13 +111,14 @@ internal class TaskImplementation : ITask
             Alias = dotsk.Alias,
             Description = dotsk.Description,
             CreateAtDate = dotsk.CreateAtDate,
-            Status = (BO.Status)stat,
-            Dependencies = stat == 1 ? null : DepCreate(id),
+            //Status = (BO.Status)stat,
+            Status = (Status?)0,
+            Dependencies = DepCreate(id),
             Milestone = null,
             RequiredEffortTime = dotsk.RequiredEffortTime,
             StartDate = dotsk.StartDate,
             ScheduledDate = dotsk.ScheduledDate,
-            ForecastDate = null,
+            ForecastDate = dotsk.ScheduledDate + dotsk.RequiredEffortTime,
             DeadlineDate = dotsk.DeadlineDate,
             CompleteDate = dotsk.CompleteDate,
             Deliverables = dotsk.Deliverables,
@@ -206,17 +207,23 @@ internal class TaskImplementation : ITask
         }
     }
 
-    public IEnumerable<Task> ReadAllDependentsTasks(int id)
+    //public IEnumerable<Task> ReadAllDependentsTasks(int id)
+    //{
+    //    BO.Task myTask = Read(id)!;
+    //    TaskInList myTaskInListTask = new BO.TaskInList
+    //    {
+    //        Id = id,
+    //        Alias = myTask.Alias,
+    //        Description = myTask.Description,
+    //        Status = myTask.Status
+    //    };
+    //    //return ReadAll(tsk=>tsk.Dependencies!=null&&tsk.Dependencies.Contains(myTaskInListTask));
+    //    return ReadAll(tsk => tsk.Dependencies != null && tsk.Dependencies.Contains(myTaskInListTask)) ?? Enumerable.Empty<Task>();
+    //}
+    public IEnumerable<BO.Task> ReadAllDependentsTasks(int id)
     {
-        BO.Task myTask = Read(id)!;
-        TaskInList myTaskInListTask = new BO.TaskInList
-        {
-            Id = id,
-            Alias = myTask.Alias,
-            Description = myTask.Description,
-            Status = myTask.Status
-        };
-        return ReadAll(tsk=>tsk.Dependencies!=null&&tsk.Dependencies.Contains(myTaskInListTask));
+        IEnumerable<BO.Task> dependTasks = _dal.Dependency.ReadAll(dep => dep.DependensOnTask == id).Select(dep => Read(dep.DependenTask))!;
+        return dependTasks;
     }
 }
 

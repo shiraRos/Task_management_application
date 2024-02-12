@@ -1,7 +1,6 @@
 ﻿
 using BlApi;
 using BO;
-using DO;
 using System.Data.Common;
 
 namespace BlImplementation;
@@ -50,8 +49,8 @@ internal class Bl : IBl
 
     public void createSchedule()
     {
-        DateTime? statDate = null;
-        DateTime result, maxTimeTask;
+        DateTime? statDate = null, maxTimeTask;
+        DateTime result ;
         TimeSpan? defaultTime = null;
         TimeSpan defResult;
         Queue<BO.Task> tasksToCheck = new Queue<BO.Task>();
@@ -67,6 +66,7 @@ internal class Bl : IBl
                 statDate = null;
                 Console.WriteLine("unvalid value insert start date again");
             }
+        DalApi.Factory.Get.ProjectStartDateUpdate((DateTime)statDate);
         Console.WriteLine("do you want to use default time span for every task insert Y/N");
         string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input");
         if (ans == "Y")
@@ -83,7 +83,7 @@ internal class Bl : IBl
             }
 
         }
-        IEnumerable<BO.Task> getLevelTasks = Task.ReadAll(tsk => tsk.Dependencies == null);
+        IEnumerable<BO.Task> getLevelTasks =Task.ReadAll(tsk =>tsk.Dependencies==null|| tsk.Dependencies.Count()==0);
         foreach (BO.Task task in getLevelTasks)
             tasksToCheck.Enqueue(task);
         foreach (var item in getLevelTasks)
@@ -109,7 +109,7 @@ internal class Bl : IBl
             item.ForecastDate = item.ScheduledDate + item.RequiredEffortTime;
             Task.Update(item);
         }
-        maxTimeTask = (DateTime)getLevelTasks.Max(tsk => tsk.ForecastDate)!;
+        maxTimeTask = getLevelTasks.Max(tsk => tsk.ForecastDate);
         foreach (var item in getLevelTasks)
         {
             item.DeadlineDate = maxTimeTask;
@@ -143,7 +143,7 @@ internal class Bl : IBl
                 item.ForecastDate = item.ScheduledDate + item.RequiredEffortTime;
                 Task.Update(item);
             }
-            maxTimeTask = (DateTime)getLevelTasks.Max(tsk => tsk.ForecastDate)!;
+            maxTimeTask =getLevelTasks.Max(tsk => tsk.ForecastDate);
             foreach (var item in getLevelTasks)
             {
                 item.DeadlineDate = maxTimeTask;
@@ -151,7 +151,6 @@ internal class Bl : IBl
                 tasksToCheck.Enqueue(item);
             }
         }
-
     }
 
     public bool isProjectStarted()
