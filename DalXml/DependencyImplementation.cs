@@ -98,7 +98,7 @@ internal class DependencyImplementation : IDependency
     /// </summary>
     /// <param name="filter">A condition received from the user is set to null by default</param>
     /// <returns>all the  dependencies according to the filter</returns>
-    public IEnumerable<Dependency?> ReadAll(Func<Dependency, bool>? filter = null)
+    public IEnumerable<Dependency> ReadAll(Func<Dependency, bool>? filter = null)
     {
         XElement rootDep = XMLTools.LoadListFromXMLElement(s_dependencies);
         if (filter != null)

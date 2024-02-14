@@ -11,6 +11,7 @@ using System;
 internal class EngineerImplementation : IEngineer
 {
     private DalApi.IDal _dal = DalApi.Factory.Get;
+    private BlApi.IBl s_bl = BlApi.Factory.Get();
     /// <summary>
     /// method for create new Bo.engineer 
     /// </summary>
@@ -20,6 +21,8 @@ internal class EngineerImplementation : IEngineer
     /// <exception cref="BO.BlValidationError"></exception>
     public int Create(BO.Engineer item)
     {
+        if (s_bl.isProjectStarted())
+            throw new BO.BlStatusNotFit("you already started the project adding a new task is forbidden");
         if (item.Id > 0 && (item.Name == null || item.Name != " ") && (item.Cost > 0 || item.Cost == null) && (item.Email == null || item.Email.Contains('@')))
         {
             DO.Engineer doEngineer = new DO.Engineer(item.Id, (DO.EngineerExperience?)item.Level, item.Cost, item.Name, item.Email);
@@ -47,8 +50,8 @@ internal class EngineerImplementation : IEngineer
     {
         try
         {
-            // Assuming _dal.Engineer.Delete handles the deletion in your Data Access Layer
-            _dal.Engineer.Delete(id);
+                // Assuming _dal.Engineer.Delete handles the deletion in your Data Access Layer
+                _dal.Engineer.Delete(id);
         }
         catch (DO.DalDoesNotExistException ex)
         {

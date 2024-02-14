@@ -86,7 +86,7 @@ internal class EngineerImplementation : IEngineer
     /// <param name="filter">A condition received from the user is set to null by default</param>
     /// <returns>all the  engineers according to the filter</returns>
     /// <exception cref="DalDoesNotExistException"></exception>
-    public IEnumerable<Engineer?> ReadAll(Func<Engineer, bool>? filter = null) //stage 2
+    public IEnumerable<Engineer> ReadAll(Func<Engineer, bool>? filter = null) //stage 2
     {
         List<Engineer> eng = XMLTools.LoadListFromXMLSerializer<Engineer>(s_engineer);
         if (filter == null)

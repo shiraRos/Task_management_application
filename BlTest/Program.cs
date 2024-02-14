@@ -1,6 +1,7 @@
 ﻿using BO;
 using BlApi;
 using DalTest;
+using BlImplementation;
 
 namespace BlTest;
 
@@ -71,30 +72,14 @@ internal class Program
     /// </summary>
     private static void CreateTask()
     {
+        if (s_bl.isProjectStarted())
+            throw new BO.BlStatusNotFit("you already started the project adding a new task is forbidden");
         //Receipt of data by the user
         int? _complexityLevel, _dependOnTaskId;
-        bool _isMileston;
-        DateTime? _startDate, _deadlineDate, _completeDate, _scheduledDate;
         TimeSpan? _requiredEffortTime;
         string? _alias, _deliverables, _remarks, _description;
         List<TaskInList>? _dependencies = new List<TaskInList>();
         BO.Task? dependTsk = null;
-        Console.WriteLine("is it a miles tone?");
-        _isMileston = ParseMilestone();
-        // Now 'isMilestone' will be a bool value based on user input, or false if parsing failed.
-        Console.WriteLine("Is Milestone: " + _isMileston);
-        Console.WriteLine("insert start date");
-        _startDate = ParseDate();
-        Console.WriteLine("Start Date: " + (_startDate.HasValue ? _startDate.Value.ToString("yyyy-MM-dd") : null));
-        Console.WriteLine("insert deadline date");
-        _deadlineDate = ParseDate();
-        Console.WriteLine("DeadLine Date: " + (_deadlineDate.HasValue ? _deadlineDate.Value.ToString("yyyy-MM-dd") : null));
-        Console.WriteLine("insert complete date");
-        _completeDate = ParseDate();
-        Console.WriteLine("Complete Date: " + (_completeDate.HasValue ? _completeDate.Value.ToString("yyyy-MM-dd") : null));
-        Console.WriteLine("insert scheduled date ");
-        _scheduledDate = ParseDate();
-        Console.WriteLine("Scheduled Date: " + (_scheduledDate.HasValue ? _scheduledDate.Value.ToString("yyyy-MM-dd") : null));
         Console.WriteLine("insert requiredEffortTime");
         if (TimeSpan.TryParse(Console.ReadLine(), out TimeSpan result))
         {
@@ -151,7 +136,7 @@ internal class Program
             }
         }
         //creating a new object
-        BO.Task newTsk = new BO.Task { Id = 0, Alias = _alias, Description = _description, CreateAtDate = null, Status = (Status)0, Dependencies = _dependencies, Milestone = null, RequiredEffortTime = _requiredEffortTime, StartDate = _startDate, ScheduledDate = _scheduledDate, ForecastDate = null, DeadlineDate = _deadlineDate, CompleteDate = _completeDate, Deliverables = _deliverables, Remarks = _remarks, Engineer = null, ComplexityLevel = (EngineerExperience?)_complexityLevel };
+        BO.Task newTsk = new BO.Task { Id = 0, Alias = _alias, Description = _description, CreateAtDate = null, Status = (Status)0, Dependencies = _dependencies, Milestone = null, RequiredEffortTime = _requiredEffortTime, StartDate = null, ScheduledDate = null, ForecastDate = null, DeadlineDate = null, CompleteDate = null, Deliverables = _deliverables, Remarks = _remarks, Engineer = null, ComplexityLevel = (EngineerExperience?)_complexityLevel };
         //Add to data by calling an external operation
         try
         {
@@ -297,68 +282,70 @@ internal class Program
         //Receipt of data by the user
         int? _complexityLevel = null, _dependOnTaskId;
         int _taskId = 0;
-        bool _isMileston;
-        DateTime? _startDate, _deadlineDate, _completeDate, _scheduledDate;
-        TimeSpan? _requiredEffortTime;
         string? _alias, _deliverables, _remarks, _description;
         List<TaskInList>? _dependencies = new List<TaskInList>();
-        BO.EngineerInTask? _engInTask = null;
         BO.Task? dependTsk;
         Console.WriteLine("insert task id");
         _taskId = int.Parse(Console.ReadLine()!);
         BO.Task? previousTsk = s_bl.Task.Read(_taskId);
         if (previousTsk == null)
             throw new Exception("the task is not found");
-        Console.WriteLine("insert engineer id");
-        if (int.TryParse(Console.ReadLine(), out int parsedId))
+        BO.EngineerInTask? _engInTask = previousTsk.Engineer;
+        DateTime? _startDate=previousTsk.StartDate, _deadlineDate=previousTsk.DeadlineDate, _completeDate=previousTsk.CompleteDate, _scheduledDate=previousTsk.ScheduledDate;
+        TimeSpan? _requiredEffortTime=previousTsk.RequiredEffortTime;
+        //the user will be able to insert data only if the project started
+        if (s_bl.isProjectStarted())
         {
-            BO.Engineer? fullEngData = s_bl.Engineer.Read(parsedId);
-            if (fullEngData != null)
+            Console.WriteLine("insert engineer id");
+            if (int.TryParse(Console.ReadLine(), out int parsedId))
             {
-                _engInTask = new BO.EngineerInTask { Id = parsedId, Name = fullEngData.Name };
+                BO.Engineer? fullEngData = s_bl.Engineer.Read(parsedId);
+                if (fullEngData != null)
+                {
+                    _engInTask = new BO.EngineerInTask { Id = parsedId, Name = fullEngData.Name };
+                }
+                else
+                {
+                    Console.WriteLine("the id tou typed is not exist the engineer is null by defult");
+                }
+            }
+            Console.WriteLine("insert start date");
+            _startDate = ParseDate();
+            if (_startDate == null||_startDate<previousTsk.ScheduledDate)
+                _startDate = previousTsk.StartDate;
+            Console.WriteLine("Start Date: " + (_startDate != null ? _startDate.Value.ToString("yyyy-MM-dd") : null));
+            Console.WriteLine("insert deadline date");
+            _deadlineDate = ParseDate();
+            if (_deadlineDate == null||_deadlineDate>previousTsk.DeadlineDate)
+                _deadlineDate = previousTsk.DeadlineDate;
+            Console.WriteLine("DeadLine Date: " + (_deadlineDate != null ? _deadlineDate.Value.ToString("yyyy-MM-dd") : null));
+            Console.WriteLine("insert complete date");
+            _completeDate = ParseDate();
+            if (_completeDate == null||_completeDate>previousTsk.ScheduledDate)
+                _completeDate = previousTsk.CompleteDate;
+            Console.WriteLine("Complete Date: " + (_completeDate != null ? _completeDate.Value.ToString("yyyy-MM-dd") : null));
+            Console.WriteLine("insert scheduled date ");
+            _scheduledDate = ParseDate();
+            if (_scheduledDate == null||_scheduledDate<previousTsk.ScheduledDate)
+                _scheduledDate = previousTsk.ScheduledDate;
+            Console.WriteLine("Scheduled Date: " + (_scheduledDate != null ? _scheduledDate.Value.ToString("yyyy-MM-dd") : null));
+        }
+        //the user will be able to insert requored effort time only if the project didnt start yet 
+        else
+        {
+            Console.WriteLine("insert requiredEffortTime");
+            if (TimeSpan.TryParse(Console.ReadLine(), out TimeSpan result))
+            {
+                _requiredEffortTime = result;
             }
             else
             {
-                Console.WriteLine("the id tou typed is not exist the engineer is null by defult");
+                _requiredEffortTime = previousTsk.RequiredEffortTime;
             }
+
+            // Now 'requiredEffortTime' will be a TimeSpan value if parsing was successful, or null if it failed.
+            Console.WriteLine("Required Effort Time: " + (_requiredEffortTime != null ? _requiredEffortTime.ToString() : null));
         }
-        else
-        { _engInTask = previousTsk.Engineer; }
-        Console.WriteLine("is it a miles tone?");
-        _isMileston = ParseMilestone();
-        // Now 'isMilestone' will be a bool value based on user input, or false if parsing failed.
-        Console.WriteLine("Is Milestone: " + _isMileston);
-        Console.WriteLine("insert start date");
-        _startDate = ParseDate();
-        if (_startDate == null)
-            _startDate = previousTsk.StartDate;
-        Console.WriteLine("Start Date: " + (_startDate != null ? _startDate.Value.ToString("yyyy-MM-dd") : null));
-        Console.WriteLine("insert deadline date");
-        _deadlineDate = ParseDate();
-        if (_deadlineDate == null)
-            _deadlineDate = previousTsk.DeadlineDate;
-        Console.WriteLine("DeadLine Date: " + (_deadlineDate != null ? _deadlineDate.Value.ToString("yyyy-MM-dd") : null));
-        Console.WriteLine("insert complete date");
-        _completeDate = ParseDate();
-        if (_completeDate == null)
-            _completeDate = previousTsk.CompleteDate;
-        Console.WriteLine("Complete Date: " + (_completeDate != null ? _completeDate.Value.ToString("yyyy-MM-dd") : null));
-        Console.WriteLine("insert scheduled date ");
-        _scheduledDate = ParseDate();
-        if (_scheduledDate == null)
-            _scheduledDate = previousTsk.ScheduledDate;
-        Console.WriteLine("Scheduled Date: " + (_scheduledDate != null ? _scheduledDate.Value.ToString("yyyy-MM-dd") : null));
-        Console.WriteLine("insert requiredEffortTime");
-        if (TimeSpan.TryParse(Console.ReadLine(), out TimeSpan result))
-        {
-            _requiredEffortTime = result;
-        }
-        else
-        {
-            _requiredEffortTime = previousTsk.RequiredEffortTime;
-        }
-        // Now 'requiredEffortTime' will be a TimeSpan value if parsing was successful, or null if it failed.
-        Console.WriteLine("Required Effort Time: " + (_requiredEffortTime != null ? _requiredEffortTime.ToString() : null));
         Console.WriteLine("insert deliverables");
         _deliverables = Console.ReadLine();
         if (_deliverables == "")
@@ -431,13 +418,13 @@ internal class Program
         int? _level = null;
         double? _cost;
         string? _name, _email;
-        TaskInEngineer? tskInEng = null;
         BO.Task? tskById = null;
         Console.WriteLine("insert id");
         _id = int.Parse(Console.ReadLine()!);
         BO.Engineer? previousEng = s_bl.Engineer.Read(_id);
         if (previousEng == null)
             throw new BO.BlDoesNotExistException($"engineer with id {_id} does not exist");
+        TaskInEngineer? tskInEng = previousEng.Task;
         Console.WriteLine(" insert name");
         _name = Console.ReadLine();
         if (_name == "")
@@ -465,17 +452,19 @@ internal class Program
         _email = Console.ReadLine();
         if (_email == "")
             _email = previousEng.Email;
-        Console.WriteLine("insert id of belong task:");
-        int? tskId = GetOptionalInt();
-        if (tskId != null)
+        if (s_bl.isProjectStarted())
         {
-            tskById = s_bl.Task.Read((int)tskId);
-            if (tskById != null)
-                tskInEng = new BO.TaskInEngineer { Id = (int)tskId, Alias = tskById.Alias };
-            else
-                Console.WriteLine("this task is not exist the task is null by deflut");
+            Console.WriteLine("insert id of belong task:");
+            int? tskId = GetOptionalInt();
+            if (tskId != null)
+            {
+                tskById = s_bl.Task.Read((int)tskId);
+                if (tskById != null)
+                    tskInEng = new BO.TaskInEngineer { Id = (int)tskId, Alias = tskById.Alias };
+                else
+                    Console.WriteLine("this task is not exist the task is null by deflut");
+            }
         }
-
         //creating a new object
         BO.Engineer newEng = new BO.Engineer { Id = _id, Name = _name, Email = _email, Level = (_level != null ? (EngineerExperience)_level : null), Cost = _cost, Task = tskInEng };
         //Update the data by calling an external operation
@@ -631,7 +620,7 @@ internal class Program
         {
             s_bl.Reset();
             //Initialization.DO(s_dal);//stage 2
-       //     DalTest.Initialization.Do(); //stage 4
+            //     DalTest.Initialization.Do(); //stage 4
         }
     }
     private static void CreateSche()

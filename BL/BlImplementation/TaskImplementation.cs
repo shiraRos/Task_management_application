@@ -9,10 +9,12 @@ using System.Net.NetworkInformation;
 internal class TaskImplementation : ITask
 {
     private DalApi.IDal _dal = DalApi.Factory.Get;
+    static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
     public int Create(BO.Task item)
     {
-        //if (isProjectStarted()) { }
+        if (s_bl.isProjectStarted())
+            throw new BO.BlStatusNotFit("you already started the project adding a new task is forbidden");
         if ((item?.Alias != "" || item?.Alias == null))
         {
             try
@@ -40,6 +42,8 @@ internal class TaskImplementation : ITask
 
     public void Delete(int id)
     {
+        if (s_bl.isProjectStarted())
+            throw new BO.BlStatusNotFit("you already started the project adding a new task is forbidden");
         try
         {
             // Assuming _dal.Engineer.Delete handles the deletion in your Data Access Layer
@@ -208,19 +212,6 @@ internal class TaskImplementation : ITask
         }
     }
 
-    //public IEnumerable<Task> ReadAllDependentsTasks(int id)
-    //{
-    //    BO.Task myTask = Read(id)!;
-    //    TaskInList myTaskInListTask = new BO.TaskInList
-    //    {
-    //        Id = id,
-    //        Alias = myTask.Alias,
-    //        Description = myTask.Description,
-    //        Status = myTask.Status
-    //    };
-    //    //return ReadAll(tsk=>tsk.Dependencies!=null&&tsk.Dependencies.Contains(myTaskInListTask));
-    //    return ReadAll(tsk => tsk.Dependencies != null && tsk.Dependencies.Contains(myTaskInListTask)) ?? Enumerable.Empty<Task>();
-    //}
     public IEnumerable<BO.Task> ReadAllDependentsTasks(int id)
     {
         IEnumerable<BO.Task> dependTasks = _dal.Dependency.ReadAll(dep => dep.DependensOnTask == id).Select(dep => Read(dep.DependenTask))!;
