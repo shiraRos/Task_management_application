@@ -21,6 +21,17 @@ internal static class Config
     /// </summary>
     internal static int StartTaskId { get => XMLTools.GetAndIncreaseNextId(s_data_config_xml, "startTaskId"); }
 
-    internal static DateTime? startDate=null;
-    internal static DateTime? endDate=null;
+    //internal static DateTime? startDate
+    //{
+    //    get => XMLTools.GetStartDate(s_data_config_xml, "startDate");
+    //    //set
+    //    //{
+    //    //    //DateTime? dateValue;
+    //    //    XMLTools.SetStartDate(s_data_config_xml, "startDate", dateValue);
+    //    //}
+    //}
+    internal static DateTime? startDate = null;
+    internal static DateTime? endDate = null;
 }
+
+

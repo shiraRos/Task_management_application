@@ -1,7 +1,7 @@
 ﻿
 namespace BO;
 /// <summary>
-/// class ofTaskilist
+/// class of Taskilist
 /// </summary>
 public class TaskInList
 {

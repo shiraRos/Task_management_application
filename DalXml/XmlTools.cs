@@ -39,8 +39,22 @@ static class XMLTools
         XMLTools.SaveListToXMLElement(root, data_config_xml);
         return nextId;
     }
+    // Add these methods to the XMLTools class
+    public static DateTime? GetStartDate(string data_config_xml, string elemName)
+    {
+        XElement root = XMLTools.LoadListFromXMLElement(data_config_xml);
+        return root.ToDateTimeNullable(elemName);
+    }
+
+    public static void SetStartDate(string data_config_xml, string elemName, DateTime startDate)
+    {
+        XElement root = XMLTools.LoadListFromXMLElement(data_config_xml);
+        root.Element(elemName)?.SetValue(startDate.ToString("yyyy-MM-dd")); // Adjust the date format as needed
+        XMLTools.SaveListToXMLElement(root, data_config_xml);
+    }
 
     #endregion
+
 
     #region SaveLoadWithXElement
     public static void SaveListToXMLElement(XElement rootElem, string entity)

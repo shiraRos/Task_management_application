@@ -12,6 +12,7 @@ internal class TaskImplementation : ITask
 
     public int Create(BO.Task item)
     {
+        //if (isProjectStarted()) { }
         if ((item?.Alias != "" || item?.Alias == null))
         {
             try

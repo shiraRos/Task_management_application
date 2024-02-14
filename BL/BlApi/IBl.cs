@@ -8,11 +8,21 @@ public interface IBl
     public IEngineer Engineer { get; }
     public IMileStone MileStone { get; }
     public ITask Task { get; }
-
+    /// <summary>
+    /// method for get the start date of the task
+    /// </summary>
+    /// <returns>the start date</returns>
     public DateTime? GetStartDate();
 
+    /// <summary>
+    /// method for checking if the project has started
+    /// </summary>
+    /// <returns>true or false acording to the result</returns>
     public bool isProjectStarted();
 
+    /// <summary>
+    /// method for create The Schedule of  the tasks
+    /// </summary>
     public void createSchedule();
 
     /// <summary>

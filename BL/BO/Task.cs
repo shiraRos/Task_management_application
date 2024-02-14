@@ -2,7 +2,7 @@
 
 namespace BO;
 /// <summary>
-/// 
+/// class of Task
 /// </summary>
 /// <param name="Id">outhomatic id field</param>
 /// <param name="EngineerId">id of the responsible engineer</param>

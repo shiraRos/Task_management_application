@@ -1,5 +1,6 @@
 ﻿
 using BlApi;
+using BlImplementation;
 using BO;
 using System.Data.Common;
 
@@ -50,7 +51,7 @@ internal class Bl : IBl
     public void createSchedule()
     {
         DateTime? statDate = null, maxTimeTask;
-        DateTime result ;
+        DateTime result;
         TimeSpan? defaultTime = null;
         TimeSpan defResult;
         Queue<BO.Task> tasksToCheck = new Queue<BO.Task>();
@@ -83,12 +84,13 @@ internal class Bl : IBl
             }
 
         }
-        IEnumerable<BO.Task> getLevelTasks =Task.ReadAll(tsk =>tsk.Dependencies==null|| tsk.Dependencies.Count()==0);
+        IEnumerable<BO.Task> getLevelTasks = Task.ReadAll(tsk => tsk.Dependencies == null || tsk.Dependencies.Count() == 0);
         foreach (BO.Task task in getLevelTasks)
             tasksToCheck.Enqueue(task);
         foreach (var item in getLevelTasks)
         {
-            item.ScheduledDate = statDate;
+            if (item.ScheduledDate != null && item.ScheduledDate < statDate)
+                item.ScheduledDate = statDate;
             item.Status = (Status)1;
             if (item.RequiredEffortTime == null)
             {
@@ -112,10 +114,14 @@ internal class Bl : IBl
         maxTimeTask = getLevelTasks.Max(tsk => tsk.ForecastDate);
         foreach (var item in getLevelTasks)
         {
-            item.DeadlineDate = maxTimeTask;
-            Task.Update(item);
+            if (item.DeadlineDate != null && item.DeadlineDate < maxTimeTask)
+            {
+                item.DeadlineDate = maxTimeTask;
+                Task.Update(item);
+            }
+
         }
-        while(tasksToCheck.Count > 0)
+        while (tasksToCheck.Count > 0)
         {
             currentTask = tasksToCheck.Dequeue();
             //לכתוב פונקציה שתתין לי עבור תז של משימה את כל המשימות התלויות בה
@@ -143,7 +149,7 @@ internal class Bl : IBl
                 item.ForecastDate = item.ScheduledDate + item.RequiredEffortTime;
                 Task.Update(item);
             }
-            maxTimeTask =getLevelTasks.Max(tsk => tsk.ForecastDate);
+            maxTimeTask = getLevelTasks.Max(tsk => tsk.ForecastDate);
             foreach (var item in getLevelTasks)
             {
                 item.DeadlineDate = maxTimeTask;
@@ -171,5 +177,5 @@ internal class Bl : IBl
     {
         DalApi.Factory.Get.Reset();
     }
-    //ממוש תאריך התחלה
+   
 }

@@ -1,7 +1,8 @@
 ﻿
 namespace BO;
+
 /// <summary>
-/// class of MileStone
+/// class of Milestone
 /// </summary>
 public class MileStone
 {
