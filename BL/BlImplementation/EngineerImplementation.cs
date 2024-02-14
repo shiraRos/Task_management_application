@@ -12,28 +12,34 @@ internal class EngineerImplementation : IEngineer
 {
     private DalApi.IDal _dal = DalApi.Factory.Get;
     private BlApi.IBl s_bl = BlApi.Factory.Get();
+
+
     /// <summary>
-    /// method for create new Bo.engineer 
+    /// Creates a new instance of BO.Engineer and adds it to the data store through the DAL layer.
     /// </summary>
-    /// <param name="item"></param>
-    /// <returns></returns>
-    /// <exception cref="BO.BlAlreadyExistsException"></exception>
-    /// <exception cref="BO.BlValidationError"></exception>
+    /// <param name="item">The BO.Engineer object to be created.</param>
+    /// <returns>The unique identifier (ID) assigned to the newly created Engineer.</returns>
+    /// <exception cref="BO.BlAlreadyExistsException">Thrown when attempting to create an Engineer with an ID that already exists.</exception>
+    /// <exception cref="BO.BlValidationError">Thrown when the input data for creating an Engineer is invalid.</exception>
     public int Create(BO.Engineer item)
     {
+        //if the Scheduled projecr started already-throw exception
         if (s_bl.isProjectStarted())
             throw new BO.BlStatusNotFit("you already started the project adding a new task is forbidden");
+        // Validate input data for creating an Engineer
         if (item.Id > 0 && (item.Name == null || item.Name != " ") && (item.Cost > 0 || item.Cost == null) && (item.Email == null || item.Email.Contains('@')))
         {
             DO.Engineer doEngineer = new DO.Engineer(item.Id, (DO.EngineerExperience?)item.Level, item.Cost, item.Name, item.Email);
 
             try
             {
+                // Create the Engineer through the DAL layer
                 int idEng = _dal.Engineer.Create(doEngineer);
                 return idEng;
             }
             catch (DO.DalAlreadyExistsException ex)
             {
+                // Exception handling for DAL layer AlreadyExistsException
                 throw new BO.BlAlreadyExistsException($"Engineer with ID={item.Id} already exists", ex);
             }
         }
@@ -50,8 +56,8 @@ internal class EngineerImplementation : IEngineer
     {
         try
         {
-                // Assuming _dal.Engineer.Delete handles the deletion in your Data Access Layer
-                _dal.Engineer.Delete(id);
+            // Assuming _dal.Engineer.Delete handles the deletion in your Data Access Layer
+            _dal.Engineer.Delete(id);
         }
         catch (DO.DalDoesNotExistException ex)
         {
@@ -60,17 +66,21 @@ internal class EngineerImplementation : IEngineer
     }
 
     /// <summary>
-    /// method for read  Bo.engineer 
+    /// Reads an engineer from the data store based on the specified ID.
     /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
-    /// <exception cref="BO.BlDoesNotExistException"></exception>
+    /// <param name="id">The ID of the engineer to read.</param>
+    /// <returns>The Business Object (BO) representation of the engineer, or null if not found.</returns>
+    /// <exception cref="BO.BlDoesNotExistException">Thrown when the engineer with the specified ID does not exist.</exception>
     public BO.Engineer? Read(int id)
     {
+        // Attempt to read the engineer from the data access layer (DAL).
         DO.Engineer? doeng = _dal.Engineer.Read(id);
+        // If the engineer is not found, throw an exception.
         if (doeng == null)
             throw new BO.BlDoesNotExistException($"Engineer with ID={id} does Not exist");
+        // Attempt to read a task associated with the engineer.
         DO.Task? tsk = _dal.Task.Read(tsk => tsk.EngineerId == id);
+        // Create and return a new Business Object (BO) representation of the engineer.
         return new BO.Engineer
         {
             Id = id,
@@ -181,49 +191,5 @@ internal class EngineerImplementation : IEngineer
         }
     }
 }
-
-
-///// <summary>
-///// method for update the engineer
-///// </summary>
-///// <param name="item"></param>
-///// <exception cref="BO.BlValidationError"></exception>
-///// <exception cref="BO.BlDoesNotExistException"></exception>
-//public void Update(BO.Engineer item)
-//    {
-//        DO.Engineer doEngineer = new DO.Engineer(item.Id, (DO.EngineerExperience?)item.Level, item.Cost, item.Name, item.Email);
-//        if (item.Id > 0 && (item.Name == null || item.Name != "") && (item.Cost == null || item.Cost > 0) && (item.Email == null || item.Email!.Contains('@')))
-//        {
-
-//            if (item.Task != null)
-
-//            {
-//                //////////////יוצר משתנה מסוג המשימה התלויה
-//                TaskImplementation tskImp = new TaskImplementation();
-//                BO.Task? dependTsk = tskImp.Read(item.Task.Id);
-//                if (dependTsk == null)
-//                    throw new BO.BlValidationError($"task with id:{item.Task.Id} is not exist");
-//                dependTsk.Engineer = new BO.EngineerInTask
-//                {
-//                    Id = item.Id,
-//                    Name = item.Name
-//                };
-//                tskImp.Update(dependTsk);
-//            }
-//            try
-//            {
-//                //שולח לעדכון בשכבת הDL
-//                _dal.Engineer.Update(doEngineer);
-
-//            }
-
-//            catch (DO.DalDoesNotExistException ex)
-//            {
-//                throw new BO.BlDoesNotExistException($"Engineer with ID={item.Id} does not exists", ex);
-//            }
-//        }
-//        else
-//            throw new BO.BlValidationError($"one of the details you insert is un valid");
-//    }
 
 

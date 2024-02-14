@@ -1,42 +1,101 @@
-﻿
+﻿namespace BO;
 
-namespace BO;
 /// <summary>
-/// class of Task
+/// Represents a Task in the Business Object (BO) layer.
 /// </summary>
-/// <param name="Id">outhomatic id field</param>
-/// <param name="EngineerId">id of the responsible engineer</param>
-/// <param name="IsMileston">bool field for mile stone check</param>
-/// <param name="StartDate">Task start date</param>
-/// <param name="DeadlineDate">Date by which the task must be completed</param>
-/// <param name="CompleteDate">Actual task completion date</param>
-/// <param name="ScheduledDate">Estimated date when the task was supposed to be completed</param>
-/// <param name="RequiredEffortTime">The length of time the task spanned</param>
-/// <param name="Deliverables">delivery options</param>
-/// <param name="Remarks">Additional notes on the task</param>
-/// <param name="ComplexityLevel">The level of experience and difficulty of the engineer</param>
-/// <param name="Description">General description of the task</param>
-/// <param name="Alias">The nickname given to the task</param>
 public class Task
 {
+    /// <summary>
+    /// Gets or sets the unique identifier for the task.
+    /// </summary>
     public int Id { get; init; }
+
+    /// <summary>
+    /// Gets or sets the alias for the task.
+    /// </summary>
     public string? Alias { get; set; } = null;
+
+    /// <summary>
+    /// Gets or sets the description of the task.
+    /// </summary>
     public string? Description { get; set; } = null;
+
+    /// <summary>
+    /// Gets or sets the creation date of the task.
+    /// </summary>
     public DateTime? CreateAtDate { get; init; }
+
+    /// <summary>
+    /// Gets or sets the status of the task.
+    /// </summary>
     public Status? Status { get; set; } = null;
+
+    /// <summary>
+    /// Gets or sets the dependencies associated with the task.
+    /// </summary>
     public IEnumerable<TaskInList>? Dependencies { get; set; } = null;
+
+    /// <summary>
+    /// Gets or sets the milestone associated with the task.
+    /// </summary>
     public MilestoneInTask? Milestone { get; set; } = null;
+
+    /// <summary>
+    /// Gets or sets the required effort time for the task.
+    /// </summary>
     public TimeSpan? RequiredEffortTime { get; set; } = null;
+
+    /// <summary>
+    /// Gets or sets the start date of the task.
+    /// </summary>
     public DateTime? StartDate { get; set; } = null;
+
+    /// <summary>
+    /// Gets or sets the scheduled date of the task.
+    /// </summary>
     public DateTime? ScheduledDate { get; set; } = null;
+
+    /// <summary>
+    /// Gets or sets the forecasted date of the task.
+    /// </summary>
     public DateTime? ForecastDate { get; set; } = null;
+
+    /// <summary>
+    /// Gets or sets the deadline date of the task.
+    /// </summary>
     public DateTime? DeadlineDate { get; set; } = null;
+
+    /// <summary>
+    /// Gets or sets the completion date of the task.
+    /// </summary>
     public DateTime? CompleteDate { get; set; } = null;
+
+    /// <summary>
+    /// Gets or sets the deliverables associated with the task.
+    /// </summary>
     public string? Deliverables { get; set; } = null;
+
+    /// <summary>
+    /// Gets or sets the remarks for the task.
+    /// </summary>
     public string? Remarks { get; set; } = null;
+
+    /// <summary>
+    /// Gets or sets the engineer associated with the task.
+    /// </summary>
     public EngineerInTask? Engineer { get; set; } = null;
+
+    /// <summary>
+    /// Gets or sets the complexity level of the task.
+    /// </summary>
     public EngineerExperience? ComplexityLevel { get; set; } = null;
 
+    /// <summary>
+    /// Overrides the default ToString method to provide a string representation of the Task object.
+    /// </summary>
+    /// <returns>A string representation of the Task object.</returns>
     public override string ToString()
-    { return this.ToStringProperty(); }
+    {
+        return this.ToStringProperty();
+    }
 }

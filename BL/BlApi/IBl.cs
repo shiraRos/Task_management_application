@@ -5,8 +5,14 @@ namespace BlApi;
 /// </summary>
 public interface IBl
 {
+    /// <summary>
+    /// public interface of the Engineer
+    /// </summary>
     public IEngineer Engineer { get; }
     public IMileStone MileStone { get; }
+    /// <summary>
+    /// public interface of the Task
+    /// </summary>
     public ITask Task { get; }
     /// <summary>
     /// method for get the start date of the task
