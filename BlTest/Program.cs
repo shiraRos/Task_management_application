@@ -620,7 +620,7 @@ internal class Program
         {
             s_bl.Reset();
             //Initialization.DO(s_dal);//stage 2
-            //     DalTest.Initialization.Do(); //stage 4
+            // DalTest.Initialization.Do(); //stage 4
         }
     }
     private static void CreateSche()
@@ -649,8 +649,12 @@ internal class Program
                 case 3:
                     InitializationData();
                     break;
+
                 case 4:
+                    if(!s_bl.isProjectStarted())
                     CreateSche();
+                    else
+                        Console.WriteLine("the schedule had already started");
                     break;
             }
             Console.WriteLine("hi here is an options namu \npress 0 to exit\npress 1 to task\n press 2 to engineer\n press 3 to reset all Data\n press 4 to create schedule");

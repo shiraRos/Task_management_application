@@ -14,40 +14,10 @@ internal class Bl : IBl
 
     public ITask Task => new TaskImplementation();
 
-    //internal DateTime UpdateLevelTasks(IEnumerable<BO.Task> getLevelTasks, DateTime currentStart, TimeSpan? defaultTime)
-    //{
-    //    TimeSpan defResult;
-    //    foreach (var item in getLevelTasks)
-    //    {
-    //        item.ScheduledDate = currentStart;
-    //        if (item.RequiredEffortTime == null)
-    //        {
-    //            if (defaultTime == null)
-    //            {
-    //                Console.WriteLine($"insert required effort time for task {item.Id}: {item.Alias}");
-    //                if (TimeSpan.TryParse(Console.ReadLine(), out defResult))
-    //                    defaultTime = defResult;
-    //                else
-    //                {
-    //                    defaultTime = TimeSpan.FromDays(1);
-    //                    Console.WriteLine("invalid value 1 day inserted as default time span");
-    //                }
-
-    //            }
-    //            item.RequiredEffortTime = defaultTime;
-    //        }
-    //        item.ForecastDate = item.ScheduledDate + item.RequiredEffortTime;
-    //        Task.Update(item);
-    //    }
-    //    DateTime maxTimeTask = (DateTime)getLevelTasks.Max(tsk => tsk.ForecastDate)!;
-    //    foreach (var item in getLevelTasks)
-    //    {
-    //        item.DeadlineDate = maxTimeTask;
-    //        Task.Update(item);
-    //    }
-    //    return maxTimeTask;
-    //}
-
+    /// <summary>
+    /// function for automatic schedule creating
+    /// </summary>
+    /// <exception cref="FormatException">in case the user typed a wrong data type</exception>
     public void createSchedule()
     {
         DateTime? statDate = null, maxTimeTask;
@@ -67,7 +37,8 @@ internal class Bl : IBl
                 statDate = null;
                 Console.WriteLine("unvalid value insert start date again");
             }
-        DalApi.Factory.Get.ProjectStartDateUpdate((DateTime)statDate);
+        //Asks the user if they want to set a default amount of time elapsed for an uninitialized task
+        //If not, the user will be prompted to enter a duration for each uninitialized task
         Console.WriteLine("do you want to use default time span for every task insert Y/N");
         string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input");
         if (ans == "Y")
@@ -84,13 +55,14 @@ internal class Bl : IBl
             }
 
         }
+        //Initializing the tasks that do not depend on the nose task and entering a queue
         IEnumerable<BO.Task> getLevelTasks = Task.ReadAll(tsk => tsk.Dependencies == null || tsk.Dependencies.Count() == 0);
-        foreach (BO.Task task in getLevelTasks)
-            tasksToCheck.Enqueue(task);
+        //foreach (BO.Task task in getLevelTasks)
+        //For each task sets the start time as the start time of the project, the duration by definition
         foreach (var item in getLevelTasks)
         {
-            if (item.ScheduledDate != null && item.ScheduledDate < statDate)
-                item.ScheduledDate = statDate;
+
+            item.ScheduledDate = statDate;
             item.Status = (Status)1;
             if (item.RequiredEffortTime == null)
             {
@@ -112,20 +84,24 @@ internal class Bl : IBl
             Task.Update(item);
         }
         maxTimeTask = getLevelTasks.Max(tsk => tsk.ForecastDate);
+        //Determines the latest finish time of each for each task based on the task that will finish at the latest time
         foreach (var item in getLevelTasks)
         {
-            if (item.DeadlineDate != null && item.DeadlineDate < maxTimeTask)
             {
                 item.DeadlineDate = maxTimeTask;
                 Task.Update(item);
+                tasksToCheck.Enqueue(item);
             }
 
         }
+        //Go through all the tasks until there are no tasks left that have tasks that depend on them
         while (tasksToCheck.Count > 0)
         {
+            //Removing the current task from the queue
             currentTask = tasksToCheck.Dequeue();
-            //לכתוב פונקציה שתתין לי עבור תז של משימה את כל המשימות התלויות בה
+            //Acceptance of the tasks that depend on the current task
             getLevelTasks = Task.ReadAllDependentsTasks(currentTask.Id);
+            // //For each task sets the start time as the start time of the project, the duration by definition
             foreach (var item in getLevelTasks)
             {
                 item.Status = (Status)1;
@@ -146,10 +122,11 @@ internal class Bl : IBl
                     }
                     item.RequiredEffortTime = defaultTime;
                 }
-                item.ForecastDate = item.ScheduledDate + item.RequiredEffortTime;
+                item.ForecastDate = currentTask.DeadlineDate + defaultTime;
                 Task.Update(item);
             }
             maxTimeTask = getLevelTasks.Max(tsk => tsk.ForecastDate);
+            //Determines the latest finish time of each for each task based on the task that will finish at the latest time
             foreach (var item in getLevelTasks)
             {
                 item.DeadlineDate = maxTimeTask;
@@ -157,13 +134,20 @@ internal class Bl : IBl
                 tasksToCheck.Enqueue(item);
             }
         }
+        //saving the start date in the config 
+        DalApi.Factory.Get.ProjectStartDateUpdate((DateTime)statDate);
     }
-
+    /// <summary>
+    /// A function that returns true if the project has an initialized schedule
+    /// </summary>
     public bool isProjectStarted()
     {
         return GetStartDate() != null;
     }
-
+    /// <summary>
+    /// A function that returns the start date of the project stored in the config
+    /// </summary>
+    /// <returns></returns>
     public DateTime? GetStartDate()
     {
         return DalApi.Factory.Get.ReturnTheStartDate();
@@ -177,5 +161,5 @@ internal class Bl : IBl
     {
         DalApi.Factory.Get.Reset();
     }
-   
+
 }

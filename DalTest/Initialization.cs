@@ -53,65 +53,125 @@ public static class Initialization
     /// <summary>
     /// create objects Dependenct type
     /// </summary>
+    //    private static void createDependency()
+    //    {
+    //        int otomatId = 0, _dependenTask, nextRanTask;
+    //        int dep1 = GetRanTask().Id, dep2 = GetRanTask().Id;
+    ////        //creating the first dependency outside the loop
+    ////        _dependenTask = GetRanTask().Id;
+    ////        nextRanTask = GetRanTask().Id;
+    ////        //loop for checking the dependency
+    ////        while (nextRanTask == _dependenTask ||
+    ////s_dal!.Dependency.ReadAll()?.Any(dep => dep?.DependenTask == _dependenTask && dep?.DependensOnTask == nextRanTask) == true ||
+    ////s_dal!.Dependency.ReadAll()?.Any(dep => dep?.DependenTask == nextRanTask && dep?.DependensOnTask == _dependenTask) == true)
+    ////            nextRanTask = GetRanTask().Id;
+    ////        int _dependensOnTask = nextRanTask;
+    ////        //creating a new object
+    ////        Dependency newDpn = new(otomatId, _dependenTask, _dependensOnTask);
+    ////        //Add to data by calling  cerate operation
+    ////        otomatId = s_dal!.Dependency.Create(newDpn);
+    //        //a loop for crating 2 different dependencies with the same depend on task
+    //   //     for (int i = 0; i < 3; i++)
+    //   //     {
+    //   //         nextRanTask = GetRanTask().Id;
+    //   //         //loop for checking the dependency
+    //   //         while (nextRanTask == dep1 ||
+    //   //nextRanTask == dep2 ||
+    //   //s_dal!.Dependency.ReadAll()?.Any(dep => dep?.DependenTask == dep1 && dep?.DependensOnTask == nextRanTask) == true ||
+    //   //s_dal!.Dependency.ReadAll()?.Any(dep => dep?.DependenTask == dep2 && dep?.DependensOnTask == nextRanTask) == true ||
+    //   //s_dal!.Dependency.ReadAll()?.Any(dep => dep?.DependenTask == nextRanTask && dep?.DependensOnTask == dep1) == true ||
+    //   //s_dal!.Dependency.ReadAll()?.Any(dep => dep?.DependenTask == nextRanTask && dep?.DependensOnTask == dep2) == true)
+
+    //   //             nextRanTask = GetRanTask().Id;
+    //   //         //creating a new object
+    //   //         Dependency newDpn1 = new(otomatId, dep1, nextRanTask);
+    //   //         Dependency newDpn2 = new(otomatId, dep2, nextRanTask);
+    //   //         //Add to data by calling  cerate operation
+    //   //         otomatId = s_dal!.Dependency.Create(newDpn1);
+    //   //         otomatId = s_dal!.Dependency.Create(newDpn2);
+
+    //   //     }
+    //        //a loop for the rest of the regular dependencies
+    //        for (int i = 0; i < 33; i++)
+    //        {
+    //            //initialize the dependendTasks by random id -that exist in the task list
+    //            _dependenTask = GetRanTask().Id;
+    //            nextRanTask = GetRanTask().Id;
+    //            //loop for checking the dependency
+    //            //while (nextRanTask == _dependenTask || s_dal!.Dependency.ReadAll().Exists(dep => dep.DependenTask == _dependenTask && dep.DependensOnTask == nextRanTask) || s_dal!.Dependency.ReadAll().Exists(dep => dep.DependenTask == nextRanTask && dep.DependensOnTask == _dependenTask))
+    //            while (nextRanTask == _dependenTask ||
+    //            s_dal!.Dependency.ReadAll()?.Any(dep => dep?.DependenTask == _dependenTask && dep?.DependensOnTask == nextRanTask) == true ||
+    //            s_dal!.Dependency.ReadAll()?.Any(dep => dep?.DependenTask == nextRanTask && dep?.DependensOnTask == _dependenTask) == true)
+
+    //                nextRanTask = GetRanTask().Id;
+    //            //creating a new object
+    //            Dependency newDpn3 = new(otomatId, _dependenTask, nextRanTask);
+    //            //Add to data by calling  cerate operation
+    //            otomatId = s_dal!.Dependency.Create(newDpn3);
+    //        }
+    //        //initialize the dependendTasks by random id -that exist in the task list
+    //        _dependenTask = GetRanTask().Id;
+    //        nextRanTask = GetRanTask().Id;
+    //        //loop for checking the dependency
+    //        //while (nextRanTask == _dependenTask || s_dal!.Dependency.ReadAll().Exists(dep => dep.DependenTask == _dependenTask && dep.DependensOnTask == nextRanTask) || s_dal!.Dependency.ReadAll().Exists(dep => dep.DependenTask == nextRanTask && dep.DependensOnTask == _dependenTask))
+    //        while (nextRanTask == _dependenTask ||
+    //        s_dal!.Dependency.ReadAll()?.Any(dep => dep?.DependenTask == _dependenTask && dep?.DependensOnTask == nextRanTask) == true ||
+    //        s_dal!.Dependency.ReadAll()?.Any(dep => dep?.DependenTask == nextRanTask && dep?.DependensOnTask == _dependenTask) == true)
+
+    //            nextRanTask = GetRanTask().Id;
+    //        //creating a new object
+    //        Dependency newDpn4 = new(otomatId, _dependenTask, CreateLeadTask().Id);
+    //        //Add to data by calling  cerate operation
+    //        otomatId = s_dal!.Dependency.Create(newDpn4);
+    //    }
     private static void createDependency()
     {
-        int otomatId = 0, _dependenTask, nextRanTask;
-        int dep1 = GetRanTask().Id, dep2 = GetRanTask().Id;
-        //creating the first dependency outside the loop
-        _dependenTask = GetRanTask().Id;
-        nextRanTask = GetRanTask().Id;
-        //loop for checking the dependency
-        while (nextRanTask == _dependenTask ||
-s_dal!.Dependency.ReadAll()?.Any(dep => dep?.DependenTask == _dependenTask && dep?.DependensOnTask == nextRanTask) == true ||
-s_dal!.Dependency.ReadAll()?.Any(dep => dep?.DependenTask == nextRanTask && dep?.DependensOnTask == _dependenTask) == true)
-            nextRanTask = GetRanTask().Id;
-        int _dependensOnTask = nextRanTask;
-        //creating a new object
-        Dependency newDpn = new(otomatId, _dependenTask, _dependensOnTask);
-        //Add to data by calling  cerate operation
-        otomatId = s_dal!.Dependency.Create(newDpn);
-        //a loop for crating 2 different dependencies with the same depend on task
-        for (int i = 0; i < 3; i++)
-        {
-            nextRanTask = GetRanTask().Id;
-            //loop for checking the dependency
-            while (nextRanTask == dep1 ||
-   nextRanTask == dep2 ||
-   s_dal!.Dependency.ReadAll()?.Any(dep => dep?.DependenTask == dep1 && dep?.DependensOnTask == nextRanTask) == true ||
-   s_dal!.Dependency.ReadAll()?.Any(dep => dep?.DependenTask == dep2 && dep?.DependensOnTask == nextRanTask) == true ||
-   s_dal!.Dependency.ReadAll()?.Any(dep => dep?.DependenTask == nextRanTask && dep?.DependensOnTask == dep1) == true ||
-   s_dal!.Dependency.ReadAll()?.Any(dep => dep?.DependenTask == nextRanTask && dep?.DependensOnTask == dep2) == true)
+        int otomatId = 0;
 
-                nextRanTask = GetRanTask().Id;
-            //creating a new object
-            Dependency newDpn1 = new(otomatId, dep1, nextRanTask);
-            Dependency newDpn2 = new(otomatId, dep2, nextRanTask);
-            //Add to data by calling  cerate operation
-            otomatId = s_dal!.Dependency.Create(newDpn1);
-            otomatId = s_dal!.Dependency.Create(newDpn2);
+        // Loop for creating the first dependency outside the loop
+        Dependency firstDependency = CreateUniqueDependency();
+        otomatId = s_dal!.Dependency.Create(firstDependency);
 
-        }
-        //a loop for the rest of the regular deendencies
+        // Loop for creating the rest of the dependencies
         for (int i = 0; i < 33; i++)
         {
-            //initialize the dependendTasks by random id -that exist in the task list
-            _dependenTask = GetRanTask().Id;
-            nextRanTask = GetRanTask().Id;
-            //loop for checking the dependency
-            //while (nextRanTask == _dependenTask || s_dal!.Dependency.ReadAll().Exists(dep => dep.DependenTask == _dependenTask && dep.DependensOnTask == nextRanTask) || s_dal!.Dependency.ReadAll().Exists(dep => dep.DependenTask == nextRanTask && dep.DependensOnTask == _dependenTask))
-            while (nextRanTask == _dependenTask ||
-            s_dal!.Dependency.ReadAll()?.Any(dep => dep?.DependenTask == _dependenTask && dep?.DependensOnTask == nextRanTask) == true ||
-            s_dal!.Dependency.ReadAll()?.Any(dep => dep?.DependenTask == nextRanTask && dep?.DependensOnTask == _dependenTask) == true)
-
-                nextRanTask = GetRanTask().Id;
-            //creating a new object
-            Dependency newDpn3 = new(otomatId, _dependenTask, nextRanTask);
-            //Add to data by calling  cerate operation
-            otomatId = s_dal!.Dependency.Create(newDpn3);
+            Dependency newDependency = CreateUniqueDependency();
+            otomatId = s_dal!.Dependency.Create(newDependency);
         }
+
+        // Create a unique dependency for the final case
+        Dependency finalDependency = CreateUniqueDependency();
+        int dependenTask, dependensOnTask;
+
+        do
+        {
+            dependenTask = GetRanTask().Id;
+            dependensOnTask = CreateLeadTask().Id;
+        } while (DependencyExists(dependenTask, dependensOnTask) || DependencyExists(dependensOnTask, dependenTask));
+
+        otomatId = s_dal!.Dependency.Create(finalDependency);
     }
-    
-    
+
+    private static Dependency CreateUniqueDependency()
+    {
+        int dependenTask, dependensOnTask;
+
+        do
+        {
+            dependenTask = GetRanTask().Id;
+            dependensOnTask = GetRanTask().Id;
+        } while (DependencyExists(dependenTask, dependensOnTask) || DependencyExists(dependensOnTask, dependenTask));
+
+        return new Dependency(0, dependenTask, dependensOnTask);
+    }
+
+    private static bool DependencyExists(int dependenTask, int dependensOnTask)
+    {
+        return s_dal!.Dependency.ReadAll()?.Any(dep =>
+            dep?.DependenTask == dependenTask && dep?.DependensOnTask == dependensOnTask) == true;
+    }
+
+
     /// <summary>
     /// External helper function to draw a random dependency assignment
     /// </summary>
@@ -124,11 +184,21 @@ s_dal!.Dependency.ReadAll()?.Any(dep => dep?.DependenTask == nextRanTask && dep?
         tempArr = (s_dal?.Task.ReadAll()?.Where(task => task != null).ToArray() ?? Array.Empty<Task>())!;
 
         //Return random index that contains item
-        int temp = s_rand.Next(0, 19);
+        int temp = s_rand.Next(0, 18);
         return tempArr[temp];
     }
-    
-    
+
+    private static Task CreateLeadTask()
+    {
+        //declaretioN of Task arr in size of existing tasks
+        Task[] tempArr = new Task[20];
+        //converting the list to array
+        tempArr = (s_dal?.Task.ReadAll()?.Where(task => task != null).ToArray() ?? Array.Empty<Task>())!;
+        return tempArr[19];
+
+    }
+
+
     /// <summary>
     /// Create objects Task type
     /// </summary>
@@ -145,7 +215,7 @@ s_dal!.Dependency.ReadAll()?.Any(dep => dep?.DependenTask == nextRanTask && dep?
             int daysToAdd = s_rand.Next(0, 10);
             DateTime? _startDate = null;
             //Defining a deadline according to the number of days drawn
-            DateTime? _deadlineDate = DateTime.Today.AddDays(daysToAdd + 1);
+            DateTime? _deadlineDate = null;
             //Definition that the project ended a day before the deadline for each project
             DateTime? _completeDate = null;
             DateTime? _scheduledDate = null;

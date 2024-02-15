@@ -73,6 +73,7 @@ sealed internal class DalXml : IDal
         XElement rootEngineer = XMLTools.LoadListFromXMLElement("engineers");
         rootEngineer.Elements().Remove();
         XMLTools.SaveListToXMLElement(rootEngineer, "engineers");
+
     }
 
 }
