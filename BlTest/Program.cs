@@ -620,7 +620,7 @@ internal class Program
         {
             s_bl.Reset();
             //Initialization.DO(s_dal);//stage 2
-            //     DalTest.Initialization.Do(); //stage 4
+            DalTest.Initialization.Do(); //stage 4
         }
     }
     private static void CreateSche()
