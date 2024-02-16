@@ -40,7 +40,7 @@ internal class EngineerImplementation : IEngineer
             catch (DO.DalAlreadyExistsException ex)
             {
                 // Exception handling for DAL layer AlreadyExistsException
-                throw new BO.BlAlreadyExistsException($"Engineer with ID={item.Id} already exists", ex);
+                throw new BO.BlAlreadyExistsException(ex.Message);
             }
         }
         else
@@ -61,7 +61,7 @@ internal class EngineerImplementation : IEngineer
         }
         catch (DO.DalDoesNotExistException ex)
         {
-            throw new BO.BlDoesNotExistException($"Engineer with ID={id} not found", ex);
+            throw new BO.BlDoesNotExistException( ex.Message);
         }
     }
 
@@ -181,7 +181,7 @@ internal class EngineerImplementation : IEngineer
             catch (DO.DalDoesNotExistException ex)
             {
                 // Handling the exception if the specified Engineer does not exist in the DAL
-                throw new BO.BlDoesNotExistException($"Engineer with ID={item.Id} does not exist", ex);
+                throw new BO.BlDoesNotExistException(ex.Message);
             }
         }
         else
