@@ -160,6 +160,11 @@ internal class Bl : IBl
     public void Reset()
     {
         DalApi.Factory.Get.Reset();
+       // DalTest.Initialization.Reset();
     }
 
+    public void InitializeDB()
+    {
+        DalTest.Initialization.Do();
+    }
 }

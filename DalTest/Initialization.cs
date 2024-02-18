@@ -4,6 +4,7 @@
 using Dal;
 using DalApi;
 using DO;
+using System.Data.Common;
 using System.Security.Cryptography;
 using System.Xml.Linq;
 
@@ -247,8 +248,7 @@ public static class Initialization
         //Return random index that contains item
         return tempArr[s_rand.Next(0, 8)];
     }
-
-
+  
     /// <summary>
     /// A public method for calling all private methods
     /// </summary>

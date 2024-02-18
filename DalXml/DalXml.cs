@@ -59,6 +59,7 @@ sealed internal class DalXml : IDal
     {
         return Config.startDate;
     }
+ 
 
     public void Reset()
     {

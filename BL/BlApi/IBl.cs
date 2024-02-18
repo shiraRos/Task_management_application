@@ -35,4 +35,7 @@ public interface IBl
     /// general reset method
     /// </summary>
     void Reset();
+
+
+    void InitializeDB();
 }
