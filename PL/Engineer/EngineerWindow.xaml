@@ -5,8 +5,44 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Engineer"
         mc:Ignorable="d"
-        Title="EngineerWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="EngineerWindow" Height="400" Width="350"
+    DataContext="{Binding EngineerItem, RelativeSource={RelativeSource Self}, Mode=TwoWay}" >
+
+    <Grid VerticalAlignment="Center">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" ></RowDefinition>
+            <RowDefinition Height="2*" ></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="3*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Label Content="Id:" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="0"  Grid.Column="2" Text="{Binding  Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Center" />
+
+        <Label Content="Name:" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding Name, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Center" />
+
+        <Label Content="Email:" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="2" Grid.Column="2" Text="{Binding Email, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Center" />
+
+        <Label Content="Level:" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center"/>
+        <ComboBox Grid.Row="3" Grid.Column="2"  VerticalAlignment="Center" ItemsSource="{Binding Source={StaticResource EngineerExperienceEnumKey}}" 
+SelectedValue="{Binding Level, Mode=TwoWay, NotifyOnValidationError=true}" />
+
+        <Label Content="Cost:" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="4" Grid.Column="2"   Text="{Binding Cost, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Center"/>
+
+        <Label Content="Task:" Grid.Row="5" Grid.Column="1" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="5" Grid.Column="2" VerticalAlignment="Center" Text="{Binding Task, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
+        <Button Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" Grid.Row="6" Margin="25" Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}" Height="30" Width="60" Click="btnAddUpdate_Click"/>
     </Grid>
 </Window>

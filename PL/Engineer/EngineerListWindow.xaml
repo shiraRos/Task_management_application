@@ -15,15 +15,19 @@
         <Grid HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto">
             <Label Grid.Column="0" Content="select:"/>
             <!--filter the engineers-->
-            <ComboBox Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+            <ComboBox ItemsSource="{Binding  Source={StaticResource EngineerExperienceEnumKey}}"
+ Grid.Column="1" SelectionChanged="EnguneerExper_SelectionChanged" SelectedValue="{Binding Path=EnigeerExper, Mode=TwoWay}"
+ HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+
+
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
         </Grid>
-        <ListView Margin="5" Grid.Row="1" ItemsSource="{Binding Path=EngineerList}" />
+        <ListView Margin="5" Grid.Row="1" ItemsSource="{Binding Path=EngineerList}" MouseDoubleClick="ListView_MouseDoubleClick"/>
         <!--add engineer to the list-->
-        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100"/>
+        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="AddEngineerWindow_click"/>
         <Grid.RowDefinitions>
             <RowDefinition Height="40*"/>
             <RowDefinition Height="500*"/>

@@ -36,4 +36,27 @@ public partial class EngineerListWindow : Window
         InitializeComponent();
         EngineerList = s_bl?.Engineer.ReadAll()!;
     }
+
+    public BO.EngineerExperience EnigeerExper { get; set; } = BO.EngineerExperience.None;
+    private void EnguneerExper_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        EngineerList = (EnigeerExper == BO.EngineerExperience.None) ?
+            s_bl?.Engineer.ReadAll()! : s_bl?.Engineer.ReadAll(item => item.Level == EnigeerExper)!;
+    }
+
+    private void AddEngineerWindow_click(object sender, RoutedEventArgs e)
+    {
+        new EngineerWindow().ShowDialog();
+    }
+
+    private void ListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+    {
+        // Get the selected item from the ListView
+       
+            // Do something with the selected item
+            // For example, you can cast the selected item to its type and access its properties
+            var selectedEngineer = (sender as ListView)!.SelectedItem as BO.Engineer; // Change 'Engineer' to your actual item type
+            new EngineerWindow(selectedEngineer!.Id).ShowDialog();                                                   // Now you can work with the selectedEngineer object
+
+    }
 }

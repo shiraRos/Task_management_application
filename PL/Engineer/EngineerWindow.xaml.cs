@@ -19,8 +19,59 @@ namespace PL.Engineer;
 /// </summary>
 public partial class EngineerWindow : Window
 {
-    public EngineerWindow()
+    int pageStatus = 0;
+    static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+    public static DependencyProperty CurrentEngineer = DependencyProperty.Register("EngineerItem", typeof(BO.Engineer), typeof(EngineerWindow), new PropertyMetadata(null));
+    public BO.EngineerExperience EnigeerExper { get; set; } = BO.EngineerExperience.None;
+    public BO.Engineer EngineerItem
     {
+        get { return (BO.Engineer)GetValue(CurrentEngineer); }
+        set { SetValue(CurrentEngineer, value); }
+    }
+
+    public EngineerWindow(int Id = 0)
+    {
+
         InitializeComponent();
+        pageStatus = Id;
+        if (Id == 0)
+            EngineerItem = new BO.Engineer();
+        else
+            try { EngineerItem = s_bl.Engineer.Read(Id); }
+            catch { }
+
+    }
+
+    private void btnAddUpdate_Click(object sender, RoutedEventArgs e)
+    {
+        if (pageStatus == 0)
+        {
+            try
+            {
+                s_bl.Engineer.Create(EngineerItem);
+                MessageBox.Show("the user added succefully");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            // Display a confirmation message box
+            Close();
+
+        }
+        else
+        {
+
+            try
+            {
+                s_bl.Engineer.Update(EngineerItem);
+                MessageBox.Show("the user updated succefully");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            Close();
+        }
     }
 }
