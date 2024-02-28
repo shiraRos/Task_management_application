@@ -59,4 +59,6 @@ public partial class EngineerListWindow : Window
             new EngineerWindow(selectedEngineer!.Id).ShowDialog();                                                   // Now you can work with the selectedEngineer object
 
     }
+
+   
 }

@@ -75,7 +75,7 @@ internal class TaskImplementation : ITask
     /// </summary>
     /// <param name="isEngExist">parameter for checking if there is an engineer in this task</param>
     /// <returns>the index of the suit status</returns>
-    internal int CreateStatus(bool isEngExist)
+    internal int CreateStatus(bool isEngExist,DateTime? compDate)
     {
         //if the project didnt start yet the status is 0-unschduled
         if (!s_bl.isProjectStarted())
@@ -83,6 +83,8 @@ internal class TaskImplementation : ITask
         //if the project started and there is no engineer return 1-schduled
         if (!isEngExist)
             return 1;
+        if (compDate != null && compDate < DateTime.Now)
+            return 3;
         //if the project started and there is a responsible engineer return 2-OnTrack
         return 2;
     }
@@ -170,7 +172,7 @@ internal class TaskImplementation : ITask
             Description = dotsk.Description,
             CreateAtDate = dotsk.CreateAtDate,
             //calling the internal functions for getting the data
-            Status = (Status?)CreateStatus(dotsk.EngineerId!=null),
+            Status = (Status?)CreateStatus(dotsk.EngineerId!=null, dotsk.CompleteDate),
             Dependencies = DepCreate(id),
             Milestone = null,
             RequiredEffortTime = dotsk.RequiredEffortTime,
@@ -209,7 +211,7 @@ internal class TaskImplementation : ITask
                 if (dependTsk == null)
                     throw new BO.BlValidationError($"task with id:{item.Id} is not exist");
                 //Checks that the task is not in an uninitialized state or has already ended
-                if (dependTsk.Status != (Status)0 && dependTsk.Status != (Status)3)
+                if (dependTsk.Status != (Status)1)
                     throw new BO.BlStatusNotFit($"task with id:{item.Id} cannt be taken");
                 //Checks if all the tasks it depends on have been completed
                 if (dependTsk.Dependencies != null)
@@ -225,11 +227,11 @@ internal class TaskImplementation : ITask
                 //Checks whether the engineer has no previous assignment
                 DO.Task? previousTsk = _dal.Task.Read(tsk => tsk.EngineerId == item.Id);
                 if (previousTsk != null)
-                    if (Read(previousTsk.Id)!.Status != (Status)4)
+                    if (Read(previousTsk.Id)!.Status != (Status)3)
                         throw new BO.BlEngineerHasTask("this engineer has already took another task");
 
                 //Checking the engineer level is not empty and higher than the task level
-                if ((engToAdd.Level == null || item.ComplexityLevel == null) && (int)engToAdd.Level! < (int)item.ComplexityLevel!)
+                if ((engToAdd.Level == null || item.ComplexityLevel == null) || (int)engToAdd.Level! < (int)item.ComplexityLevel!)
                 {
                     throw new BO.BlValidationError("the engineer cant take this task becase his level is to low");
                 }
@@ -290,5 +292,15 @@ internal class TaskImplementation : ITask
         IEnumerable<BO.Task> dependTasks = _dal.Dependency.ReadAll(dep => dep.DependensOnTask == id).Select(dep => Read(dep.DependenTask))!;
         return dependTasks;
     }
+
+    /// <summary>
+    /// function for filtering and getting all of the not taken tasks
+    /// </summary>
+    /// <returns>all tasks in TaskInEngineer format</returns>
+    public IEnumerable<TaskInEngineer> GetAvailableTasks()
+    {
+       return ReadAll(tsk=>tsk.Engineer==null).Select(tsk => new TaskInEngineer { Id = tsk.Id, Alias=tsk.Alias }).ToList();
+    }
+   
 }
 
