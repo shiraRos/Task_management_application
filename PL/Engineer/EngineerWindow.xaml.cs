@@ -39,7 +39,7 @@ public partial class EngineerWindow : Window
         else
             try { EngineerItem = s_bl.Engineer.Read(Id); }
             catch { }
-
+        Closed += EngineerWindow_Closed!;
     }
 
     private void btnAddUpdate_Click(object sender, RoutedEventArgs e)
@@ -74,6 +74,17 @@ public partial class EngineerWindow : Window
             Close();
         }
     }
-
-   
+    private void EngineerWindow_Closed(object sender, EventArgs e)
+    {
+        // An instance of the main window EngineerListWindow
+        var mainWindow = Application.Current.Windows
+                                        .OfType<EngineerListWindow>()
+                                        .FirstOrDefault();
+        if (mainWindow != null)
+        {
+            // Updating the list of engineers in the main window by calling the BL
+            // function that returns the list of engineers
+            mainWindow.EngineerList = s_bl.Engineer.ReadAll()!;
+        }
+    }
 }

@@ -1,5 +1,7 @@
 ﻿
 
+using BO;
+
 namespace BlApi;
 /// <summary>
 ///  Interface for Task
@@ -44,5 +46,11 @@ public interface ITask
     /// <param name="id"></param>
     public void Delete(int id);
 
+    
+    /// <summary>
+    /// function for filtering and getting all of the not taken tasks
+    /// </summary>
+    /// <returns>all tasks in TaskInEngineer format</returns>
+    public IEnumerable<TaskInEngineer> GetAvailableTasks();
 
 }
