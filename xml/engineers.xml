@@ -21,4 +21,18 @@
     <Name>lea</Name>
     <Email>lal@gmail.com</Email>
   </Engineer>
+  <Engineer>
+    <Id>36049401</Id>
+    <Level>Competent</Level>
+    <Cost>2000</Cost>
+    <Name>miriam</Name>
+    <Email>miriam@gmail.com</Email>
+  </Engineer>
+  <Engineer>
+    <Id>326616854</Id>
+    <Level>Proficient</Level>
+    <Cost>1000</Cost>
+    <Name>shira</Name>
+    <Email>shira.r200@gmail.com</Email>
+  </Engineer>
 </ArrayOfEngineer>

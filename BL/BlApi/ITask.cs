@@ -52,4 +52,5 @@ public interface ITask
     /// </summary>
     /// <returns>all tasks in TaskInEngineer format</returns>
     public IEnumerable<TaskInEngineer> GetAvailableTasks();
+
 }
