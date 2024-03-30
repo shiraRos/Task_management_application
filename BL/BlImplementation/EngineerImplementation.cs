@@ -23,9 +23,7 @@ internal class EngineerImplementation : IEngineer
     /// <exception cref="BO.BlValidationError">Thrown when the input data for creating an Engineer is invalid.</exception>
     public int Create(BO.Engineer item)
     {
-        //if the Scheduled projecr started already-throw exception
-        if (s_bl.isProjectStarted())
-            throw new BO.BlStatusNotFit("you already started the project adding a new task is forbidden");
+
         // Validate input data for creating an Engineer
         if (item.Id > 0 && (item.Name == null || item.Name != " ") && (item.Cost > 0 || item.Cost == null) && (item.Email == null || item.Email.Contains('@')))
         {
@@ -35,6 +33,11 @@ internal class EngineerImplementation : IEngineer
             {
                 // Create the Engineer through the DAL layer
                 int idEng = _dal.Engineer.Create(doEngineer);
+                //adding the provided task
+                if(item.Task!=null)
+                {
+                    Update(item);
+                }
                 return idEng;
             }
             catch (DO.DalAlreadyExistsException ex)

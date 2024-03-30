@@ -264,5 +264,11 @@ public static class Initialization
         createTask();
         createDependency();
     }
+    public static void Reset() 
+    {
+         DalApi.Factory.Get.Reset(); //Calling all the resetting function 
+                                    
+    
+    }
 
 }

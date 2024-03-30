@@ -1,10 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfEngineer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Engineer>
-    <Id>123321</Id>
-    <Level>Competent</Level>
-    <Cost>1200</Cost>
-    <Name>miri</Name>
-    <Email>miri1010@gmail.com</Email>
+    <Id>96587413</Id>
+    <Level>AdvancedBeginner</Level>
+    <Cost>250</Cost>
+    <Name>lali</Name>
+    <Email>lal@gmail.com</Email>
+  </Engineer>
+  <Engineer>
+    <Id>123321123</Id>
+    <Level>Proficient</Level>
+    <Cost>1250</Cost>
+    <Name>rina</Name>
+    <Email>ri@gmai.con</Email>
+  </Engineer>
+  <Engineer>
+    <Id>97989564</Id>
+    <Level>Expert</Level>
+    <Cost>1520</Cost>
+    <Name>lea</Name>
+    <Email>lal@gmail.com</Email>
   </Engineer>
 </ArrayOfEngineer>

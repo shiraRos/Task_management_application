@@ -106,7 +106,7 @@ internal class TaskImplementation : ITask
                 Id = dependsOnTaskId,
                 Alias = depTaskInfo?.Alias ?? "",
                 Description = depTaskInfo?.Description ?? "",
-                Status = (Status?)0
+                Status = (Status?)CreateStatus(depTaskInfo!.EngineerId != null, depTaskInfo.CompleteDate)
             };
         }).ToList();
         return depList;
@@ -212,7 +212,7 @@ internal class TaskImplementation : ITask
                     throw new BO.BlValidationError($"task with id:{item.Id} is not exist");
                 //Checks that the task is not in an uninitialized state or has already ended
                 if (dependTsk.Status != (Status)1)
-                    throw new BO.BlStatusNotFit($"task with id:{item.Id} cannt be taken");
+                    throw new BO.BlStatusNotFit($"task with id:{item.Id} cannt be taken because the status is wrong");
                 //Checks if all the tasks it depends on have been completed
                 if (dependTsk.Dependencies != null)
                     foreach (var depOnTsk in dependTsk.Dependencies)
