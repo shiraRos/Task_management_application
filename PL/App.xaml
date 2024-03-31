@@ -7,6 +7,6 @@
         <local:EngineerExperienceEnum x:Key="EngineerExperienceEnumKey" />
         <local:ConvertIdToContent x:Key="ConverIdToContentKey"/>
         <local:TasksToEngineer x:Key="TasksToEngineerKey"/>
-        <local:EngineerInTask x:Key="EngineerInTaskKey" />
+        <!--<local:EngineerInTask x:Key="EngineerInTaskKey" />-->
     </Application.Resources>
 </Application>

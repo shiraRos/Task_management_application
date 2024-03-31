@@ -38,4 +38,35 @@ public interface IBl
 
 
     void InitializeDB();
+
+
+    #region Time Management
+
+    /// <summary>
+    /// Read-only property of type DateTime representing the current date and time.
+    /// </summary>
+    public DateTime Clock { get; }
+
+    /// <summary>
+    /// Advances time by one hour.
+    /// </summary>
+    public void AdvanceTimeByHour();
+
+    /// <summary>
+    /// Advances time by one day.
+    /// </summary>
+    public void AdvanceTimeByDay();
+
+
+    /// <summary>
+    /// Advances time by one year.
+    /// </summary>
+    public void AdvanceTimeByYear();
+    /// <summary>
+    /// Initializes time to the current date and time.
+    /// </summary>
+    public void InitializeTime();
+
+    #endregion
+
 }

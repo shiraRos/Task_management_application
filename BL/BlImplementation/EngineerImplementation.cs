@@ -12,6 +12,7 @@ internal class EngineerImplementation : IEngineer
 {
     private DalApi.IDal _dal = DalApi.Factory.Get;
     private BlApi.IBl s_bl = BlApi.Factory.Get();
+    private readonly Bl _bl;
 
 
     /// <summary>
@@ -158,7 +159,7 @@ internal class EngineerImplementation : IEngineer
             if (item.Task != null)
             {
                 // Creating an instance of TaskImplementation to interact with Task-related functionality
-                TaskImplementation tskImp = new TaskImplementation();
+                TaskImplementation tskImp = new TaskImplementation(_bl);
 
                 // Reading the dependent Task to ensure it exists
                 BO.Task? dependTsk = tskImp.Read(item.Task.Id);

@@ -10,6 +10,9 @@ internal class TaskImplementation : ITask
 {
     private DalApi.IDal _dal = DalApi.Factory.Get;
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+    private readonly Bl _bl;
+    internal TaskImplementation(Bl bl) => _bl = bl;
+
     /// <summary>
     /// function for creating a new task in the DL layer 
     /// </summary>
@@ -83,7 +86,7 @@ internal class TaskImplementation : ITask
         //if the project started and there is no engineer return 1-schduled
         if (!isEngExist)
             return 1;
-        if (compDate != null && compDate < DateTime.Now)
+        if (compDate != null && compDate < _bl.Clock)
             return 3;
         //if the project started and there is a responsible engineer return 2-OnTrack
         return 2;

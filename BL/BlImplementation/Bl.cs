@@ -12,7 +12,7 @@ internal class Bl : IBl
 
     public IMileStone MileStone => new MileStoneImplementation();
 
-    public ITask Task => new TaskImplementation();
+    public ITask Task => new TaskImplementation(this);
 
     /// <summary>
     /// function for automatic schedule creating
@@ -166,4 +166,55 @@ internal class Bl : IBl
     {
         DalTest.Initialization.Do();
     }
+
+
+    #region Time Management
+
+    /// <summary>
+    /// Gets or sets the current time.
+    /// </summary>
+    /// <remarks>
+    /// This property has a private setter to ensure that the time can only be updated through the provided methods.
+    /// </remarks>
+    private static DateTime s_Clock = DateTime.Now.Date;
+
+    public DateTime Clock
+    {
+        get { return s_Clock; }
+        private set { s_Clock = value; }
+    }
+
+    /// <summary>
+    /// Advances the time by one hour.
+    /// </summary>
+    public void AdvanceTimeByHour()
+    {
+        Clock = Clock.AddHours(1);
+    }
+
+    /// <summary>
+    /// Advances the time by one day.
+    /// </summary>
+    public void AdvanceTimeByDay()
+    {
+        Clock = Clock.AddDays(1);
+    }
+
+    /// <summary>
+    /// Advances the time by one week.
+    /// </summary>
+    public void AdvanceTimeByYear()
+    {
+        Clock = Clock.AddYears(1);
+    }
+
+    /// <summary>
+    /// Initializes the time to the current date and time.
+    /// </summary>
+    public void InitializeTime()
+    {
+        Clock = DateTime.Now;
+    }
+
+    #endregion
 }
