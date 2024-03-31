@@ -1,4 +1,5 @@
 ﻿using PL.Engineer;
+using PL.Task;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -65,6 +66,9 @@ public partial class MainWindow : Window
         InitializeComponent();
     }
 
-   
+    private void ButtonTaskList_Click(object sender, RoutedEventArgs e)
+    {
+        new TaskListWindow().Show();
+    }
 }
 

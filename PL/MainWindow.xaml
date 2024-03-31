@@ -11,10 +11,12 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
         <Button Content="Handle engineers" Grid.Column="0" HorizontalAlignment="Center" Height="50" Width="100" Click="ButtonEngineerList_Click" Margin="0,0,10,0" />
-        <Button Content="Init DB" Grid.Column="1" HorizontalAlignment="Center" Height="50" Width="100" Click="ButtonInitDB_Click" Margin="10,0,0,0" />
-        <Button Content="Reset" Grid.Column="2" HorizontalAlignment="Center" Height="50" Width="100" Click="Reset_Click"  />
+        <Button Content="Handle Tasks" Grid.Column="1" HorizontalAlignment="Center" Height="50" Width="100" Click="ButtonTaskList_Click" Margin="0,0,10,0" />
+        <Button Content="Init DB" Grid.Column="2" HorizontalAlignment="Center" Height="50" Width="100" Click="ButtonInitDB_Click" Margin="10,0,0,0" />
+        <Button Content="Reset" Grid.Column="3" HorizontalAlignment="Center" Height="50" Width="100" Click="Reset_Click"  />
     </Grid>
 </Window>
