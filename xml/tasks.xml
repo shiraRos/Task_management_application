@@ -1,48 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfTask xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Task>
-    <Id>857</Id>
-    <EngineerId>123321123</EngineerId>
+    <Id>860</Id>
+    <EngineerId xsi:nil="true" />
     <IsMileston xsi:nil="true" />
     <StartDate xsi:nil="true" />
-    <DeadlineDate>2024-04-05T01:30:00</DeadlineDate>
+    <DeadlineDate xsi:nil="true" />
     <CompleteDate xsi:nil="true" />
-    <ScheduledDate>2024-04-04T00:00:00</ScheduledDate>
-    <RequiredEffortTime>P1DT1H30M</RequiredEffortTime>
-    <Deliverables />
-    <Remarks />
+    <ScheduledDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <ComplexityLevel>AdvancedBeginner</ComplexityLevel>
+    <Description>האם זה מעדכן???</Description>
+    <Alias>ראשון</Alias>
+  </Task>
+  <Task>
+    <Id>861</Id>
+    <EngineerId xsi:nil="true" />
+    <IsMileston xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <ScheduledDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
     <ComplexityLevel>Competent</ComplexityLevel>
-    <Description />
-    <Alias>first</Alias>
+    <Description>התלויות פועלות כראוי??? אולי????פליזזז</Description>
+    <Alias>שני</Alias>
   </Task>
   <Task>
-    <Id>859</Id>
+    <Id>862</Id>
     <EngineerId xsi:nil="true" />
     <IsMileston xsi:nil="true" />
     <StartDate xsi:nil="true" />
-    <DeadlineDate>2024-04-07T04:30:00</DeadlineDate>
+    <DeadlineDate xsi:nil="true" />
     <CompleteDate xsi:nil="true" />
-    <ScheduledDate>2024-04-06T03:00:00</ScheduledDate>
-    <RequiredEffortTime>P1DT1H30M</RequiredEffortTime>
-    <Deliverables />
-    <Remarks />
+    <ScheduledDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
     <ComplexityLevel>Expert</ComplexityLevel>
-    <Description>third task</Description>
-    <Alias>third</Alias>
-  </Task>
-  <Task>
-    <Id>858</Id>
-    <EngineerId xsi:nil="true" />
-    <IsMileston xsi:nil="true" />
-    <StartDate xsi:nil="true" />
-    <DeadlineDate>2024-04-06T03:00:00</DeadlineDate>
-    <CompleteDate xsi:nil="true" />
-    <ScheduledDate>2024-04-05T01:30:00</ScheduledDate>
-    <RequiredEffortTime>P1DT1H30M</RequiredEffortTime>
-    <Deliverables />
-    <Remarks />
-    <ComplexityLevel>Proficient</ComplexityLevel>
-    <Description />
-    <Alias>second</Alias>
+    <Alias>שלישי</Alias>
   </Task>
 </ArrayOfTask>

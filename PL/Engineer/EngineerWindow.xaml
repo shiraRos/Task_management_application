@@ -26,7 +26,7 @@
         </Grid.RowDefinitions>
 
         <Label Content="Id:" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="0"  Grid.Column="2" Text="{Binding  Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Center" />
+        <TextBox Grid.Row="0"  Grid.Column="2" Text="{Binding  Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"   IsEnabled="{Binding Path=Id, Mode=OneTime, Converter={StaticResource IsEnableConverterKey}}" VerticalAlignment="Center" />
 
         <Label Content="Name:" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center"/>
         <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding Name, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Center" />
@@ -42,7 +42,6 @@ SelectedValue="{Binding Level, Mode=TwoWay, NotifyOnValidationError=true}" />
         <TextBox Grid.Row="4" Grid.Column="2"   Text="{Binding Cost, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Center"/>
 
         <Label Content="Task:" Grid.Row="5" Grid.Column="1" VerticalAlignment="Center"/>
-        <!--<TextBox Grid.Row="5" Grid.Column="2" VerticalAlignment="Center" Text="{Binding Task, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>-->
         <ComboBox Grid.Row="5" Grid.Column="2"  VerticalAlignment="Center" ItemsSource="{Binding Source={StaticResource TasksToEngineerKey}}" 
 SelectedValue="{Binding Task, Mode=TwoWay, NotifyOnValidationError=true}"  
                   ></ComboBox>

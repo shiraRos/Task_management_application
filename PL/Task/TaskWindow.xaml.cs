@@ -56,10 +56,6 @@ namespace PL.Task
                 try { TaskItem = s_bl.Task.Read(Id); }
                 catch { }
             Closed += TaskWindow_Closed!;
-            EngineerInTask = s_bl.Task.GetAllAvialbleEngineers(Id, EnigeerExper);
-            TaskDependencies = s_bl.Task.GetAllDependenciesOptions();
-
-
         }
 
         private void btnAddUpdate_Click(object sender, RoutedEventArgs e)

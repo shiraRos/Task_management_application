@@ -35,7 +35,7 @@
         </Grid.RowDefinitions>
 
         <Label Content="Id:" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="0"  Grid.Column="2" Text="{Binding  Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Center" />
+        <TextBox Grid.Row="0"  Grid.Column="2" IsEnabled="False" Text="{Binding  Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Center" />
 
         <Label Content="Alias:" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center"/>
         <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding Alias, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Center" />
@@ -44,10 +44,10 @@
         <TextBox Grid.Row="2" Grid.Column="2" Text="{Binding Description, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Center" />
 
         <Label Content="CreateAtDate:" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="3" Grid.Column="2" VerticalAlignment="Center" Text="{Binding CreateAtDate, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
+        <TextBox Grid.Row="3" Grid.Column="2" IsEnabled="False" VerticalAlignment="Center" Text="{Binding CreateAtDate, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
 
         <Label Content="Status:" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="4" Grid.Column="2" VerticalAlignment="Center" Text="{Binding Status, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
+        <TextBox Grid.Row="4" Grid.Column="2" IsEnabled="False" VerticalAlignment="Center" Text="{Binding Status, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
 
         <Label Content="Dependencies:" Grid.Row="5" Grid.Column="1" VerticalAlignment="Center"/>
         <ComboBox Grid.Row="5" Grid.Column="2"  VerticalAlignment="Center" ItemsSource="{Binding Source={StaticResource TaksDependenciesKey}}" 
@@ -79,8 +79,8 @@ SelectedValue="{Binding Dependencies, Mode=TwoWay, NotifyOnValidationError=true}
         <Label Content="Deliverables:" Grid.Row="13" Grid.Column="1" VerticalAlignment="Center"/>
         <TextBox Grid.Row="13" Grid.Column="2" VerticalAlignment="Center" Text="{Binding Deliverables, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
 
-        <Label Content="Engineer:" Grid.Row="14" Grid.Column="1" VerticalAlignment="Center"/>
-        <ComboBox Grid.Row="14" Grid.Column="2"  VerticalAlignment="Center" ItemsSource="{Binding Source={StaticResource EngineerToTaskKey}}" 
+        <Label Content="Engineer:"  Grid.Row="14" Grid.Column="1" VerticalAlignment="Center"/>
+        <ComboBox Grid.Row="14"  IsEnabled="{Binding Path=Id, Mode=OneTime, Converter={StaticResource IsEnableConverterTaskKey}}" Grid.Column="2"  VerticalAlignment="Center" ItemsSource="{Binding Source={StaticResource EngineerToTaskKey}}" 
 SelectedValue="{Binding Dependencies, Mode=TwoWay, NotifyOnValidationError=true}" />
 
         <Label Content="ComplexityLevel:" Grid.Row="15" Grid.Column="1" VerticalAlignment="Center"/>

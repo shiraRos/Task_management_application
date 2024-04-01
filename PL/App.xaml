@@ -9,6 +9,9 @@
         <local:TasksToEngineer x:Key="TasksToEngineerKey"/>
         <local:EngineerToTask x:Key="EngineerToTaskKey" />
         <local:TaksDependencies x:Key="TaksDependenciesKey" />
+        <local:IsEnableConverter x:Key="IsEnableConverterKey" />
+        <local:IsEnableConverterTask x:Key="IsEnableConverterTaskKey" />
+        
         
     </Application.Resources>
 </Application>

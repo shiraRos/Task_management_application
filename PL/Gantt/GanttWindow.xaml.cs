@@ -70,7 +70,7 @@ namespace PL.Gantt
             {
                 new Activity { Name = "Activity 1", StartTime = TimeSpan.FromHours(8), EndTime = TimeSpan.FromHours(16) },
                 new Activity { Name = "Activity 2", StartTime = TimeSpan.FromHours(10), EndTime = TimeSpan.FromHours(12) },
-                new Activity { Name = "Activity 3", StartTime = TimeSpan.FromHours(12), EndTime = TimeSpan.FromHours(14) }
+                new Activity { Name = "Activity 3", StartTime = TimeSpan.FromHours(12), EndTime = TimeSpan.FromHours(13) }
             };
         }
     }

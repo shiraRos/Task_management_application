@@ -65,49 +65,19 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
-        CurrentTime = s_bl.Clock;
-        DataContext = this;
     }
 
-    private void ButtonTaskList_Click(object sender, RoutedEventArgs e)
+    private void ButtonEngineer_Click(object sender, RoutedEventArgs e)
     {
         new TaskListWindow().Show();
     }
 
-private void ButtonGanttView_Click(object sender, RoutedEventArgs e)
+private void ButtonAdmin_Click(object sender, RoutedEventArgs e)
     {
-        new GanttWindow().Show();
+        new Admin().Show();
     }
 
-    static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-
-    public DateTime CurrentTime
-    {
-        get { return (DateTime)GetValue(CurrentTimeProperty); }
-        set { SetValue(CurrentTimeProperty, value); }
-    }
-    public static readonly DependencyProperty CurrentTimeProperty = DependencyProperty.Register("CurrentTime", typeof(DateTime), typeof(MainWindow), new PropertyMetadata(default(DateTime)));
-
-    private void ButtonAdvanceYear_Click(object sender, RoutedEventArgs e)
-    {
-        s_bl.AdvanceTimeByYear();
-        CurrentTime = s_bl.Clock;
-    }
-    private void ButtonAdvanceDay_Click(object sender, RoutedEventArgs e)
-    {
-        s_bl.AdvanceTimeByDay();
-        CurrentTime = s_bl.Clock;
-    }
-    private void ButtonAdvanceHour_Click(object sender, RoutedEventArgs e)
-    {
-        s_bl.AdvanceTimeByHour();
-        CurrentTime = s_bl.Clock;
-    }
-    private void ButtonInitializeClock_Click(object sender, RoutedEventArgs e)
-    {
-        s_bl.InitializeTime();
-        CurrentTime = s_bl.Clock;
-    }
+  
 
 }
 

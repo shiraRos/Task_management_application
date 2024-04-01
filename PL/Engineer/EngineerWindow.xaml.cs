@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -87,4 +88,6 @@ public partial class EngineerWindow : Window
             mainWindow.EngineerList = s_bl.Engineer.ReadAll()!;
         }
     }
+
+   
 }
