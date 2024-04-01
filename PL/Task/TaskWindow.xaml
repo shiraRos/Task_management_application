@@ -50,7 +50,7 @@
         <TextBox Grid.Row="4" Grid.Column="2" VerticalAlignment="Center" Text="{Binding Status, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
 
         <Label Content="Dependencies:" Grid.Row="5" Grid.Column="1" VerticalAlignment="Center"/>
-        <ComboBox Grid.Row="5" Grid.Column="2"  VerticalAlignment="Center" ItemsSource="{Binding Source={StaticResource EngineerInTaskKey}}" 
+        <ComboBox Grid.Row="5" Grid.Column="2"  VerticalAlignment="Center" ItemsSource="{Binding Source={StaticResource TaksDependenciesKey}}" 
 SelectedValue="{Binding Dependencies, Mode=TwoWay, NotifyOnValidationError=true}" />
 
 
@@ -80,7 +80,8 @@ SelectedValue="{Binding Dependencies, Mode=TwoWay, NotifyOnValidationError=true}
         <TextBox Grid.Row="13" Grid.Column="2" VerticalAlignment="Center" Text="{Binding Deliverables, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
 
         <Label Content="Engineer:" Grid.Row="14" Grid.Column="1" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="14" Grid.Column="2" Text="{Binding Engineer, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Center" />
+        <ComboBox Grid.Row="14" Grid.Column="2"  VerticalAlignment="Center" ItemsSource="{Binding Source={StaticResource EngineerToTaskKey}}" 
+SelectedValue="{Binding Dependencies, Mode=TwoWay, NotifyOnValidationError=true}" />
 
         <Label Content="ComplexityLevel:" Grid.Row="15" Grid.Column="1" VerticalAlignment="Center"/>
         <ComboBox Grid.Row="15" Grid.Column="2"  VerticalAlignment="Center" ItemsSource="{Binding Source={StaticResource EngineerExperienceEnumKey}}" 

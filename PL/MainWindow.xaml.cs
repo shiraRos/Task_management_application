@@ -1,5 +1,6 @@
 ﻿using PL.Engineer;
 using PL.Task;
+using PL.Gantt;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -73,7 +74,10 @@ public partial class MainWindow : Window
         new TaskListWindow().Show();
     }
 
-
+private void ButtonGanttView_Click(object sender, RoutedEventArgs e)
+    {
+        new GanttWindow().Show();
+    }
 
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 

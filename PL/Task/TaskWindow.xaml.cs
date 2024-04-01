@@ -30,6 +30,22 @@ namespace PL.Task
             get { return (BO.Task)GetValue(CurrentTask); }
             set { SetValue(CurrentTask, value); }
         }
+
+        public static readonly DependencyProperty EnginnerInTaskProperty =DependencyProperty.Register("EngineerInTask", typeof(IEnumerable<BO.EngineerInTask>), typeof(TaskWindow), new PropertyMetadata(null));
+        public IEnumerable<BO.EngineerInTask> EngineerInTask
+        {
+            get { return (IEnumerable<BO.EngineerInTask>)GetValue(EnginnerInTaskProperty); }
+            set { SetValue(EnginnerInTaskProperty, value); }
+        }
+
+ public static readonly DependencyProperty CurrentTaskDependency =DependencyProperty.Register("TaskDependencies", typeof(IEnumerable<BO.TaskInList>), typeof(TaskWindow), new PropertyMetadata(null));
+        public IEnumerable<BO.TaskInList> TaskDependencies
+        {
+            get { return (IEnumerable<BO.TaskInList>)GetValue(CurrentTaskDependency); }
+            set { SetValue(CurrentTaskDependency, value); }
+        }
+
+
         public TaskWindow(int Id = 0)
         {
             InitializeComponent();
@@ -40,6 +56,10 @@ namespace PL.Task
                 try { TaskItem = s_bl.Task.Read(Id); }
                 catch { }
             Closed += TaskWindow_Closed!;
+            EngineerInTask = s_bl.Task.GetAllAvialbleEngineers(Id, EnigeerExper);
+            TaskDependencies = s_bl.Task.GetAllDependenciesOptions();
+
+
         }
 
         private void btnAddUpdate_Click(object sender, RoutedEventArgs e)

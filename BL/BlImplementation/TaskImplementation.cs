@@ -2,9 +2,11 @@
 namespace BlImplementation;
 using BlApi;
 using BO;
+using DO;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Net.NetworkInformation;
+using System.Reflection.Metadata.Ecma335;
 
 internal class TaskImplementation : ITask
 {
@@ -78,7 +80,7 @@ internal class TaskImplementation : ITask
     /// </summary>
     /// <param name="isEngExist">parameter for checking if there is an engineer in this task</param>
     /// <returns>the index of the suit status</returns>
-    internal int CreateStatus(bool isEngExist,DateTime? compDate)
+    internal int CreateStatus(bool isEngExist, DateTime? compDate)
     {
         //if the project didnt start yet the status is 0-unschduled
         if (!s_bl.isProjectStarted())
@@ -175,7 +177,7 @@ internal class TaskImplementation : ITask
             Description = dotsk.Description,
             CreateAtDate = dotsk.CreateAtDate,
             //calling the internal functions for getting the data
-            Status = (Status?)CreateStatus(dotsk.EngineerId!=null, dotsk.CompleteDate),
+            Status = (Status?)CreateStatus(dotsk.EngineerId != null, dotsk.CompleteDate),
             Dependencies = DepCreate(id),
             Milestone = null,
             RequiredEffortTime = dotsk.RequiredEffortTime,
@@ -220,7 +222,7 @@ internal class TaskImplementation : ITask
                 if (dependTsk.Dependencies != null)
                     foreach (var depOnTsk in dependTsk.Dependencies)
                     {
-                        if (depOnTsk.Status != (Status)3&& depOnTsk.Status != (Status)0)
+                        if (depOnTsk.Status != (Status)3 && depOnTsk.Status != (Status)0)
                             throw new BO.BlStatusNotFit($"the dependent task: {depOnTsk.Alias} is not done yet");
                     }
                 //Checks that no engineer has taken the task before
@@ -245,7 +247,7 @@ internal class TaskImplementation : ITask
         }
         catch (DO.DalDoesNotExistException ex)
         {
-            throw new BO.BlDoesNotExistException( ex.Message);
+            throw new BO.BlDoesNotExistException(ex.Message);
         }
     }
     /// <summary>
@@ -302,8 +304,38 @@ internal class TaskImplementation : ITask
     /// <returns>all tasks in TaskInEngineer format</returns>
     public IEnumerable<TaskInEngineer> GetAvailableTasks()
     {
-       return ReadAll(tsk=>tsk.Engineer==null).Select(tsk => new TaskInEngineer { Id = tsk.Id, Alias=tsk.Alias }).ToList();
+        return ReadAll(tsk => tsk.Engineer == null).Select(tsk => new TaskInEngineer { Id = tsk.Id, Alias = tsk.Alias }).ToList();
     }
-   
+    
+
+    public IEnumerable<EngineerInTask> GetAllAvialbleEngineers(int tskId, BO.EngineerExperience taskLenel)
+    {
+        EngineerImplementation engImp = new EngineerImplementation();
+        return engImp.ReadAll(eng => (int)eng.Level! >= (int)taskLenel && (eng.Task == null || Read(eng.Task.Id)!.Status == (Status)3)).Select(eng =>
+         {
+             return new BO.EngineerInTask
+             {
+                 Id = eng.Id,
+                 Name = eng.Name
+             };
+         }).ToList();
+    }
+
+    public IEnumerable<TaskInList> GetAllDependenciesOptions()
+    {
+
+        IEnumerable<BO.TaskInList> depList = _dal.Task.ReadAll().Select(tsk =>
+        {
+            //creating a new task in list for the ienumerable item 
+            return new BO.TaskInList
+            {
+                Id = tsk.Id,
+                Alias = tsk?.Alias ?? "",
+                Description = tsk?.Description ?? "",
+                Status = (Status?)CreateStatus(tsk!.EngineerId != null, tsk.CompleteDate)
+            };
+        }).ToList();
+        return depList;
+    }
 }
 

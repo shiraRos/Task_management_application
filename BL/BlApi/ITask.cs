@@ -53,4 +53,9 @@ public interface ITask
     /// <returns>all tasks in TaskInEngineer format</returns>
     public IEnumerable<TaskInEngineer> GetAvailableTasks();
 
+
+    public IEnumerable<EngineerInTask> GetAllAvialbleEngineers(int tskId, EngineerExperience taskLenel);
+
+    public IEnumerable<TaskInList> GetAllDependenciesOptions();
+
 }
