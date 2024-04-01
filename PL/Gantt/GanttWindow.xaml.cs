@@ -1,7 +1,9 @@
-﻿using System;
+﻿using PL.Task;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,65 +16,127 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace PL.Gantt
+namespace PL.Gantt;
+
+/// <summary>
+/// Interaction logic for GanttWindow.xaml
+/// </summary>
+public partial class GanttWindow : Window
 {
-    /// <summary>
-    /// Interaction logic for GanttWindow.xaml
-    /// </summary>
-    public partial class GanttWindow : Window
+    List<BO.Task> listTaskScheduale;
+    DateTime StartProject;
+    DateTime EndProject;
+
+    public DataTable dataTable
     {
-        public GanttWindow()
-        {
-            InitializeComponent();
-            DataContext = new GanttViewModel();
-        }
+        get { return (DataTable)GetValue(dataTableProperty); }
+        set { SetValue(dataTableProperty, value); }
+        
     }
-    public class Activity : INotifyPropertyChanged
+    public static readonly DependencyProperty dataTableProperty =
+          DependencyProperty.Register("dataTable", typeof(List<BO.Task>), typeof(GanttWindow), new PropertyMetadata(null));
+    
+
+    public GanttWindow()
     {
-        private string _name;
-        public string Name
-        {
-            get { return _name; }
-            set { _name = value; NotifyPropertyChanged("Name"); }
-        }
+        listTaskScheduale = new List<BO.Task>();
 
-        private TimeSpan _startTime;
-        public TimeSpan StartTime
-        {
-            get { return _startTime; }
-            set { _startTime = value; NotifyPropertyChanged("StartTime"); }
-        }
+        listTaskScheduale.Add(new BO.Task() { Id = 1, Alias = "T1", StartDate = new DateTime(2024, 2, 21), CompleteDate = new DateTime(2024, 2, 22), Status = BO.Task.status });
+        //StartProject = listTaskScheduale.Min(t => t.StartDate);
+        //EndProject = listTaskScheduale.Max(t => t.CompleteDate);
 
-        private TimeSpan _endTime;
-        public TimeSpan EndTime
-        {
-            get { return _endTime; }
-            set { _endTime = value; NotifyPropertyChanged("EndTime"); }
-        }
+        buildDataTable();
 
-        public int DurationInPixels => (int)((EndTime - StartTime).TotalMinutes); // Assuming 1 pixel per minute
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void NotifyPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        InitializeComponent();
+       // DataContext = new GanttViewModel();
     }
-
-    public class GanttViewModel
+    private void buildDataTable()
     {
-        public ObservableCollection<Activity> Activities { get; set; }
+        dataTable = new DataTable();
+        dataTable.Columns.Add("Id",typeof(int));
 
-        public GanttViewModel()
+        dataTable.Columns.Add("Alias", typeof(string));
+
+        dataTable.Columns.Add("EngineerId", typeof(int));
+
+        //dataTable.Columns.Add("Engineer Name", typeof(string));
+
+        int col = 3;
+        for(DateTime day=StartProject; day <= EndProject; day = day.AddDays(1))
         {
-            Activities = new ObservableCollection<Activity>
+            string strDay = $"{day.Day}-{day.Month}-{day.Year}";
+            dataTable.Columns.Add(strDay, typeof(string));
+            col++;
+        }
+
+        IEnumerable<BO.Task> orderedlistTasksScheduale = listTaskScheduale.OrderBy(t => t.StartDate);
+        foreach(BO.Task task in orderedlistTasksScheduale)
+        {
+            DataRow row =dataTable.NewRow();
+            row[0]=task.Id;
+            row[1] = task.Alias;
+            row[2] = task.Engineer;
+            for (DateTime day = StartProject; day <= EndProject; day = day.AddDays(1))
             {
-                new Activity { Name = "Activity 1", StartTime = TimeSpan.FromHours(8), EndTime = TimeSpan.FromHours(16) },
-                new Activity { Name = "Activity 2", StartTime = TimeSpan.FromHours(10), EndTime = TimeSpan.FromHours(12) },
-                new Activity { Name = "Activity 3", StartTime = TimeSpan.FromHours(12), EndTime = TimeSpan.FromHours(13) }
-            };
+                string strDay = $"{day.Day}-{day.Month}-{day.Year}";
+                //if (day < task.StartDate || day > task.CompleteDate)
+                //    row[strDay] = BO.Task.status;
+                //else
+                //{
+                //    row[strDay] = task.status;
+                //}
+                dataTable.Rows.Add(row);
+            }
         }
     }
+
+
 }
+//public class Activity : INotifyPropertyChanged
+//{
+//    private string _name;
+//    public string Name
+//    {
+//        get { return _name; }
+//        set { _name = value; NotifyPropertyChanged("Name"); }
+//    }
+
+//    private TimeSpan _startTime;
+//    public TimeSpan StartTime
+//    {
+//        get { return _startTime; }
+//        set { _startTime = value; NotifyPropertyChanged("StartTime"); }
+//    }
+
+//    private TimeSpan _endTime;
+//    public TimeSpan EndTime
+//    {
+//        get { return _endTime; }
+//        set { _endTime = value; NotifyPropertyChanged("EndTime"); }
+//    }
+
+//    public int DurationInPixels => (int)((EndTime - StartTime).TotalMinutes); // Assuming 1 pixel per minute
+
+//    public event PropertyChangedEventHandler PropertyChanged;
+
+//    private void NotifyPropertyChanged(string propertyName)
+//    {
+//        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+//    }
+//}
+
+//public class GanttViewModel
+//{
+//    public ObservableCollection<Activity> Activities { get; set; }
+
+//    public GanttViewModel()
+//    {
+//        Activities = new ObservableCollection<Activity>
+//        {
+//            new Activity { Name = "Activity 1", StartTime = TimeSpan.FromHours(8), EndTime = TimeSpan.FromHours(16) },
+//            new Activity { Name = "Activity 2", StartTime = TimeSpan.FromHours(10), EndTime = TimeSpan.FromHours(12) },
+//            new Activity { Name = "Activity 3", StartTime = TimeSpan.FromHours(12), EndTime = TimeSpan.FromHours(13) }
+//        };
+//    }
+//}
 
