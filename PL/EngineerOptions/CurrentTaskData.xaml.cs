@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PL.Task;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,17 +12,16 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using PL;
-using PL.Engineer;
 
-namespace PL.Task
+namespace PL.EngineerOptions
 {
     /// <summary>
-    /// Interaction logic for TaskWindow.xaml
+    /// Interaction logic for CurrentTaskData.xaml
     /// </summary>
-    public partial class TaskWindow : Window
+    public partial class CurrentTaskData : Window
     {
-        int pageStatus = 0;
+       
+       
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
         public static DependencyProperty CurrentTask = DependencyProperty.Register("TaskItem", typeof(BO.Task), typeof(TaskWindow), new PropertyMetadata(null));
         public BO.EngineerExperience EnigeerExper { get; set; } = BO.EngineerExperience.None;
@@ -31,58 +31,24 @@ namespace PL.Task
             set { SetValue(CurrentTask, value); }
         }
 
- //       public static readonly DependencyProperty EnginnerInTaskProperty =DependencyProperty.Register("EngineerInTask", typeof(IEnumerable<BO.EngineerInTask>), typeof(TaskWindow), new PropertyMetadata(null));
- //       public IEnumerable<BO.EngineerInTask> EngineerInTask
- //       {
- //           get { return (IEnumerable<BO.EngineerInTask>)GetValue(EnginnerInTaskProperty); }
- //           set { SetValue(EnginnerInTaskProperty, value); }
- //       }
-
- //public static readonly DependencyProperty CurrentTaskDependency =DependencyProperty.Register("TaskDependencies", typeof(IEnumerable<BO.TaskInList>), typeof(TaskWindow), new PropertyMetadata(null));
- //       public IEnumerable<BO.TaskInList> TaskDependencies
- //       {
- //           get { return (IEnumerable<BO.TaskInList>)GetValue(CurrentTaskDependency); }
- //           set { SetValue(CurrentTaskDependency, value); }
- //       }
 
 
-        public TaskWindow(int Id = 0)
+        public CurrentTaskData(int Id)
         {
             InitializeComponent();
-            pageStatus = Id;
-            if (Id == 0)
-                TaskItem = new BO.Task();
-            else
-                try { 
-                    TaskItem = s_bl.Task.Read(Id);
-            //EngineerInTask = s_bl.Task.GetAllAvialbleEngineers(Id, TaskItem?.ComplexityLevel);
-                }
-                catch { }
+            try
+            {
+                TaskItem = s_bl.Task.Read(Id);
+                //EngineerInTask = s_bl.Task.GetAllAvialbleEngineers(Id, TaskItem?.ComplexityLevel);
+            }
+            catch { }
             Closed += TaskWindow_Closed!;
             //TaskDependencies = s_bl.Task.GetAllDependenciesOptions();
 
-
         }
-
         private void btnAddUpdate_Click(object sender, RoutedEventArgs e)
         {
-            if (pageStatus == 0)
-            {
-                try
-                {
-                    s_bl.Task.Create(TaskItem);
-                    MessageBox.Show("the task added succefully");
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-                // Display a confirmation message box
-                Close();
-
-            }
-            else
-            {
+           
 
                 try
                 {
@@ -94,7 +60,7 @@ namespace PL.Task
                     MessageBox.Show(ex.Message);
                 }
                 Close();
-            }
+            
         }
 
         private void TaskWindow_Closed(object sender, EventArgs e)

@@ -308,10 +308,10 @@ internal class TaskImplementation : ITask
     }
     
 
-    public IEnumerable<EngineerInTask> GetAllAvialbleEngineers(int tskId, BO.EngineerExperience taskLenel)
+    public IEnumerable<EngineerInTask> GetAllAvialbleEngineers(int tskId, BO.EngineerExperience? taskLenel)
     {
         EngineerImplementation engImp = new EngineerImplementation();
-        return engImp.ReadAll(eng => (int)eng.Level! >= (int)taskLenel && (eng.Task == null || Read(eng.Task.Id)!.Status == (Status)3)).Select(eng =>
+        return engImp.ReadAll(eng => (int)eng.Level! >= (int)taskLenel! && (eng.Task == null || Read(eng.Task.Id)!.Status == (Status)3)).Select(eng =>
          {
              return new BO.EngineerInTask
              {
@@ -336,6 +336,25 @@ internal class TaskImplementation : ITask
             };
         }).ToList();
         return depList;
+    }
+
+    public IEnumerable<TasksForScheduale> GetAllTaskForGantt()
+    {
+        IEnumerable<BO.TasksForScheduale> allTsk = _dal.Task.ReadAll().Select(tsk =>
+        {
+            //creating a new task in list for the ienumerable item 
+            return new BO.TasksForScheduale
+            {
+                Id = tsk.Id,
+                Alias = tsk?.Alias ?? "",
+                EngineerId=tsk?.EngineerId??0,
+                EngineerName= tsk?.EngineerId==null?"no engineer":_dal.Engineer.Read((int)tsk.EngineerId)?.Name??"",
+                TaskStaus = (Status)CreateStatus(tsk!.EngineerId != null, tsk.CompleteDate),
+                StartDate=(DateTime)tsk.ScheduledDate!,
+                EndDate=(DateTime)tsk.DeadlineDate!
+            };
+        }).ToList();
+        return allTsk;
     }
 }
 

@@ -23,7 +23,8 @@ namespace PL.Gantt;
 /// </summary>
 public partial class GanttWindow : Window
 {
-    List<BO.Task> listTaskScheduale;
+    static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+    IEnumerable<BO.TasksForScheduale> listTaskScheduale;
     DateTime StartProject;
     DateTime EndProject;
 
@@ -31,60 +32,67 @@ public partial class GanttWindow : Window
     {
         get { return (DataTable)GetValue(dataTableProperty); }
         set { SetValue(dataTableProperty, value); }
-        
+
     }
     public static readonly DependencyProperty dataTableProperty =
-          DependencyProperty.Register("dataTable", typeof(List<BO.Task>), typeof(GanttWindow), new PropertyMetadata(null));
-    
+          DependencyProperty.Register("dataTable", typeof(DataTable), typeof(GanttWindow), new PropertyMetadata(null));
+
 
     public GanttWindow()
     {
-        listTaskScheduale = new List<BO.Task>();
+        listTaskScheduale = s_bl.Task.GetAllTaskForGantt();
 
-        listTaskScheduale.Add(new BO.Task() { Id = 1, Alias = "T1", StartDate = new DateTime(2024, 2, 21), CompleteDate = new DateTime(2024, 2, 22), Status = BO.Task.status });
+        // listTaskScheduale.Add(new BO.Task() { Id = 1, Alias = "T1", StartDate = new DateTime(2024, 2, 21), CompleteDate = new DateTime(2024, 2, 22) });
         //StartProject = listTaskScheduale.Min(t => t.StartDate);
         //EndProject = listTaskScheduale.Max(t => t.CompleteDate);
 
         buildDataTable();
 
         InitializeComponent();
-       // DataContext = new GanttViewModel();
+        // DataContext = new GanttViewModel();
     }
     private void buildDataTable()
     {
         dataTable = new DataTable();
-        dataTable.Columns.Add("Id",typeof(int));
+        dataTable.Columns.Add("Id", typeof(int));
 
         dataTable.Columns.Add("Alias", typeof(string));
 
         dataTable.Columns.Add("EngineerId", typeof(int));
 
-        //dataTable.Columns.Add("Engineer Name", typeof(string));
+        dataTable.Columns.Add("Engineer Name", typeof(string));
+        dataTable.Columns.Add("status", typeof(string));
+        dataTable.Columns.Add("start date", typeof(string));
+        dataTable.Columns.Add("end date", typeof(string));
 
-        int col = 3;
-        for(DateTime day=StartProject; day <= EndProject; day = day.AddDays(1))
+        int col = 7;
+        for (DateTime day = StartProject; day <= EndProject; day = day.AddDays(1))
         {
             string strDay = $"{day.Day}-{day.Month}-{day.Year}";
             dataTable.Columns.Add(strDay, typeof(string));
             col++;
         }
 
-        IEnumerable<BO.Task> orderedlistTasksScheduale = listTaskScheduale.OrderBy(t => t.StartDate);
-        foreach(BO.Task task in orderedlistTasksScheduale)
+        IEnumerable<BO.TasksForScheduale> orderedlistTasksScheduale = listTaskScheduale.OrderBy(t => t.StartDate);
+        foreach (BO.TasksForScheduale task in orderedlistTasksScheduale)
         {
-            DataRow row =dataTable.NewRow();
-            row[0]=task.Id;
+            DataRow row = dataTable.NewRow();
+            row[0] = task.Id;
             row[1] = task.Alias;
-            row[2] = task.Engineer;
+            row[2] = task.EngineerId;
+            row[3] = task.EngineerName;
+            row[4] = task.TaskStaus;
+            row[5] = task.StartDate;
+            row[6] = task.EndDate;
             for (DateTime day = StartProject; day <= EndProject; day = day.AddDays(1))
             {
                 string strDay = $"{day.Day}-{day.Month}-{day.Year}";
-                //if (day < task.StartDate || day > task.CompleteDate)
-                //    row[strDay] = BO.Task.status;
-                //else
-                //{
-                //    row[strDay] = task.status;
-                //}
+                if (day < task.StartDate || day > task.EndDate)
+                    row[strDay] = "None";
+                else
+                {
+                    row[strDay] = task.TaskStaus;
+                }
                 dataTable.Rows.Add(row);
             }
         }

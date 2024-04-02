@@ -6,12 +6,12 @@
         xmlns:local="clr-namespace:PL.Gantt"
         mc:Ignorable="d"
         Title="GanttWindow" Height="450" Width="800"
-    DataContext="{Binding TaskItem, RelativeSource={RelativeSource Self}, Mode=TwoWay}" >
+    DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}" >
     <Grid>
         <Grid.Resources>
             <Style  TargetType="DataGridCell">
-                <Setter Property="Background" Value="{Binding Path=Content.Text , RelativeSource={RelativeSource Self},Converter={StaticResource convertTaskStatusToBackgroundColorKey}} "/>
-                <Setter Property="Foreground" Value="{Binding Path=Content.Text , RelativeSource={RelativeSource Self},Converter={StaticResource convertTaskStatusToBackgroundColorKey}}"/>
+                <!--<Setter Property="Background" Value="{Binding Path=Content.Text , RelativeSource={RelativeSource Self},Converter={StaticResource ConvertTaskStatusToForegroundColorKey}}"/>-->
+                <Setter Property="Foreground" Value="{Binding Path=Content.Text , RelativeSource={RelativeSource Self},Converter={StaticResource ConvertTaskStatusToForegroundColorKey}}"/>
             </Style>
         </Grid.Resources>
         <!--<ItemsControl ItemsSource="{Binding Activities}">

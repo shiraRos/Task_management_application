@@ -22,13 +22,16 @@ namespace PL
     /// </summary>
     public partial class Admin : Window
     {
+        static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
-        public Admin()
+        public static readonly DependencyProperty CurrentTimeProperty = DependencyProperty.Register("CurrentTime", typeof(DateTime), typeof(MainWindow), new PropertyMetadata(default(DateTime)));
+        public DateTime CurrentTime
         {
-            InitializeComponent();
-            CurrentTime = s_bl.Clock;
-            DataContext = this;
+            get { return (DateTime)GetValue(CurrentTimeProperty); }
+            set { SetValue(CurrentTimeProperty, value); }
         }
+
+       
         /// <summary>
         ///  Method for show all the list of enginner  by click of the "Handle engineer"
         /// </summary>
@@ -49,15 +52,7 @@ namespace PL
                 new GanttWindow().Show();
             }
 
-            static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-
-            public DateTime CurrentTime
-            {
-                get { return (DateTime)GetValue(CurrentTimeProperty); }
-                set { SetValue(CurrentTimeProperty, value); }
-            }
-            public static readonly DependencyProperty CurrentTimeProperty = DependencyProperty.Register("CurrentTime", typeof(DateTime), typeof(MainWindow), new PropertyMetadata(default(DateTime)));
-
+          
             private void ButtonAdvanceYear_Click(object sender, RoutedEventArgs e)
             {
                 s_bl.AdvanceTimeByYear();
@@ -78,7 +73,12 @@ namespace PL
                 s_bl.InitializeTime();
                 CurrentTime = s_bl.Clock;
             }
-
+        public Admin()
+        {
+            InitializeComponent();
+            CurrentTime = s_bl.Clock;
+            DataContext = this;
         }
+    }
     
 }

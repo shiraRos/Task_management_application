@@ -11,6 +11,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using PL.EngineerOptions;
+
 
 namespace PL;
 /// <summary>
@@ -18,6 +20,7 @@ namespace PL;
 /// </summary>
 public partial class MainWindow : Window
 {
+    static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
     /// <summary>
     ///  Method for show all the list of enginner  by click of the "Handle engineer"
     /// </summary>
@@ -69,7 +72,22 @@ public partial class MainWindow : Window
 
     private void ButtonEngineer_Click(object sender, RoutedEventArgs e)
     {
-        new TaskListWindow().Show();
+        int id;
+        string input = Microsoft.VisualBasic.Interaction.InputBox("please enter your ID:", "Enginner Enter");
+
+
+        if (int.TryParse(input, out id))
+        {
+            try
+            {
+                BO.Engineer newUser= s_bl.Engineer.Read(id)!;
+                new CurrentTaskData(newUser.Task.Id).ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
     }
 
 private void ButtonAdmin_Click(object sender, RoutedEventArgs e)

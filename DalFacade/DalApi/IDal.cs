@@ -26,7 +26,7 @@ namespace DalApi
         /// Method for updating  the project start date
         /// </summary>
         /// <param name="date">getting the date to update</param>
-        public void ProjectStartDateUpdate(DateTime date);
+        public void ProjectStartDateUpdate(DateTime? date);
 
 
         /// <summary>

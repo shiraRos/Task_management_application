@@ -46,10 +46,10 @@ static class XMLTools
         return root.ToDateTimeNullable(elemName);
     }
 
-    public static void SetStartDate(string data_config_xml, string elemName, DateTime startDate)
+    public static void SetStartDate(string data_config_xml, string elemName, DateTime? startDate)
     {
         XElement root = XMLTools.LoadListFromXMLElement(data_config_xml);
-        root.Element(elemName)?.SetValue(startDate.ToString("yyyy-MM-dd")); // Adjust the date format as needed
+        root.Element(elemName)?.SetValue(startDate.ToString()!); // Adjust the date format as needed
         XMLTools.SaveListToXMLElement(root, data_config_xml);
     }
 

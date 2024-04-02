@@ -37,7 +37,7 @@ sealed internal class DalXml : IDal
         Config.endDate = date;
     }
 
-    public void ProjectStartDateUpdate(DateTime date)
+    public void ProjectStartDateUpdate(DateTime? date)
     {
         XMLTools.SetStartDate("data-config", "startDate", date);
     }

@@ -11,6 +11,7 @@
         <local:TaksDependencies x:Key="TaksDependenciesKey" />
         <local:IsEnableConverter x:Key="IsEnableConverterKey" />
         <local:IsEnableConverterTask x:Key="IsEnableConverterTaskKey" />
+        <local:ConvertTaskStatusToForegroundColor x:Key="ConvertTaskStatusToForegroundColorKey" />
         
         
     </Application.Resources>

@@ -32,7 +32,7 @@ sealed internal class DalList : IDal
         Config.endDate = date;
     }
 
-    public void ProjectStartDateUpdate(DateTime date)
+    public void ProjectStartDateUpdate(DateTime? date)
     {
         Config.startDate = date;
     }
