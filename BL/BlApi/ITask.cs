@@ -60,4 +60,6 @@ public interface ITask
 
     public IEnumerable<TasksForScheduale> GetAllTaskForGantt();
 
+    public IEnumerable<TaskInEngineer> GetAvailableTasksForEngineer(int Id);
+
 }

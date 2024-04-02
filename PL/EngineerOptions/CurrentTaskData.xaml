@@ -5,8 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.EngineerOptions"
         mc:Ignorable="d"
-        Title="CurrentTaskData" Height="450" Width="800"   
-        DataContext="{Binding TaskItem, RelativeSource={RelativeSource Self}, Mode=TwoWay}" >
+        Title="CurrentTaskData" Height="450" Width="800"     DataContext="{Binding EngTask, RelativeSource={RelativeSource Self}, Mode=TwoWay}" >
     <Grid VerticalAlignment="Center">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -35,61 +34,53 @@
         </Grid.RowDefinitions>
 
         <Label Content="Id:" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="0"  Grid.Column="2" IsEnabled="False" Text="{Binding  Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Center" />
+        <TextBlock Grid.Row="0"  Grid.Column="2" IsEnabled="False" Text="{Binding  Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Center" />
 
         <Label Content="Alias:" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding Alias, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Center" />
+        <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding Alias, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Center" />
 
         <Label Content="Description:" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="2" Grid.Column="2" Text="{Binding Description, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Center" />
+        <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding Description, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Center" />
 
         <Label Content="CreateAtDate:" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="3" Grid.Column="2" IsEnabled="False" VerticalAlignment="Center" Text="{Binding CreateAtDate, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
+        <TextBlock Grid.Row="3" Grid.Column="2" IsEnabled="False" VerticalAlignment="Center" Text="{Binding CreateAtDate, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
 
         <Label Content="Status:" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="4" Grid.Column="2" IsEnabled="False" VerticalAlignment="Center" Text="{Binding Status, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
+        <TextBlock Grid.Row="4" Grid.Column="2" IsEnabled="False" VerticalAlignment="Center" Text="{Binding Status, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
 
         <Label Content="Dependencies:" Grid.Row="5" Grid.Column="1" VerticalAlignment="Center"/>
-        <ComboBox Grid.Row="5" Grid.Column="2"  VerticalAlignment="Center" ItemsSource="{Binding Source={StaticResource TaksDependenciesKey}}" 
-SelectedValue="{Binding Dependencies, Mode=TwoWay, NotifyOnValidationError=true}" />
+        <TextBlock Grid.Row="5" Grid.Column="2"  VerticalAlignment="Center" Text="{Binding Dependencies, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
 
 
         <Label Content="RequiredEffortTime:" Grid.Row="6" Grid.Column="1" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="6" Grid.Column="2" VerticalAlignment="Center" Text="{Binding RequiredEffortTime, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
+        <TextBlock Grid.Row="6" Grid.Column="2" VerticalAlignment="Center" Text="{Binding RequiredEffortTime, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
 
         <Label Content="StartDate:" Grid.Row="7" Grid.Column="1" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="7" Grid.Column="2" VerticalAlignment="Center" Text="{Binding StartDate, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
+        <TextBlock Grid.Row="7" Grid.Column="2" VerticalAlignment="Center" Text="{Binding StartDate, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
 
         <Label Content="ScheduledDate:" Grid.Row="8" Grid.Column="1" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="8" Grid.Column="2" VerticalAlignment="Center" Text="{Binding ScheduledDate, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
+        <TextBlock Grid.Row="8" Grid.Column="2" VerticalAlignment="Center" Text="{Binding ScheduledDate, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
 
         <Label Content="ForecastDate:" Grid.Row="9" Grid.Column="1" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="9" Grid.Column="2" VerticalAlignment="Center" Text="{Binding ForecastDate, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
+        <TextBlock Grid.Row="9" Grid.Column="2" VerticalAlignment="Center" Text="{Binding ForecastDate, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
 
         <Label Content="DeadlineDate:" Grid.Row="10" Grid.Column="1" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="10" Grid.Column="2" VerticalAlignment="Center" Text="{Binding DeadlineDate, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
+        <TextBlock Grid.Row="10" Grid.Column="2" VerticalAlignment="Center" Text="{Binding DeadlineDate, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
 
 
         <Label Content="CompleteDate:" Grid.Row="11" Grid.Column="1" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="11" Grid.Column="2" VerticalAlignment="Center" Text="{Binding CompleteDate, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
+        <TextBlock Grid.Row="11" Grid.Column="2" VerticalAlignment="Center" Text="{Binding CompleteDate, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
 
         <Label Content="Remarks:" Grid.Row="12" Grid.Column="1" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="12" Grid.Column="2"   Text="{Binding Remarks, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="12" Grid.Column="2"   Text="{Binding Remarks, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Center"/>
 
         <Label Content="Deliverables:" Grid.Row="13" Grid.Column="1" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="13" Grid.Column="2" VerticalAlignment="Center" Text="{Binding Deliverables, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
-
-        <Label Content="Engineer:"  Grid.Row="14" Grid.Column="1" VerticalAlignment="Center"/>
-        <ComboBox Grid.Row="14"  IsEnabled="{Binding Path=Id, Mode=OneTime, Converter={StaticResource IsEnableConverterTaskKey}}" Grid.Column="2"  VerticalAlignment="Center" ItemsSource="{Binding Source={StaticResource EngineerToTaskKey}}" 
-SelectedValue="{Binding Engineer, Mode=TwoWay, NotifyOnValidationError=true}" />
+        <TextBlock Grid.Row="13" Grid.Column="2" VerticalAlignment="Center" Text="{Binding Deliverables, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
 
         <Label Content="ComplexityLevel:" Grid.Row="15" Grid.Column="1" VerticalAlignment="Center"/>
-        <ComboBox Grid.Row="15" Grid.Column="2"  VerticalAlignment="Center" ItemsSource="{Binding Source={StaticResource EngineerExperienceEnumKey}}" 
-SelectedValue="{Binding ComplexityLevel, Mode=TwoWay, NotifyOnValidationError=true}" />
+        <TextBlock Grid.Row="15" Grid.Column="2"  VerticalAlignment="Center" Text="{Binding ComplexityLevel, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" />
 
 
-
-
-        <Button Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" Grid.Row="20" Margin="25" Content="update" Height="25" Width="70" Click="btnAddUpdate_Click"/>
+        <Button Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" Grid.Row="20" Margin="25" Content="the task is done" Height="25" Width="70" Click="btnDone_Click"/>
     </Grid>
 </Window>

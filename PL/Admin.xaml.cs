@@ -1,4 +1,5 @@
 ﻿using PL.Engineer;
+using PL.EngineerOptions;
 using PL.Gantt;
 using PL.Task;
 using System;
@@ -73,6 +74,24 @@ namespace PL
                 s_bl.InitializeTime();
                 CurrentTime = s_bl.Clock;
             }
+
+        private void ButtonCreateScheduale_Click(object sender, RoutedEventArgs e)
+        {
+           
+            string input = Microsoft.VisualBasic.Interaction.InputBox("please enter the project start date:", "date Enter");
+
+
+           
+                try
+                {
+                    s_bl.createSchedule(s_bl.Clock);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+        }
+
         public Admin()
         {
             InitializeComponent();

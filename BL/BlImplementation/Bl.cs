@@ -18,43 +18,43 @@ internal class Bl : IBl
     /// function for automatic schedule creating
     /// </summary>
     /// <exception cref="FormatException">in case the user typed a wrong data type</exception>
-    public void createSchedule()
+    public void createSchedule(DateTime? statDate)
     {
-        DateTime? statDate = null, maxTimeTask;
+        DateTime?  maxTimeTask;
         DateTime result;
-        TimeSpan? defaultTime = null;
+        TimeSpan defaultTime = new TimeSpan(24, 0, 0);
         TimeSpan defResult;
         Queue<BO.Task> tasksToCheck = new Queue<BO.Task>();
         BO.Task currentTask;
-        Console.WriteLine("insert project start date:");
-        while (statDate == null)
-            if (DateTime.TryParse(Console.ReadLine(), out result))
-            {
-                statDate = result;
-            }
-            else
-            {
-                statDate = null;
-                Console.WriteLine("unvalid value insert start date again");
-            }
+        //Console.WriteLine("insert project start date:");
+        //while (statDate == null)
+        //    if (DateTime.TryParse(Console.ReadLine(), out result))
+        //    {
+        //        statDate = result;
+        //    }
+        //    else
+        //    {
+        //        statDate = null;
+        //        //Console.WriteLine("unvalid value insert start date again");
+        //    }
         //Asks the user if they want to set a default amount of time elapsed for an uninitialized task
         //If not, the user will be prompted to enter a duration for each uninitialized task
-        Console.WriteLine("do you want to use default time span for every task insert Y/N");
-        string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input");
-        if (ans == "Y")
-        {
-            Console.WriteLine("insert default time span for the tasks");
-            if (TimeSpan.TryParse(Console.ReadLine(), out defResult))
-            {
-                defaultTime = defResult;
-            }
-            else
-            {
-                defaultTime = TimeSpan.FromDays(1);
-                Console.WriteLine("invalid value 1 day inserted as default time span");
-            }
+        ////////Console.WriteLine("do you want to use default time span for every task insert Y/N");
+        ////////string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input");
+        ////////if (ans == "Y")
+        ////////{
+        ////////    Console.WriteLine("insert default time span for the tasks");
+        ////////    if (TimeSpan.TryParse(Console.ReadLine(), out defResult))
+        ////////    {
+        ////////        defaultTime = defResult;
+        ////////    }
+        ////////    else
+        ////////    {
+        ////////        defaultTime = TimeSpan.FromDays(1);
+        ////////        Console.WriteLine("invalid value 1 day inserted as default time span");
+        ////////    }
 
-        }
+        ////////}
         //Initializing the tasks that do not depend on the nose task and entering a queue
         IEnumerable<BO.Task> getLevelTasks = Task.ReadAll(tsk => tsk.Dependencies == null || tsk.Dependencies.Count() == 0);
         //foreach (BO.Task task in getLevelTasks)
@@ -66,18 +66,18 @@ internal class Bl : IBl
             item.Status = (Status)1;
             if (item.RequiredEffortTime == null)
             {
-                if (defaultTime == null)
-                {
-                    Console.WriteLine($"insert required effort time for task {item.Id}: {item.Alias}");
-                    if (TimeSpan.TryParse(Console.ReadLine(), out defResult))
-                        defaultTime = defResult;
-                    else
-                    {
+                //if (defaultTime == null)
+                //{
+                //    Console.WriteLine($"insert required effort time for task {item.Id}: {item.Alias}");
+                //    if (TimeSpan.TryParse(Console.ReadLine(), out defResult))
+                //        defaultTime = defResult;
+                //    else
+                //    {
                         defaultTime = TimeSpan.FromDays(1);
-                        Console.WriteLine("invalid value 1 day inserted as default time span");
-                    }
+                        //Console.WriteLine("invalid value 1 day inserted as default time span");
+                    //}
 
-                }
+               //}
                 item.RequiredEffortTime = defaultTime;
             }
             item.ForecastDate = item.ScheduledDate + item.RequiredEffortTime;
@@ -108,18 +108,18 @@ internal class Bl : IBl
                 item.ScheduledDate = currentTask.DeadlineDate;
                 if (item.RequiredEffortTime == null)
                 {
-                    if (defaultTime == null)
-                    {
-                        Console.WriteLine($"insert required effort time for task {item.Id}: {item.Alias}");
-                        if (TimeSpan.TryParse(Console.ReadLine(), out defResult))
-                            defaultTime = defResult;
-                        else
-                        {
+                    //if (defaultTime == null)
+                    //{
+                    //    Console.WriteLine($"insert required effort time for task {item.Id}: {item.Alias}");
+                    //    if (TimeSpan.TryParse(Console.ReadLine(), out defResult))
+                    //        defaultTime = defResult;
+                    //    else
+                        //{
                             defaultTime = TimeSpan.FromDays(1);
-                            Console.WriteLine("invalid value 1 day inserted as default time span");
-                        }
+                            //Console.WriteLine("invalid value 1 day inserted as default time span");
+                    //    }
 
-                    }
+                    //}
                     item.RequiredEffortTime = defaultTime;
                 }
                 item.ForecastDate = currentTask.DeadlineDate + defaultTime;
@@ -135,7 +135,7 @@ internal class Bl : IBl
             }
         }
         //saving the start date in the config 
-        DalApi.Factory.Get.ProjectStartDateUpdate((DateTime)statDate);
+        DalApi.Factory.Get.ProjectStartDateUpdate(statDate);
     }
     /// <summary>
     /// A function that returns true if the project has an initialized schedule

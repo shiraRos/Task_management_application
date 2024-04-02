@@ -1,4 +1,5 @@
-﻿using PL.Task;
+﻿using BO;
+using PL.Task;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,38 +24,47 @@ namespace PL.EngineerOptions
        
        
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-        public static DependencyProperty CurrentTask = DependencyProperty.Register("TaskItem", typeof(BO.Task), typeof(TaskWindow), new PropertyMetadata(null));
+        public static DependencyProperty CurrentEngineerTask = DependencyProperty.Register("EngTask", typeof(BO.Task), typeof(CurrentTaskData), new PropertyMetadata(null));
         public BO.EngineerExperience EnigeerExper { get; set; } = BO.EngineerExperience.None;
-        public BO.Task TaskItem
+        public BO.Task EngTask
         {
-            get { return (BO.Task)GetValue(CurrentTask); }
-            set { SetValue(CurrentTask, value); }
+            get { return (BO.Task)GetValue(CurrentEngineerTask); }
+            set { SetValue(CurrentEngineerTask, value); }
         }
 
 
-
-        public CurrentTaskData(int Id)
+         int myEng ;
+        public CurrentTaskData(int takId=0,int engId=0)
         {
+            myEng = engId; 
             InitializeComponent();
-            try
+            if (takId == 0)
+                new chooseTask(engId).ShowDialog();
+            else
             {
-                TaskItem = s_bl.Task.Read(Id);
-                //EngineerInTask = s_bl.Task.GetAllAvialbleEngineers(Id, TaskItem?.ComplexityLevel);
+                try
+                {
+                    EngTask = s_bl.Task.Read(takId);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                Closed += TaskWindow_Closed!;
             }
-            catch { }
-            Closed += TaskWindow_Closed!;
-            //TaskDependencies = s_bl.Task.GetAllDependenciesOptions();
-
         }
-        private void btnAddUpdate_Click(object sender, RoutedEventArgs e)
+        private void btnDone_Click(object sender, RoutedEventArgs e)
         {
            
 
                 try
                 {
-                    s_bl.Task.Update(TaskItem);
+                    EngTask.CompleteDate = s_bl.Clock;
+                EngTask.Status = (Status)3;
+                    s_bl.Task.Update(EngTask);
                     MessageBox.Show("the task updated succefully");
-                }
+                new chooseTask(myEng).ShowDialog();
+            }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);

@@ -216,8 +216,8 @@ internal class TaskImplementation : ITask
                 if (dependTsk == null)
                     throw new BO.BlValidationError($"task with id:{item.Id} is not exist");
                 //Checks that the task is not in an uninitialized state or has already ended
-                if (dependTsk.Status != (Status)1)
-                    throw new BO.BlStatusNotFit($"task with id:{item.Id} cannt be taken because the status is wrong");
+                //if (dependTsk.Status == (Status)0|| (dependTsk.Status == (Status)2&& dependTsk.Engineer != item.Engineer)|| (dependTsk.Status==(Status)3&&dependTsk.Engineer!=item.Engineer))
+                //    throw new BO.BlStatusNotFit($"task with id:{item.Id} cannt be taken because the status is wrong");
                 //Checks if all the tasks it depends on have been completed
                 if (dependTsk.Dependencies != null)
                     foreach (var depOnTsk in dependTsk.Dependencies)
@@ -355,6 +355,12 @@ internal class TaskImplementation : ITask
             };
         }).ToList();
         return allTsk;
+    }
+
+    public IEnumerable<TaskInEngineer> GetAvailableTasksForEngineer(int Id)
+    {
+        BO.EngineerExperience? engEx = s_bl.Engineer.Read(Id)?.Level!;
+        return ReadAll(tsk => tsk.Engineer == null && tsk.ComplexityLevel! <= engEx).Select(tsk => new TaskInEngineer { Id = tsk.Id, Alias = tsk.Alias }).ToList();
     }
 }
 

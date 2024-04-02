@@ -1,0 +1,29 @@
+﻿<Window x:Class="PL.EngineerOptions.chooseTask"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL.EngineerOptions"
+        mc:Ignorable="d"
+        Title="chooseTask" Height="450" Width="800"
+        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
+    <!--Extrnal Grid-->
+    <Grid>
+        <!--Internal, Upper Grid-->
+        <Grid HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto">
+            <Label Grid.Column="0" Content="select:"/>
+            <!--filter the engineers-->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+        </Grid>
+        <ListView Margin="5" Grid.Row="1" ItemsSource="{Binding Path=TaskList}" MouseDoubleClick="ListView_MouseDoubleClick"/>
+        <!--add engineer to the list-->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40*"/>
+            <RowDefinition Height="500*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+    </Grid>
+</Window>

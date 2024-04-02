@@ -81,7 +81,8 @@ public partial class MainWindow : Window
             try
             {
                 BO.Engineer newUser= s_bl.Engineer.Read(id)!;
-                new CurrentTaskData(newUser.Task.Id).ShowDialog();
+                int takId = newUser.Task != null ? newUser.Task.Id : 0;
+                new CurrentTaskData(takId,newUser.Id).ShowDialog();
             }
             catch (Exception ex)
             {

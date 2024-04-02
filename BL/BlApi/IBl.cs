@@ -29,7 +29,7 @@ public interface IBl
     /// <summary>
     /// method for create The Schedule of  the tasks
     /// </summary>
-    public void createSchedule();
+    public void createSchedule(DateTime? statDate);
 
     /// <summary>
     /// general reset method
