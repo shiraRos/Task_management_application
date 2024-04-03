@@ -20,7 +20,7 @@ internal class TaskImplementation : ITask
     {
         List<DO.Task> tsk = XMLTools.LoadListFromXMLSerializer<DO.Task>(s_task);
         int newId = Config.StartTaskId;
-        DO.Task ts = new DO.Task(newId, item.EngineerId, item.IsMileston, item.StartDate, item.DeadlineDate, item.CompleteDate, item.ScheduledDate, item.RequiredEffortTime, item.Deliverables, item.Remarks, item.ComplexityLevel, item.Description, item.Alias);
+        DO.Task ts = new DO.Task(newId, item.EngineerId, item.IsMileston, item.StartDate, item.DeadlineDate, item.CompleteDate, item.ScheduledDate, item.RequiredEffortTime, item.Deliverables, item.Remarks, item.ComplexityLevel, item.Description, item.Alias,item.CreateAtDate);
         tsk.Add(ts);
         XMLTools.SaveListToXMLSerializer(tsk, s_task);
         return newId;

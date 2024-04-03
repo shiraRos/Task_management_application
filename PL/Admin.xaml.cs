@@ -24,56 +24,54 @@ namespace PL
     public partial class Admin : Window
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-
-        public static readonly DependencyProperty CurrentTimeProperty = DependencyProperty.Register("CurrentTime", typeof(DateTime), typeof(Admin), new PropertyMetadata(default(DateTime)));
-        public DateTime CurrentTime
-        {
-            get { return (DateTime)GetValue(CurrentTimeProperty); }
-            set { SetValue(CurrentTimeProperty, value); }
-        }
-
-       
         /// <summary>
         ///  Method for show all the list of enginner  by click of the "Handle engineer"
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void ButtonEngineerList_Click(object sender, RoutedEventArgs e)
-            {
-                new EngineerListWindow().Show();
-            }
+        {
+            new EngineerListWindow().Show();
+        }
 
-            private void ButtonTaskList_Click(object sender, RoutedEventArgs e)
-            {
-                new TaskListWindow().Show();
-            }
+        private void ButtonTaskList_Click(object sender, RoutedEventArgs e)
+        {
+            new TaskListWindow().Show();
+        }
+        /// <summary>
+        ///   Method for init all data base by click of the "init DB "
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonInitDB_Click(object sender, RoutedEventArgs e)
+        {
+            // Display a confirmation message box
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to init data?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
-            private void ButtonGanttView_Click(object sender, RoutedEventArgs e)
+            // Check the user's response
+            if (result == MessageBoxResult.Yes)
             {
-                new GanttWindow().Show();
+                // Call the method to perform the reset
+                BlApi.Factory.Get().InitializeDB();
             }
+        }
+        /// <summary>
+        ///  Method for restart all data base by click of the "restart "
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Reset_Click(object sender, RoutedEventArgs e)
+        {
+            // Display a confirmation message box
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to reset data?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
-          
-            private void ButtonAdvanceYear_Click(object sender, RoutedEventArgs e)
+            // Check the user's response
+            if (result == MessageBoxResult.Yes)
             {
-                s_bl.AdvanceTimeByYear();
-                CurrentTime = s_bl.Clock;
+                // Call the method to perform the reset
+                BlApi.Factory.Get().Reset();
             }
-            private void ButtonAdvanceDay_Click(object sender, RoutedEventArgs e)
-            {
-                s_bl.AdvanceTimeByDay();
-                CurrentTime = s_bl.Clock;
-            }
-            private void ButtonAdvanceHour_Click(object sender, RoutedEventArgs e)
-            {
-                s_bl.AdvanceTimeByHour();
-                CurrentTime = s_bl.Clock;
-            }
-            private void ButtonInitializeClock_Click(object sender, RoutedEventArgs e)
-            {
-                s_bl.InitializeTime();
-                CurrentTime = s_bl.Clock;
-            }
+        }
 
         private void ButtonCreateScheduale_Click(object sender, RoutedEventArgs e)
         {
@@ -92,11 +90,15 @@ namespace PL
                 }
         }
 
+        private void ButtonGanttView_Click(object sender, RoutedEventArgs e)
+        {
+            new GanttWindow().Show();
+        }
+
         public Admin()
         {
             InitializeComponent();
-            CurrentTime = s_bl.Clock;
-            DataContext = this;
+           
         }
     }
     

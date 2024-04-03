@@ -1,4 +1,5 @@
 ﻿using BO;
+using DO;
 using PL.Task;
 using System;
 using System.Collections.Generic;
@@ -38,7 +39,7 @@ namespace PL.EngineerOptions
         {
             myEng = engId; 
             InitializeComponent();
-            if (takId == 0)
+            if (takId == 0 || s_bl.Task.Read(takId).Status == (BO.Status)3)
                 new chooseTask(engId).ShowDialog();
             else
             {

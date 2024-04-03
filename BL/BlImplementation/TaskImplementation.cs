@@ -33,7 +33,8 @@ internal class TaskImplementation : ITask
             try
             {
                 //creating a new DO task
-                DO.Task doTask = new DO.Task(0, item?.Engineer?.Id, null, item?.StartDate, item?.DeadlineDate, item?.CompleteDate, item?.ScheduledDate, item?.RequiredEffortTime, item?.Deliverables, item?.Remarks, (DO.EngineerExperience?)item?.ComplexityLevel, item?.Description, item?.Alias);
+                DO.Task doTask = new DO.Task(0, item?.Engineer?.Id, null, item?.StartDate, item?.DeadlineDate, item?.CompleteDate, item?.ScheduledDate, item?.RequiredEffortTime, item?.Deliverables, item?.Remarks, (DO.EngineerExperience?)item?.ComplexityLevel, item?.Description, item?.Alias,s_bl.Clock);
+                
                 //create the task and saving in the Dal
                 int idTsk = _dal.Task.Create(doTask);
                 //in casr the task depends on other tasks, create the suit dependency
@@ -88,7 +89,7 @@ internal class TaskImplementation : ITask
         //if the project started and there is no engineer return 1-schduled
         if (!isEngExist)
             return 1;
-        if (compDate != null && compDate < _bl.Clock)
+        if (compDate != null)
             return 3;
         //if the project started and there is a responsible engineer return 2-OnTrack
         return 2;
@@ -156,6 +157,31 @@ internal class TaskImplementation : ITask
         }
 
 
+    }
+    /// <summary>
+    /// function to check for circular dependency
+    /// </summary>
+    /// <param name="task"></param>
+    /// <returns></returns>
+    private bool ImpossibleDependency(BO.Task task)
+    {
+        Queue<BO.TaskInList> taskQueue = new Queue<BO.TaskInList>(task.Dependencies!);
+        while (taskQueue.Count != 0)
+        {
+            var currentTask = taskQueue.Dequeue();
+            if (currentTask.Id == task.Id)
+                return false;
+
+            // Check if Dependencies is not null before iterating over it
+            if (Read(currentTask.Id)?.Dependencies != null)
+            {
+                foreach (var tsk in Read(currentTask.Id).Dependencies)
+                {
+                    taskQueue.Enqueue(tsk);
+                }
+            }
+        }
+        return true;
     }
     /// <summary>
     ///Read fuction gets id of the task and create the BO task item by collecing data from the Dal layer
@@ -242,7 +268,7 @@ internal class TaskImplementation : ITask
                 }
             }
             //sending to update in the Dal layer
-            DO.Task doTask = new DO.Task(item.Id, item.Engineer?.Id, null, item.StartDate, item.DeadlineDate, item.CompleteDate, item.ScheduledDate, item.RequiredEffortTime, item.Deliverables, item.Remarks, (DO.EngineerExperience?)item.ComplexityLevel, item.Description, item.Alias);
+            DO.Task doTask = new DO.Task(item.Id, item.Engineer?.Id, null, item.StartDate, item.DeadlineDate, item.CompleteDate, item.ScheduledDate, item.RequiredEffortTime, item.Deliverables, item.Remarks, (DO.EngineerExperience?)item.ComplexityLevel, item.Description, item.Alias,s_bl.Clock);
             _dal.Task.Update(doTask);
         }
         catch (DO.DalDoesNotExistException ex)

@@ -300,13 +300,13 @@ public static class Initialization
     private static void CreateTask()
     {
         int firstTask, secondTask, thirdTask, fourthTask;
-        Task tsk = new(0, null, false, null, null, null, null, new TimeSpan(1,1,1), null, null, (EngineerExperience)2, "Planning the appearance of the web page", "first Planing");
+        Task tsk = new(0, null, false, null, null, null, null, new TimeSpan(1,1,1), null, null, (EngineerExperience)2, "Planning the appearance of the web page", "first Planing", null);
         firstTask = s_dal!.Task.Create(tsk);
-         tsk = new(0, null, false, null, null, null, null, new TimeSpan(1, 2, 3), null, null, (EngineerExperience)3, "Building a database with appropriate values", "Build database");
+         tsk = new(0, null, false, null, null, null, null, TimeSpan.FromDays(2), null, null, (EngineerExperience)3, "Building a database with appropriate values", "Build database",null);
         secondTask = s_dal!.Task.Create(tsk);
-         tsk = new(0, null, false, null, null, null, null, new TimeSpan(2, 2, 3), null, null, (EngineerExperience)4, "Writing server and client code", "Coding");
+         tsk = new(0, null, false, null, null, null, null, TimeSpan.FromDays(3), null, null, (EngineerExperience)4, "Writing server and client code", "Coding",null);
         thirdTask = s_dal!.Task.Create(tsk);
-         tsk = new(0, null, false, null, null, null, null, new TimeSpan(1, 2, 5), null, null, (EngineerExperience)2, "User page display design and code usage", " Display design");
+         tsk = new(0, null, false, null, null, null, null, TimeSpan.FromDays(4), null, null, (EngineerExperience)2, "User page display design and code usage", " Display design",null);
         fourthTask = s_dal!.Task.Create(tsk);
 
         Dependency dependency = new Dependency(0,secondTask,firstTask);

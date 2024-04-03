@@ -18,7 +18,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
         </Grid>
-        <ListView Margin="5" Grid.Row="1" ItemsSource="{Binding Path=TaskList}" MouseDoubleClick="ListView_MouseDoubleClick"/>
+        <ListView Margin="5" Grid.Row="1" ItemsSource="{Binding Path=EngineerTaskList}" MouseDoubleClick="ListView_MouseDoubleClick"/>
         <!--add engineer to the list-->
         <Grid.RowDefinitions>
             <RowDefinition Height="40*"/>

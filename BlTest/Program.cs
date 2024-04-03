@@ -136,7 +136,7 @@ internal class Program
             }
         }
         //creating a new object
-        BO.Task newTsk = new BO.Task { Id = 0, Alias = _alias, Description = _description, CreateAtDate = null, Status = (Status)0, Dependencies = _dependencies, Milestone = null, RequiredEffortTime = _requiredEffortTime, StartDate = null, ScheduledDate = null, ForecastDate = null, DeadlineDate = null, CompleteDate = null, Deliverables = _deliverables, Remarks = _remarks, Engineer = null, ComplexityLevel = (EngineerExperience?)_complexityLevel };
+        BO.Task newTsk = new BO.Task { Id = 0, Alias = _alias, Description = _description, CreateAtDate = s_bl.Clock, Status = (Status)0, Dependencies = _dependencies, Milestone = null, RequiredEffortTime = _requiredEffortTime, StartDate = null, ScheduledDate = null, ForecastDate = null, DeadlineDate = null, CompleteDate = null, Deliverables = _deliverables, Remarks = _remarks, Engineer = null, ComplexityLevel = (EngineerExperience?)_complexityLevel };
         //Add to data by calling an external operation
         try
         {
@@ -399,7 +399,7 @@ internal class Program
             }
         }
         //creating a new object
-        BO.Task newTsk = new BO.Task { Id = _taskId, Alias = _alias, Description = _description, CreateAtDate = null, Status = (Status)0, Dependencies = _dependencies, Milestone = null, RequiredEffortTime = _requiredEffortTime, StartDate = _startDate, ScheduledDate = _scheduledDate, ForecastDate = null, DeadlineDate = _deadlineDate, CompleteDate = _completeDate, Deliverables = _deliverables, Remarks = _remarks, Engineer = _engInTask, ComplexityLevel = (EngineerExperience?)_complexityLevel };
+        BO.Task newTsk = new BO.Task { Id = _taskId, Alias = _alias, Description = _description, CreateAtDate = s_bl.Clock, Status = (Status)0, Dependencies = _dependencies, Milestone = null, RequiredEffortTime = _requiredEffortTime, StartDate = _startDate, ScheduledDate = _scheduledDate, ForecastDate = null, DeadlineDate = _deadlineDate, CompleteDate = _completeDate, Deliverables = _deliverables, Remarks = _remarks, Engineer = _engInTask, ComplexityLevel = (EngineerExperience?)_complexityLevel };
         //Update the data by calling an external operation
         try
         {
@@ -625,7 +625,7 @@ internal class Program
     }
     private static void CreateSche()
     {
-        s_bl.createSchedule();
+        s_bl.createSchedule(s_bl.Clock);
     }
 
     /// <summary>

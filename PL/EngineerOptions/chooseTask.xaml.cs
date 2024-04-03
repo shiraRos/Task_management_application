@@ -21,6 +21,7 @@ namespace PL.EngineerOptions
     public partial class chooseTask : Window
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+        BO.Engineer currentEng;
         public IEnumerable<BO.TaskInEngineer> EngineerTaskList
         {
             get { return (IEnumerable<BO.TaskInEngineer>)GetValue(EngineerTaskListProperty); }
@@ -39,8 +40,9 @@ namespace PL.EngineerOptions
             // Do something with the selected item
             // For example, you can cast the selected item to its type and access its properties
             var selectedTask = (sender as ListView)!.SelectedItem as BO.TaskInEngineer; // Change 'Task' to your actual item type
-                                                 
-
+            currentEng.Task = selectedTask;
+            s_bl.Engineer.Update(currentEng);
+            Close();
 
         }
     
@@ -48,6 +50,7 @@ namespace PL.EngineerOptions
         {
             InitializeComponent();
             EngineerTaskList = s_bl?.Task.GetAvailableTasksForEngineer(id)!;
+            currentEng = s_bl?.Engineer.Read(id)!;
         }
     }
 }

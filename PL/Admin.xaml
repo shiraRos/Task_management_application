@@ -26,12 +26,12 @@
 
         <Button Content="Handle engineers" Grid.Row="5"  Grid.Column="0" HorizontalAlignment="Center" Height="50" Width="100" Click="ButtonEngineerList_Click" Margin="0,0,10,0" />
         <Button Content="Handle Tasks" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Center" Height="50" Width="100" Click="ButtonTaskList_Click" Margin="0,0,10,0" />
-       <Label  Grid.Column="1"  Grid.ColumnSpan="2" Content="{Binding Path=CurrentTime}" Grid.Row="0"  HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
-        <Button Content="add hour" Grid.Column="1" Grid.ColumnSpan="2"  Grid.Row="1" Click="ButtonAdvanceHour_Click"></Button>
-        <Button Content="add day" Grid.Column="1" Grid.ColumnSpan="2"  Grid.Row="2" Click="ButtonAdvanceDay_Click"></Button>
-        <Button Content="add year" Grid.Column="1" Grid.ColumnSpan="2"  Grid.Row="3" Click="ButtonAdvanceYear_Click"></Button>
-        <Button Content="initialize" Grid.Column="1" Grid.ColumnSpan="2"  Grid.Row="4" Click="ButtonInitializeClock_Click"></Button>
-        <Button Content="Gantt view" Grid.Column="0"  Grid.Row="0" Click="ButtonGanttView_Click"></Button>
+               <Button Content="Gantt view" Grid.Column="0"  Grid.Row="0" Click="ButtonGanttView_Click"></Button>
         <Button Content="create scheduale" Grid.Column="3"  Grid.Row="0" Click="ButtonCreateScheduale_Click"></Button>
+
+        <Button Content="Init DB" Grid.Row="7" Grid.Column="2" HorizontalAlignment="Center" Height="50" Width="100" Click="ButtonInitDB_Click" Margin="10,0,0,0" />
+
+        <Button Content="Reset" Grid.Row="7" Grid.Column="3" HorizontalAlignment="Center" Height="50" Width="100" Click="Reset_Click"  />
+
     </Grid>
 </Window>

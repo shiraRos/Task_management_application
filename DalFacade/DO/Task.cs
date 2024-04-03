@@ -30,12 +30,12 @@ public record Task
    string? Remarks = null,
    EngineerExperience? ComplexityLevel = null,
    string? Description = null,
-   string? Alias = null
-)
+   string? Alias = null,
+     DateTime? CreateAtDate=null
+    )
 {
     //empy builder
     public Task():this(0) { }
-    public DateTime CreateAtDate => DateTime.Now;
 
     public override string ToString()
     {

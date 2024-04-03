@@ -13,7 +13,7 @@ internal class TaskImplementation : ITask
     public int Create(Task item)
     {
         int newId = DataSource.Config.NextTaskId;
-        Task ts = new Task(newId,item.EngineerId,item.IsMileston,item.StartDate,item.DeadlineDate,item.CompleteDate,item.ScheduledDate,item.RequiredEffortTime,item.Deliverables,item.Remarks,item.ComplexityLevel,item.Description,item.Alias);
+        Task ts = new Task(newId,item.EngineerId,item.IsMileston,item.StartDate,item.DeadlineDate,item.CompleteDate,item.ScheduledDate,item.RequiredEffortTime,item.Deliverables,item.Remarks,item.ComplexityLevel,item.Description,item.Alias,item.CreateAtDate);
         DataSource.Tasks.Add(ts);
         return newId;
     }
