@@ -5,9 +5,9 @@
     <EngineerId xsi:nil="true" />
     <IsMileston xsi:nil="true" />
     <StartDate xsi:nil="true" />
-    <DeadlineDate>2024-04-02T02:03:06+03:00</DeadlineDate>
+    <DeadlineDate>2024-04-03T02:03:06+03:00</DeadlineDate>
     <CompleteDate xsi:nil="true" />
-    <ScheduledDate>2024-04-02T01:01:01+03:00</ScheduledDate>
+    <ScheduledDate>2024-04-03T01:01:01+03:00</ScheduledDate>
     <RequiredEffortTime>PT1H2M3S</RequiredEffortTime>
     <ComplexityLevel>Proficient</ComplexityLevel>
     <Description>Building a database with appropriate values</Description>
@@ -18,9 +18,9 @@
     <EngineerId xsi:nil="true" />
     <IsMileston xsi:nil="true" />
     <StartDate xsi:nil="true" />
-    <DeadlineDate>2024-04-02T02:03:06+03:00</DeadlineDate>
+    <DeadlineDate>2024-04-03T02:03:06+03:00</DeadlineDate>
     <CompleteDate xsi:nil="true" />
-    <ScheduledDate>2024-04-02T01:01:01+03:00</ScheduledDate>
+    <ScheduledDate>2024-04-03T01:01:01+03:00</ScheduledDate>
     <RequiredEffortTime>PT1H2M5S</RequiredEffortTime>
     <ComplexityLevel>Competent</ComplexityLevel>
     <Description>User page display design and code usage</Description>
@@ -31,9 +31,9 @@
     <EngineerId xsi:nil="true" />
     <IsMileston xsi:nil="true" />
     <StartDate xsi:nil="true" />
-    <DeadlineDate>2024-04-02T04:05:09+03:00</DeadlineDate>
+    <DeadlineDate>2024-04-03T04:05:09+03:00</DeadlineDate>
     <CompleteDate xsi:nil="true" />
-    <ScheduledDate>2024-04-02T02:03:06+03:00</ScheduledDate>
+    <ScheduledDate>2024-04-03T02:03:06+03:00</ScheduledDate>
     <RequiredEffortTime>PT2H2M3S</RequiredEffortTime>
     <ComplexityLevel>Expert</ComplexityLevel>
     <Description>Writing server and client code</Description>
@@ -44,9 +44,9 @@
     <EngineerId>236177311</EngineerId>
     <IsMileston xsi:nil="true" />
     <StartDate xsi:nil="true" />
-    <DeadlineDate>2024-04-02T01:01:01+03:00</DeadlineDate>
-    <CompleteDate>2024-04-02T00:00:00+03:00</CompleteDate>
-    <ScheduledDate>2024-04-02T00:00:00+03:00</ScheduledDate>
+    <DeadlineDate>2024-04-04T01:01:01</DeadlineDate>
+    <CompleteDate>2024-04-05T00:00:00</CompleteDate>
+    <ScheduledDate>2024-04-03T00:00:00+03:00</ScheduledDate>
     <RequiredEffortTime>PT1H1M1S</RequiredEffortTime>
     <ComplexityLevel>Competent</ComplexityLevel>
     <Description>Planning the appearance of the web page</Description>

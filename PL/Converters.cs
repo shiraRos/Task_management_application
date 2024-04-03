@@ -67,26 +67,62 @@ internal class IsEnableConverterTask : IValueConverter
 
 internal class ConvertTaskStatusToForegroundColor : IValueConverter
 {
-    //convert from source property type to target property type
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        string status = (string)value;
-        switch(status) {
-            case "None":
-                return Brushes.White;
-            case "TaskIsScheduled":
-                return Brushes.Beige;
-            case "TaskIsRunning":
+        BO.Status status;
+        if (!Enum.TryParse(value.ToString(), out status))
+        {
+            return Brushes.Black;
+        }
+        //string status = (string)value;
+        switch ((int)status)
+        {
+            case 0:
+                return Brushes.RosyBrown;
+            case 1:
+                return Brushes.Blue;
+            case 2:
                 return Brushes.Orange;
-            case "TaskIsCompleted":
+            case 3:
                 return Brushes.Green;
-            case "TaskIsInRisk":
+            case 4:
                 return Brushes.Red;
             default:
                 return Brushes.Black;
         }
 
+
     }
+
+
+//    static Dictionary<BO.Status, Color> _statusToColorMap = new Dictionary<BO.Status, Color>
+//{
+//  { BO.Status.Unscheduled, Colors.Yellow },
+//  { BO.Status.Scheduled, Colors.Beige },
+//  { BO.Status.OnTrack, Colors.Orange },
+//  { BO.Status.Done, Colors.Green },
+//  { BO.Status.None, Colors.Red }
+
+//};
+
+//    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+//    {
+//        BO.Status status;
+//        if (!Enum.TryParse(value.ToString(), out status))
+//        {
+//            return Brushes.Black;
+//        }
+
+//        if (_statusToColorMap.TryGetValue(status, out Color color))
+//        {
+//            return new SolidColorBrush(color);
+//        }
+//        else
+//        {
+//            return Brushes.Black;
+//        }
+//    }
+    
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
         throw new NotImplementedException();

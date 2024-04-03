@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.EngineerOptions"
         mc:Ignorable="d"
-        Title="CurrentTaskData" Height="450" Width="800"     DataContext="{Binding EngTask, RelativeSource={RelativeSource Self}, Mode=TwoWay}" >
+        Title="CurrentTaskData" Height="550" Width="800"     DataContext="{Binding EngTask, RelativeSource={RelativeSource Self}, Mode=TwoWay}" >
     <Grid VerticalAlignment="Center">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -81,6 +81,6 @@
         <TextBlock Grid.Row="15" Grid.Column="2"  VerticalAlignment="Center" Text="{Binding ComplexityLevel, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" />
 
 
-        <Button Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" Grid.Row="20" Margin="25" Content="the task is done" Height="25" Width="70" Click="btnDone_Click"/>
+        <Button Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" Grid.Row="20" Margin="25" Content="the task is done" Height="35" Width="100" Click="btnDone_Click"/>
     </Grid>
 </Window>
