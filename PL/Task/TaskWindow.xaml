@@ -55,23 +55,23 @@ SelectedValue="{Binding Dependencies, Mode=TwoWay, NotifyOnValidationError=true}
 
 
         <Label Content="RequiredEffortTime:" Grid.Row="6" Grid.Column="1" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="6" Grid.Column="2" VerticalAlignment="Center" Text="{Binding RequiredEffortTime, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
+        <DatePicker Grid.Row="6" Grid.Column="2" VerticalAlignment="Center" Text="{Binding RequiredEffortTime, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
 
         <Label Content="StartDate:" Grid.Row="7" Grid.Column="1" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="7" Grid.Column="2" VerticalAlignment="Center" Text="{Binding StartDate, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
+        <DatePicker Grid.Row="7" Grid.Column="2" VerticalAlignment="Center" Text="{Binding StartDate, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
 
         <Label Content="ScheduledDate:" Grid.Row="8" Grid.Column="1" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="8" Grid.Column="2" VerticalAlignment="Center" Text="{Binding ScheduledDate, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
+        <DatePicker Grid.Row="8" Grid.Column="2" VerticalAlignment="Center" Text="{Binding ScheduledDate, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
 
         <Label Content="ForecastDate:" Grid.Row="9" Grid.Column="1" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="9" Grid.Column="2" VerticalAlignment="Center" Text="{Binding ForecastDate, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
+        <DatePicker Grid.Row="9" Grid.Column="2" VerticalAlignment="Center" Text="{Binding ForecastDate, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
 
         <Label Content="DeadlineDate:" Grid.Row="10" Grid.Column="1" VerticalAlignment="Center"/>
         <TextBox Grid.Row="10" Grid.Column="2" VerticalAlignment="Center" Text="{Binding DeadlineDate, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
 
 
         <Label Content="CompleteDate:" Grid.Row="11" Grid.Column="1" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="11" Grid.Column="2" VerticalAlignment="Center" Text="{Binding CompleteDate, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
+        <DatePicker Grid.Row="11" Grid.Column="2" VerticalAlignment="Center" Text="{Binding CompleteDate, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
 
         <Label Content="Remarks:" Grid.Row="12" Grid.Column="1" VerticalAlignment="Center"/>
         <TextBox Grid.Row="12" Grid.Column="2"   Text="{Binding Remarks, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Center"/>

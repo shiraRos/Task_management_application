@@ -34,6 +34,11 @@ namespace PL
             new EngineerListWindow().Show();
         }
 
+        /// <summary>
+        /// Method for show all the list of Task  by click of the "Handle tasks"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ButtonTaskList_Click(object sender, RoutedEventArgs e)
         {
             new TaskListWindow().Show();

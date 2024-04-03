@@ -20,19 +20,35 @@ namespace PL.EngineerOptions
     /// </summary>
     public partial class chooseTask : Window
     {
+        // Static reference to the business logic layer
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
         BO.Engineer currentEng;
+
+        /// <summary>
+        /// Property representing the list of engineer tasks
+        /// </summary>
         public IEnumerable<BO.TaskInEngineer> EngineerTaskList
         {
             get { return (IEnumerable<BO.TaskInEngineer>)GetValue(EngineerTaskListProperty); }
             set { SetValue(EngineerTaskListProperty, value); }
         }
 
+        /// <summary>
+        /// Dependency property for the engineer task list
+        /// </summary>
         public static readonly DependencyProperty EngineerTaskListProperty =
             DependencyProperty.Register("EngineerTaskList", typeof(IEnumerable<BO.TaskInEngineer>), typeof(chooseTask), new PropertyMetadata(null));
-       
+
+        /// <summary>
+        /// Property representing the engineer's experience
+        /// </summary>
         public BO.EngineerExperience EnigeerExper { get; set; } = BO.EngineerExperience.None;
 
+        /// <summary>
+        /// Event handler for double-clicking on a ListView item
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             // Get the selected item from the ListView
@@ -45,8 +61,12 @@ namespace PL.EngineerOptions
             Close();
 
         }
-    
-    public chooseTask(int id)
+
+        /// <summary>
+        /// Constructor for chooseTask window
+        /// </summary>
+        /// <param name="id"></param>
+        public chooseTask(int id)
         {
             InitializeComponent();
             EngineerTaskList = s_bl?.Task.GetAvailableTasksForEngineer(id)!;

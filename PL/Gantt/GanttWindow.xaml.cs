@@ -24,40 +24,59 @@ namespace PL.Gantt;
 /// </summary>
 public partial class GanttWindow : Window
 {
+    // Static reference to the BL
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+
+    // Collection of tasks for scheduling
     IEnumerable<BO.TasksForScheduale> listTaskScheduale;
     DateTime StartProject;
     DateTime EndProject;
 
+ 
+    /// <summary>
+    /// Dependency property for data binding
+    /// </summary>
     public DataTable dataTable
     {
         get { return (DataTable)GetValue(dataTableProperty); }
         set { SetValue(dataTableProperty, value); }
 
     }
+    /// <summary>
+    /// Dependency property definition for dataTable
+    /// </summary>
     public static readonly DependencyProperty dataTableProperty =
           DependencyProperty.Register("dataTable", typeof(DataTable), typeof(GanttWindow), new PropertyMetadata(null));
 
 
+ 
+    /// <summary>
+    /// constructor for GanttWindow
+    /// </summary>
     public GanttWindow()
     {
+        // Retrieve tasks for the Gantt from the Task in the BL
         listTaskScheduale = s_bl.Task.GetAllTaskForGantt();
 
-        //listTaskScheduale=new BO.Task() { Id = 1, Alias = "T1", StartDate = new DateTime(2024, 2, 21), CompleteDate = new DateTime(2024, 2, 22) });
+        
         StartProject = listTaskScheduale.Min(t => t.StartDate);
         EndProject = listTaskScheduale.Max(t => t.EndDate);
 
+        // Build data table for visualization
         buildDataTable();
 
         InitializeComponent();
         // DataContext = new GanttViewModel();
     }
 
-
+    /// <summary>
+    /// Method to build data table for visualization and store Data 
+    /// </summary>
     private void buildDataTable()
     {
         dataTable = new DataTable();
 
+        //adding all the columns in ths table with fields
         dataTable.Columns.Add("Id", typeof(int));
         dataTable.Columns.Add("Alias", typeof(string));
         dataTable.Columns.Add("EngineerId", typeof(int));
@@ -66,18 +85,20 @@ public partial class GanttWindow : Window
         dataTable.Columns.Add("Start Date", typeof(DateTime)); // Use DateTime for date representation
         dataTable.Columns.Add("End Date", typeof(DateTime)); // Use DateTime for date representation
 
-        // Enumerate dates efficiently using Span<DateTime>
+        // Generate date range for the project
         var dateRange = Enumerable.Range(0, (EndProject - StartProject).Days + 1)
                                     .Select(i => StartProject.AddDays(i));
-
+        // Add columns for each date in the date range
         foreach (var day in dateRange)
         {
             dataTable.Columns.Add(day.ToString("dd-MM-yyyy"), typeof(string));
         }
 
+        // Order tasks by start date
         var orderedTasks = listTaskScheduale.OrderBy(t => t.StartDate);
         foreach (var task in orderedTasks)
         {
+            // Create a new row for each task
             DataRow row = dataTable.NewRow();
             row["Id"] = task.Id;
             row["Alias"] = task.Alias;
@@ -87,6 +108,7 @@ public partial class GanttWindow : Window
             row["Start Date"] = task.StartDate;
             row["End Date"] = task.EndDate;
 
+            // Fill in task status for each day in the date range
             foreach (var day in dateRange)
             {
                 if (day < task.StartDate || day > task.EndDate)

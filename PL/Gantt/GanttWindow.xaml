@@ -23,9 +23,9 @@
             </Style>
         </Grid.Resources>
         <DataGrid ItemsSource="{Binding dataTable}" Grid.Row="1" IsReadOnly="True" Canvas.Left="42" Canvas.Top="42" />
-        <TextBlock Text="Blue=the task status is scheduled" Grid.Row="3"></TextBlock>
-        <TextBlock Text=" Orange= the task status is OnTrack" Grid.Row="4"></TextBlock>
-        <TextBlock Text="Green= the task is Done" Grid.Row="5"></TextBlock>
+        <TextBlock Text="Blue=the task status is scheduled" Grid.Row="3"><Rectangle Fill="Blue" Width="10" Height="10" Margin="5,0,5,0"/></TextBlock>
+        <TextBlock Text=" Orange= the task status is OnTrack" Grid.Row="4"> <Rectangle Fill="Orange" Width="10" Height="10" Margin="5,0,5,0"/></TextBlock>
+        <TextBlock Text="Green= the task is Done" Grid.Row="5"><Rectangle Fill="Green" Width="10" Height="10" Margin="5,0,5,0" /></TextBlock>
     </Grid>
     
 </Window>

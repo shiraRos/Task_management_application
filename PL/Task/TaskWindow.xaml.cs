@@ -22,30 +22,49 @@ namespace PL.Task
     public partial class TaskWindow : Window
     {
         int pageStatus = 0;
+
+        // Static reference to the business logic layer
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+      
+        /// <summary>
+        /// Dependency property for the current task
+        /// </summary>
         public static DependencyProperty CurrentTask = DependencyProperty.Register("TaskItem", typeof(BO.Task), typeof(TaskWindow), new PropertyMetadata(null));
+        
+        /// <summary>
+        /// Property representing the engineer's experience
+        /// </summary>
         public BO.EngineerExperience EnigeerExper { get; set; } = BO.EngineerExperience.None;
+
+
+        /// <summary>
+        ///  Property representing the current task
+        /// </summary>
         public BO.Task TaskItem
         {
             get { return (BO.Task)GetValue(CurrentTask); }
             set { SetValue(CurrentTask, value); }
         }
 
- //       public static readonly DependencyProperty EnginnerInTaskProperty =DependencyProperty.Register("EngineerInTask", typeof(IEnumerable<BO.EngineerInTask>), typeof(TaskWindow), new PropertyMetadata(null));
- //       public IEnumerable<BO.EngineerInTask> EngineerInTask
- //       {
- //           get { return (IEnumerable<BO.EngineerInTask>)GetValue(EnginnerInTaskProperty); }
- //           set { SetValue(EnginnerInTaskProperty, value); }
- //       }
 
- //public static readonly DependencyProperty CurrentTaskDependency =DependencyProperty.Register("TaskDependencies", typeof(IEnumerable<BO.TaskInList>), typeof(TaskWindow), new PropertyMetadata(null));
- //       public IEnumerable<BO.TaskInList> TaskDependencies
- //       {
- //           get { return (IEnumerable<BO.TaskInList>)GetValue(CurrentTaskDependency); }
- //           set { SetValue(CurrentTaskDependency, value); }
- //       }
+        //       public static readonly DependencyProperty EnginnerInTaskProperty =DependencyProperty.Register("EngineerInTask", typeof(IEnumerable<BO.EngineerInTask>), typeof(TaskWindow), new PropertyMetadata(null));
+        //       public IEnumerable<BO.EngineerInTask> EngineerInTask
+        //       {
+        //           get { return (IEnumerable<BO.EngineerInTask>)GetValue(EnginnerInTaskProperty); }
+        //           set { SetValue(EnginnerInTaskProperty, value); }
+        //       }
 
+        //public static readonly DependencyProperty CurrentTaskDependency =DependencyProperty.Register("TaskDependencies", typeof(IEnumerable<BO.TaskInList>), typeof(TaskWindow), new PropertyMetadata(null));
+        //       public IEnumerable<BO.TaskInList> TaskDependencies
+        //       {
+        //           get { return (IEnumerable<BO.TaskInList>)GetValue(CurrentTaskDependency); }
+        //           set { SetValue(CurrentTaskDependency, value); }
+        //       }
 
+        /// <summary>
+        /// Constructor for TaskWindow
+        /// </summary>
+        /// <param name="Id"></param>
         public TaskWindow(int Id = 0)
         {
             InitializeComponent();
@@ -61,13 +80,18 @@ namespace PL.Task
             Closed += TaskWindow_Closed!;
             //TaskDependencies = s_bl.Task.GetAllDependenciesOptions();
 
-
         }
 
+        /// <summary>
+        /// Event handler for the Add/Update button click
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAddUpdate_Click(object sender, RoutedEventArgs e)
         {
             if (pageStatus == 0)
             {
+                // If in add mode, try to create a new task
                 try
                 {
                     s_bl.Task.Create(TaskItem);
@@ -83,7 +107,7 @@ namespace PL.Task
             }
             else
             {
-
+                // If in update mode, try to update the existing task
                 try
                 {
                     s_bl.Task.Update(TaskItem);
@@ -97,18 +121,22 @@ namespace PL.Task
             }
         }
 
+        /// <summary>
+        ///    // Event handler for the Closed event of the TaskWindow
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TaskWindow_Closed(object sender, EventArgs e)
         {
-            // An instance of the main window EngineerListWindow
+            // Find the instance of the main window TaskListWindow
             var mainWindow = Application.Current.Windows
                                             .OfType<TaskListWindow>()
                                             .FirstOrDefault();
             if (mainWindow != null)
             {
-                // Updating the list of engineers in the main window by calling the BL
-                // function that returns the list of engineers
+                // Update the list of tasks in the main window by calling the BL function that returns the list of tasks
                 mainWindow.TaskList = s_bl.Task.GetAllTasksForList()!;
-            }
+            } 
         }
 
     }

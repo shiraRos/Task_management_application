@@ -22,33 +22,63 @@ namespace PL.Task
     /// </summary>
     public partial class TaskListWindow : Window
     {
+        // Static reference to the business logic layer
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+
+        /// <summary>
+        /// Property representing the list of tasks
+        /// </summary>
         public IEnumerable<BO.TaskForlList> TaskList
         {
             get { return (IEnumerable<BO.TaskForlList>)GetValue(TaskListProperty); }
             set { SetValue(TaskListProperty, value); }
         }
 
+        /// <summary>
+        /// Dependency property for the task list
+        /// </summary>
         public static readonly DependencyProperty TaskListProperty =
             DependencyProperty.Register("TaskList", typeof(IEnumerable<BO.TaskForlList>), typeof(TaskListWindow), new PropertyMetadata(null));
+        /// <summary>
+        /// Constructor for TaskListWindow
+        /// </summary>
         public TaskListWindow()
         {
             InitializeComponent();
             TaskList = s_bl?.Task.GetAllTasksForList()!;
         }
+
+        /// <summary>
+        /// Property representing the engineer's experience
+        /// </summary>
         public BO.EngineerExperience EnigeerExper { get; set; } = BO.EngineerExperience.None;
-          private void EngineerExper_SelectionChanged(object sender, SelectionChangedEventArgs e)
+
+        /// <summary>
+        /// P Event handler for EngineerExper selection change
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void EngineerExper_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
              TaskList = (EnigeerExper == BO.EngineerExperience.None) ?
             s_bl?.Task.GetAllTasksForList()! : s_bl?.Task.GetAllTasksForList(item => item.ComplexityLevel == EnigeerExper)!;
     }
-
-    private void AddTaskWindow_click(object sender, RoutedEventArgs e)
+        /// <summary>
+        ///  Event handler for clicking the Add Task button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AddTaskWindow_click(object sender, RoutedEventArgs e)
     {
         new TaskWindow().ShowDialog();
     }
 
-    private void ListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        /// <summary>
+        ///  Event handler for double-clicking on a ListView item
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
         // Get the selected item from the ListView
        

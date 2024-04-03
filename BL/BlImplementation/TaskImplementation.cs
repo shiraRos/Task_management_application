@@ -334,11 +334,20 @@ internal class TaskImplementation : ITask
     }
 
 
+    /// <summary>
+    /// Retrieves all available engineers based on the provided task ID and experience level.
+    /// </summary>
+    /// <param name="tskId">The ID of the task.</param>
+    /// <param name="taskLenel">The experience level required for the task.</param>
+    /// <returns>An IEnumerable of EngineerInTask objects representing available engineers.</returns>
     public IEnumerable<EngineerInTask> GetAllAvialbleEngineers(int tskId, BO.EngineerExperience? taskLenel)
     {
+        // Create an object of EngineerImplementation class
         EngineerImplementation engImp = new EngineerImplementation();
+        // Retrieve all available engineers based on task ID and experience level
         return engImp.ReadAll(eng => (int)eng.Level! >= (int)taskLenel! && (eng.Task == null || Read(eng.Task.Id)!.Status == (Status)3)).Select(eng =>
          {
+             // Map engineer data to EngineerInTask model
              return new BO.EngineerInTask
              {
                  Id = eng.Id,
@@ -347,9 +356,13 @@ internal class TaskImplementation : ITask
          }).ToList();
     }
 
+    /// <summary>
+    /// Retrieves all task dependency options.
+    /// </summary>
+    /// <returns>An IEnumerable of TaskInList objects representing all task dependency options.</returns>
     public IEnumerable<TaskInList> GetAllDependenciesOptions()
     {
-
+        // Retrieve all task dependencies options
         IEnumerable<BO.TaskInList> depList = _dal.Task.ReadAll().Select(tsk =>
         {
             //creating a new task in list for the ienumerable item 
@@ -364,7 +377,13 @@ internal class TaskImplementation : ITask
         return depList;
     }
 
+
+    /// <summary>
+    /// Retrieves all tasks for Gantt chart.
+    /// </summary>
+    /// <returns>An IEnumerable of TasksForScheduale objects representing all tasks for the Gantt chart.</returns>
     public IEnumerable<TasksForScheduale> GetAllTaskForGantt()
+    // Retrieve all tasks for Gantt chart
     {
         IEnumerable<BO.TasksForScheduale> allTsk = _dal.Task.ReadAll().Select(tsk =>
         {
@@ -383,18 +402,31 @@ internal class TaskImplementation : ITask
         return allTsk;
     }
 
+
+    /// <summary>
+    /// Retrieves available tasks for a given engineer ID.
+    /// </summary>
+    /// <param name="Id">The ID of the engineer.</param>
+    /// <returns>An IEnumerable of TaskInEngineer objects representing available tasks for the specified engineer.</returns>
     public IEnumerable<TaskInEngineer> GetAvailableTasksForEngineer(int Id)
     {
+        // Retrieve available tasks for a given engineer ID
         BO.EngineerExperience? engEx = s_bl.Engineer.Read(Id)?.Level!;
         return ReadAll(tsk => tsk.Engineer == null && tsk.ComplexityLevel! <= engEx).Select(tsk => new TaskInEngineer { Id = tsk.Id, Alias = tsk.Alias }).ToList();
     }
 
+    /// <summary>
+    /// Retrieves all tasks for list with optional filtering.
+    /// </summary>
+    /// <param name="filter">Optional filter function to apply to the tasks.</param>
+    /// <returns>An IEnumerable of TaskForlList objects representing tasks that match the filter criteria, if provided.</returns>
     public IEnumerable<TaskForlList> GetAllTasksForList(Func<BO.TaskForlList, bool>? filter = null)
     {
+
         IEnumerable<BO.TaskForlList> allTsk = _dal.Task.ReadAll().Select(tsk =>
         {
             
-            //creating a new task in list for the ienumerable item 
+            //creating a new task for list for the ienumerable item 
             return new BO.TaskForlList
             {
                 Id = tsk.Id,
@@ -404,7 +436,8 @@ internal class TaskImplementation : ITask
                 ComplexityLevel = (BO.EngineerExperience?)tsk.ComplexityLevel
             };
         }).ToList();
-        if(filter==null)
+        // Apply filter if provided
+        if (filter==null)
                return allTsk;
         return allTsk.Where(filter!)!;
     }
