@@ -33,8 +33,8 @@ internal class TaskImplementation : ITask
             try
             {
                 //creating a new DO task
-                DO.Task doTask = new DO.Task(0, item?.Engineer?.Id, null, item?.StartDate, item?.DeadlineDate, item?.CompleteDate, item?.ScheduledDate, item?.RequiredEffortTime, item?.Deliverables, item?.Remarks, (DO.EngineerExperience?)item?.ComplexityLevel, item?.Description, item?.Alias,s_bl.Clock);
-                
+                DO.Task doTask = new DO.Task(0, item?.Engineer?.Id, null, item?.StartDate, item?.DeadlineDate, item?.CompleteDate, item?.ScheduledDate, item?.RequiredEffortTime, item?.Deliverables, item?.Remarks, (DO.EngineerExperience?)item?.ComplexityLevel, item?.Description, item?.Alias, s_bl.Clock);
+
                 //create the task and saving in the Dal
                 int idTsk = _dal.Task.Create(doTask);
                 //in casr the task depends on other tasks, create the suit dependency
@@ -268,7 +268,7 @@ internal class TaskImplementation : ITask
                 }
             }
             //sending to update in the Dal layer
-            DO.Task doTask = new DO.Task(item.Id, item.Engineer?.Id, null, item.StartDate, item.DeadlineDate, item.CompleteDate, item.ScheduledDate, item.RequiredEffortTime, item.Deliverables, item.Remarks, (DO.EngineerExperience?)item.ComplexityLevel, item.Description, item.Alias,s_bl.Clock);
+            DO.Task doTask = new DO.Task(item.Id, item.Engineer?.Id, null, item.StartDate, item.DeadlineDate, item.CompleteDate, item.ScheduledDate, item.RequiredEffortTime, item.Deliverables, item.Remarks, (DO.EngineerExperience?)item.ComplexityLevel, item.Description, item.Alias, s_bl.Clock);
             _dal.Task.Update(doTask);
         }
         catch (DO.DalDoesNotExistException ex)
@@ -332,7 +332,7 @@ internal class TaskImplementation : ITask
     {
         return ReadAll(tsk => tsk.Engineer == null).Select(tsk => new TaskInEngineer { Id = tsk.Id, Alias = tsk.Alias }).ToList();
     }
-    
+
 
     public IEnumerable<EngineerInTask> GetAllAvialbleEngineers(int tskId, BO.EngineerExperience? taskLenel)
     {
@@ -373,11 +373,11 @@ internal class TaskImplementation : ITask
             {
                 Id = tsk.Id,
                 Alias = tsk?.Alias ?? "",
-                EngineerId=tsk?.EngineerId??0,
-                EngineerName= tsk?.EngineerId==null?"no engineer":_dal.Engineer.Read((int)tsk.EngineerId)?.Name??"",
+                EngineerId = tsk?.EngineerId ?? 0,
+                EngineerName = tsk?.EngineerId == null ? "no engineer" : _dal.Engineer.Read((int)tsk.EngineerId)?.Name ?? "",
                 TaskStaus = (Status)CreateStatus(tsk!.EngineerId != null, tsk.CompleteDate),
-                StartDate=(DateTime)tsk.ScheduledDate!,
-                EndDate=(DateTime)tsk.DeadlineDate!
+                StartDate = (DateTime)tsk.ScheduledDate!,
+                EndDate = (DateTime)tsk.DeadlineDate!
             };
         }).ToList();
         return allTsk;
@@ -387,6 +387,26 @@ internal class TaskImplementation : ITask
     {
         BO.EngineerExperience? engEx = s_bl.Engineer.Read(Id)?.Level!;
         return ReadAll(tsk => tsk.Engineer == null && tsk.ComplexityLevel! <= engEx).Select(tsk => new TaskInEngineer { Id = tsk.Id, Alias = tsk.Alias }).ToList();
+    }
+
+    public IEnumerable<TaskForlList> GetAllTasksForList(Func<BO.TaskForlList, bool>? filter = null)
+    {
+        IEnumerable<BO.TaskForlList> allTsk = _dal.Task.ReadAll().Select(tsk =>
+        {
+            
+            //creating a new task in list for the ienumerable item 
+            return new BO.TaskForlList
+            {
+                Id = tsk.Id,
+                Alias = tsk?.Alias ?? "",
+                Description=tsk.Description ??" ",
+                Status = (Status)CreateStatus(tsk!.EngineerId != null, tsk.CompleteDate),
+                ComplexityLevel = (BO.EngineerExperience?)tsk.ComplexityLevel
+            };
+        }).ToList();
+        if(filter==null)
+               return allTsk;
+        return allTsk.Where(filter!)!;
     }
 }
 

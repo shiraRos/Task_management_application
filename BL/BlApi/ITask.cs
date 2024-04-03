@@ -61,5 +61,7 @@ public interface ITask
     public IEnumerable<TasksForScheduale> GetAllTaskForGantt();
 
     public IEnumerable<TaskInEngineer> GetAvailableTasksForEngineer(int Id);
+    public IEnumerable<TaskForlList> GetAllTasksForList(Func<BO.TaskForlList, bool>? filter = null);
+
 
 }

@@ -51,7 +51,7 @@ namespace PL.EngineerOptions
                 {
                     MessageBox.Show(ex.Message);
                 }
-                Closed += TaskWindow_Closed!;
+                Close();
             }
         }
         private void btnDone_Click(object sender, RoutedEventArgs e)
@@ -74,19 +74,6 @@ namespace PL.EngineerOptions
             
         }
 
-        private void TaskWindow_Closed(object sender, EventArgs e)
-        {
-            // An instance of the main window EngineerListWindow
-            var mainWindow = Application.Current.Windows
-                                            .OfType<TaskListWindow>()
-                                            .FirstOrDefault();
-            if (mainWindow != null)
-            {
-                // Updating the list of engineers in the main window by calling the BL
-                // function that returns the list of engineers
-                mainWindow.TaskList = s_bl.Task.ReadAll()!;
-            }
-        }
-
+      
     }
 }

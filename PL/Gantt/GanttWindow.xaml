@@ -8,35 +8,24 @@
         Title="GanttWindow" Height="450" Width="800"
     DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}" >
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition  Height="*"/>
+            <RowDefinition  Height="6*"/>
+            <RowDefinition  Height="*"/>
+            <RowDefinition  Height="*"/>
+            <RowDefinition  Height="*"/>
+            <RowDefinition  Height="*"/>
+        </Grid.RowDefinitions>
         <Grid.Resources>
             <Style  TargetType="DataGridCell">
-                <!--<Setter Property="Background" Value="{Binding Path=Content.Text , RelativeSource={RelativeSource Self},Converter={StaticResource ConvertTaskStatusToForegroundColorKey}}"/>-->
+                <Setter Property="Background" Value="{Binding Path=Content.Text , RelativeSource={RelativeSource Self},Converter={StaticResource ConvertTaskStatusToBackgroundColorKey}}"/>
                 <Setter Property="Foreground" Value="{Binding Path=Content.Text , RelativeSource={RelativeSource Self},Converter={StaticResource ConvertTaskStatusToForegroundColorKey}}"/>
             </Style>
         </Grid.Resources>
-        <!--<ItemsControl ItemsSource="{Binding Activities}">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Grid Margin="5">
-                        <Rectangle Fill="LightBlue"
-                                   HorizontalAlignment="Left"
-                                   Width="{Binding DurationInPixels}" 
-                                   Height="20"/>
-                        <TextBlock Text="{Binding Name}"
-                                   VerticalAlignment="Center"
-                                   HorizontalAlignment="Center"
-                                   FontWeight="Bold"/>
-                    </Grid>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel Orientation="Vertical"/>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-        </ItemsControl>-->
-        <DataGrid ItemsSource="{Binding dataTable}" IsReadOnly="True" Canvas.Left="42" Canvas.Top="42" />
-
+        <DataGrid ItemsSource="{Binding dataTable}" Grid.Row="1" IsReadOnly="True" Canvas.Left="42" Canvas.Top="42" />
+        <TextBlock Text="Blue=the task status is scheduled" Grid.Row="3"></TextBlock>
+        <TextBlock Text=" Orange= the task status is OnTrack" Grid.Row="4"></TextBlock>
+        <TextBlock Text="Green= the task is Done" Grid.Row="5"></TextBlock>
     </Grid>
     
 </Window>

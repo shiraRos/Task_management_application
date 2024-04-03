@@ -107,7 +107,7 @@ namespace PL.Task
             {
                 // Updating the list of engineers in the main window by calling the BL
                 // function that returns the list of engineers
-                mainWindow.TaskList = s_bl.Task.ReadAll()!;
+                mainWindow.TaskList = s_bl.Task.GetAllTasksForList()!;
             }
         }
 

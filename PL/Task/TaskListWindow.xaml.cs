@@ -23,24 +23,24 @@ namespace PL.Task
     public partial class TaskListWindow : Window
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-        public IEnumerable<BO.Task> TaskList
+        public IEnumerable<BO.TaskForlList> TaskList
         {
-            get { return (IEnumerable<BO.Task>)GetValue(TaskListProperty); }
+            get { return (IEnumerable<BO.TaskForlList>)GetValue(TaskListProperty); }
             set { SetValue(TaskListProperty, value); }
         }
 
         public static readonly DependencyProperty TaskListProperty =
-            DependencyProperty.Register("TaskList", typeof(IEnumerable<BO.Task>), typeof(TaskListWindow), new PropertyMetadata(null));
+            DependencyProperty.Register("TaskList", typeof(IEnumerable<BO.TaskForlList>), typeof(TaskListWindow), new PropertyMetadata(null));
         public TaskListWindow()
         {
             InitializeComponent();
-            TaskList = s_bl?.Task.ReadAll()!;
+            TaskList = s_bl?.Task.GetAllTasksForList()!;
         }
         public BO.EngineerExperience EnigeerExper { get; set; } = BO.EngineerExperience.None;
           private void EngineerExper_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
              TaskList = (EnigeerExper == BO.EngineerExperience.None) ?
-            s_bl?.Task.ReadAll()! : s_bl?.Task.ReadAll(item => item.ComplexityLevel == EnigeerExper)!;
+            s_bl?.Task.GetAllTasksForList()! : s_bl?.Task.GetAllTasksForList(item => item.ComplexityLevel == EnigeerExper)!;
     }
 
     private void AddTaskWindow_click(object sender, RoutedEventArgs e)
@@ -54,7 +54,7 @@ namespace PL.Task
        
             // Do something with the selected item
             // For example, you can cast the selected item to its type and access its properties
-            var selectedTask = (sender as ListView)!.SelectedItem as BO.Task; // Change 'Task' to your actual item type
+            var selectedTask = (sender as ListView)!.SelectedItem as BO.TaskForlList; // Change 'Task' to your actual item type
             new TaskWindow(selectedTask!.Id).ShowDialog();                                                   // Now you can work with the selectedEngineer object
 
     

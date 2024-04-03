@@ -83,7 +83,7 @@ internal class EngineerImplementation : IEngineer
         if (doeng == null)
             throw new BO.BlDoesNotExistException($"Engineer with ID={id} does Not exist");
         // Attempt to read a task associated with the engineer.
-        DO.Task? tsk = _dal.Task.Read(tsk => tsk.EngineerId == id);
+        DO.Task? tsk = _dal.Task.Read(tsk => tsk.EngineerId == id&&tsk.CompleteDate==null);
         // Create and return a new Business Object (BO) representation of the engineer.
         return new BO.Engineer
         {
