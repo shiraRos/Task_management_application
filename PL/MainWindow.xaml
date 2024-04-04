@@ -8,14 +8,14 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition  Height="2*"/>
+            <RowDefinition  Height="3*"/>
             <RowDefinition  Height="*"/>
             <RowDefinition  Height="*"/>
             <RowDefinition  Height="*"/>
             <RowDefinition  Height="*"/>
             <RowDefinition  Height="*"/>
             <RowDefinition  Height="2*"/>
-            <RowDefinition  Height="9*"/>
+            <RowDefinition  Height="2*"/>
 
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -25,7 +25,7 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <Label  Grid.Column="1"  Grid.ColumnSpan="2" Content="{Binding Path=CurrentTime}" Grid.Row="0"  HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+        <Label  Grid.Column="1"  Grid.ColumnSpan="2" Content="{Binding Path=CurrentTime}" Grid.Row="0"  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" FontFamily="Impact"></Label>
         <Button Content="add hour" Grid.Column="1" Grid.ColumnSpan="2"  Grid.Row="1" Click="ButtonAdvanceHour_Click"></Button>
         <Button Content="add day" Grid.Column="1" Grid.ColumnSpan="2"  Grid.Row="2" Click="ButtonAdvanceDay_Click"></Button>
         <Button Content="add year" Grid.Column="1" Grid.ColumnSpan="2"  Grid.Row="3" Click="ButtonAdvanceYear_Click"></Button>

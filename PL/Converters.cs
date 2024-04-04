@@ -125,7 +125,8 @@ internal class ConvertTaskStatusToBackgroundColor : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return BlApi.Factory.Get().isProjectStarted()? true : false;
+        bool flag = BlApi.Factory.Get().isProjectStarted();
+            return flag==true? true : false;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -133,4 +134,17 @@ internal class ConvertTaskStatusToBackgroundColor : IValueConverter
             throw new NotImplementedException();
         }
     }
+public class ConvertVisibiltyByResetTime : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        bool flag = BlApi.Factory.Get().isProjectStarted();
+        return flag == true ? false : true;
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+}
 

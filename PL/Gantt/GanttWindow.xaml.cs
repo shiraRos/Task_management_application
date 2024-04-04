@@ -129,53 +129,6 @@ public partial class GanttWindow : Window
 
 
 
-        //private void buildDataTable()
-        //{
-        //    dataTable = new DataTable();
-        //    dataTable.Columns.Add("Id", typeof(int));
-
-//    dataTable.Columns.Add("Alias", typeof(string));
-
-//    dataTable.Columns.Add("EngineerId", typeof(int));
-
-//    dataTable.Columns.Add("Engineer Name", typeof(string));
-//    dataTable.Columns.Add("status", typeof(string));
-//    dataTable.Columns.Add("start date", typeof(string));
-//    dataTable.Columns.Add("end date", typeof(string));
-
-//    int col = 7;
-//    for (DateTime day = StartProject; day <= EndProject; day = day.AddDays(1))
-//    {
-//        string strDay = $"{day.Day}-{day.Month}-{day.Year}";
-//        dataTable.Columns.Add(strDay, typeof(string));
-//        col++;
-//    }
-
-//    IEnumerable<BO.TasksForScheduale> orderedlistTasksScheduale = listTaskScheduale.OrderBy(t => t.StartDate);
-//    foreach (BO.TasksForScheduale task in orderedlistTasksScheduale)
-//    {
-//        DataRow row = dataTable.NewRow();
-//        row[0] = task.Id;
-//        row[1] = task.Alias;
-//        row[2] = task.EngineerId;
-//        row[3] = task.EngineerName;
-//        row[4] = task.TaskStaus;
-//        row[5] = task.StartDate;
-//        row[6] = task.EndDate;
-//        for (DateTime day = StartProject; day <= EndProject; day = day.AddDays(1))
-//        {
-//            string strDay = $"{day.Day}-{day.Month}-{day.Year}";
-//            if (day < task.StartDate || day > task.EndDate)
-//                row[strDay] = "None";
-//            else
-//            {
-//                row[strDay] = task.TaskStaus;
-//            }
-//            dataTable.Rows.Add(row);
-//        }
-//    }
-//}
-
 
 
 

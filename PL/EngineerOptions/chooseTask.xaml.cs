@@ -40,11 +40,6 @@ namespace PL.EngineerOptions
             DependencyProperty.Register("EngineerTaskList", typeof(IEnumerable<BO.TaskInEngineer>), typeof(chooseTask), new PropertyMetadata(null));
 
         /// <summary>
-        /// Property representing the engineer's experience
-        /// </summary>
-        public BO.EngineerExperience EnigeerExper { get; set; } = BO.EngineerExperience.None;
-
-        /// <summary>
         /// Event handler for double-clicking on a ListView item
         /// </summary>
         /// <param name="sender"></param>

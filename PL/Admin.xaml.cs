@@ -75,6 +75,7 @@ namespace PL
             {
                 // Call the method to perform the reset
                 BlApi.Factory.Get().Reset();
+                Close();
             }
         }
 
@@ -88,6 +89,7 @@ namespace PL
                 try
                 {
                     s_bl.createSchedule(startDate);
+                    Close();
                 }
                 catch (Exception ex)
                 {
