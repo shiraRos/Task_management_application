@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -56,7 +57,10 @@ public partial class EngineerWindow : Window
         if (Id == 0)
             EngineerItem = new BO.Engineer();
         else
-            try { EngineerItem = s_bl.Engineer.Read(Id)!; }
+            try { 
+                EngineerItem = s_bl.Engineer.Read(Id)!;
+               
+            }
             catch { }
         Closed += EngineerWindow_Closed!;
     }
@@ -119,5 +123,4 @@ public partial class EngineerWindow : Window
         }
     }
 
-   
 }

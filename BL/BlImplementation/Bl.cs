@@ -21,11 +21,12 @@ internal class Bl : IBl
     public void createSchedule(DateTime? statDate)
     {
         DateTime?  maxTimeTask;
-        DateTime result;
         TimeSpan defaultTime = new TimeSpan(24, 0, 0);
-        TimeSpan defResult;
         Queue<BO.Task> tasksToCheck = new Queue<BO.Task>();
         BO.Task currentTask;
+        //checking if the accepted start date is valid 
+        if (statDate < Clock)
+            throw new BO.BlValidationError("the start date must be later than the current time");
         //Console.WriteLine("insert project start date:");
         //while (statDate == null)
         //    if (DateTime.TryParse(Console.ReadLine(), out result))
@@ -54,8 +55,8 @@ internal class Bl : IBl
         ////////        Console.WriteLine("invalid value 1 day inserted as default time span");
         ////////    }
 
-        ////////}
-        //Initializing the tasks that do not depend on the nose task and entering a queue
+            ////////}
+            //Initializing the tasks that do not depend on the nose task and entering a queue
         IEnumerable<BO.Task> getLevelTasks = Task.ReadAll(tsk => tsk.Dependencies == null || tsk.Dependencies.Count() == 0);
         //foreach (BO.Task task in getLevelTasks)
         //For each task sets the start time as the start time of the project, the duration by definition

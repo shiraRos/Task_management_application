@@ -13,6 +13,7 @@
         <local:IsEnableConverterTask x:Key="IsEnableConverterTaskKey" />
         <local:ConvertTaskStatusToForegroundColor x:Key="ConvertTaskStatusToForegroundColorKey" />
         <local:ConvertTaskStatusToBackgroundColor x:Key="ConvertTaskStatusToBackgroundColorKey" />
+        <local:ConvertVisibiltyByStartTime x:Key="ConvertVisibiltyByStartTimeKey" />
         
         
     </Application.Resources>

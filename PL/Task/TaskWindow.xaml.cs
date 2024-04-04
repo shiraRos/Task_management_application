@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BO;
 using PL;
 using PL.Engineer;
 
@@ -25,12 +26,12 @@ namespace PL.Task
 
         // Static reference to the business logic layer
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-      
+
         /// <summary>
         /// Dependency property for the current task
         /// </summary>
         public static DependencyProperty CurrentTask = DependencyProperty.Register("TaskItem", typeof(BO.Task), typeof(TaskWindow), new PropertyMetadata(null));
-        
+
         /// <summary>
         /// Property representing the engineer's experience
         /// </summary>
@@ -46,21 +47,6 @@ namespace PL.Task
             set { SetValue(CurrentTask, value); }
         }
 
-
-        //       public static readonly DependencyProperty EnginnerInTaskProperty =DependencyProperty.Register("EngineerInTask", typeof(IEnumerable<BO.EngineerInTask>), typeof(TaskWindow), new PropertyMetadata(null));
-        //       public IEnumerable<BO.EngineerInTask> EngineerInTask
-        //       {
-        //           get { return (IEnumerable<BO.EngineerInTask>)GetValue(EnginnerInTaskProperty); }
-        //           set { SetValue(EnginnerInTaskProperty, value); }
-        //       }
-
-        //public static readonly DependencyProperty CurrentTaskDependency =DependencyProperty.Register("TaskDependencies", typeof(IEnumerable<BO.TaskInList>), typeof(TaskWindow), new PropertyMetadata(null));
-        //       public IEnumerable<BO.TaskInList> TaskDependencies
-        //       {
-        //           get { return (IEnumerable<BO.TaskInList>)GetValue(CurrentTaskDependency); }
-        //           set { SetValue(CurrentTaskDependency, value); }
-        //       }
-
         /// <summary>
         /// Constructor for TaskWindow
         /// </summary>
@@ -72,9 +58,10 @@ namespace PL.Task
             if (Id == 0)
                 TaskItem = new BO.Task();
             else
-                try { 
+                try
+                {
                     TaskItem = s_bl.Task.Read(Id);
-            //EngineerInTask = s_bl.Task.GetAllAvialbleEngineers(Id, TaskItem?.ComplexityLevel);
+                    //EngineerInTask = s_bl.Task.GetAllAvialbleEngineers(Id, TaskItem?.ComplexityLevel);
                 }
                 catch { }
             Closed += TaskWindow_Closed!;
@@ -136,8 +123,28 @@ namespace PL.Task
             {
                 // Update the list of tasks in the main window by calling the BL function that returns the list of tasks
                 mainWindow.TaskList = s_bl.Task.GetAllTasksForList()!;
-            } 
+            }
         }
 
+        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ListBox listBox = sender as ListBox;
+            if (listBox != null)
+            {
+                var dependencies = listBox.SelectedItems.OfType<TaskInList>();
+
+                foreach (var selectedItem in dependencies)
+                {
+                    if (TaskItem.Dependencies == null)
+                    {
+                        TaskItem.Dependencies = new List<TaskInList>();
+                    }
+                    List<TaskInList> currentDep=TaskItem.Dependencies.ToList();
+                    currentDep.Add(selectedItem);
+                   TaskItem.Dependencies=currentDep;
+
+                }
+            }
+        }
     }
 }

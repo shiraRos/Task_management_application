@@ -33,6 +33,11 @@ public class TaskForlList
     public EngineerExperience? ComplexityLevel { get; set; } = null;
 
     /// <summary>
+    /// Gets or sets the dependencies associated with the task.
+    /// </summary>
+    public IEnumerable<TaskInList>? Dependencies { get; set; } = null;
+
+    /// <summary>
     /// Overrides the default ToString method to provide a string representation of the TaskInList object.
     /// </summary>
     /// <returns>A string representation of the TaskInList object.</returns>

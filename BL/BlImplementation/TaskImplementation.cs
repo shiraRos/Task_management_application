@@ -251,6 +251,9 @@ internal class TaskImplementation : ITask
                         if (depOnTsk.Status != (Status)3 && depOnTsk.Status != (Status)0)
                             throw new BO.BlStatusNotFit($"the dependent task: {depOnTsk.Alias} is not done yet");
                     }
+                //Sends to the function to check if there is a circular dependency
+                if (!ImpossibleDependency(item))
+                    throw new BO.BlValidationError("there is a circular dependency the dependencies are impossible");
                 //Checks that no engineer has taken the task before
                 if (dependTsk.Engineer != null && dependTsk.Engineer.Id != item.Engineer.Id)
                     throw new BO.BltaskHasEngineer($"the task: {item.Id} had already taken by other engineer");
@@ -328,9 +331,9 @@ internal class TaskImplementation : ITask
     /// function for filtering and getting all of the not taken tasks
     /// </summary>
     /// <returns>all tasks in TaskInEngineer format</returns>
-    public IEnumerable<TaskInEngineer> GetAvailableTasks()
+    public IEnumerable<TaskInEngineer> GetAvailableTasks(BO.EngineerExperience exp)
     {
-        return ReadAll(tsk => tsk.Engineer == null).Select(tsk => new TaskInEngineer { Id = tsk.Id, Alias = tsk.Alias }).ToList();
+        return ReadAll(tsk => tsk.Engineer == null&&tsk.ComplexityLevel<=exp).Select(tsk => new TaskInEngineer { Id = tsk.Id, Alias = tsk.Alias }).ToList();
     }
 
 
@@ -433,7 +436,8 @@ internal class TaskImplementation : ITask
                 Alias = tsk?.Alias ?? "",
                 Description=tsk.Description ??" ",
                 Status = (Status)CreateStatus(tsk!.EngineerId != null, tsk.CompleteDate),
-                ComplexityLevel = (BO.EngineerExperience?)tsk.ComplexityLevel
+                ComplexityLevel = (BO.EngineerExperience?)tsk.ComplexityLevel,
+                Dependencies=DepCreate(tsk.Id)
             };
         }).ToList();
         // Apply filter if provided

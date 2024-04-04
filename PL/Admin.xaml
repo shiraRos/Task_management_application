@@ -27,7 +27,7 @@
         <Button Content="Handle engineers" Grid.Row="5"  Grid.Column="0" HorizontalAlignment="Center" Height="50" Width="100" Click="ButtonEngineerList_Click" Margin="0,0,10,0" />
         <Button Content="Handle Tasks" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Center" Height="50" Width="100" Click="ButtonTaskList_Click" Margin="0,0,10,0" />
                <Button Content="Gantt view" Grid.Column="0"  Grid.Row="0" Click="ButtonGanttView_Click"></Button>
-        <Button Content="create scheduale" Grid.Column="3"  Grid.Row="0" Click="ButtonCreateScheduale_Click"></Button>
+        <Button Content="create scheduale" Grid.Column="3"  Grid.Row="0" Click="ButtonCreateScheduale_Click" Visibility="{Binding Mode=OneTime, Converter={StaticResource ConvertVisibiltyByStartTimeKey}}"></Button>
 
         <Button Content="Init DB" Grid.Row="7" Grid.Column="2" HorizontalAlignment="Center" Height="50" Width="100" Click="ButtonInitDB_Click" Margin="10,0,0,0" />
 

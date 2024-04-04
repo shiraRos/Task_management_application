@@ -52,18 +52,6 @@ internal class IsEnableConverterTask : IValueConverter
     }
 }
 
-//internal class ConvertYearToColor : IValueConverter
-//{
-//    //convert from source property type to target property type
-//    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-//    {
-
-//    }
-//    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-//    {
-//        throw new NotImplementedException();
-//    }
-//}
 
 internal class ConvertTaskStatusToForegroundColor : IValueConverter
 {
@@ -99,66 +87,50 @@ internal class ConvertTaskStatusToForegroundColor : IValueConverter
     }
 }
 
-    internal class ConvertTaskStatusToBackgroundColor : IValueConverter
+internal class ConvertTaskStatusToBackgroundColor : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        BO.Status status;
+        if (!Enum.TryParse(value.ToString(), out status))
         {
-            BO.Status status;
-            if (!Enum.TryParse(value.ToString(), out status))
-            {
+            return Brushes.White;
+        }
+        //string status = (string)value;
+        switch ((int)status)
+        {
+            case 0:
                 return Brushes.White;
-            }
-            //string status = (string)value;
-            switch ((int)status)
-            {
-                case 0:
-                    return Brushes.White;
-                case 1:
-                    return Brushes.Blue;
-                case 2:
-                    return Brushes.Orange;
-                case 3:
-                    return Brushes.Green;
-                case 4:
-                    return Brushes.White;
-                default:
-                    return Brushes.White;
-            }
-
-
+            case 1:
+                return Brushes.Blue;
+            case 2:
+                return Brushes.Orange;
+            case 3:
+                return Brushes.Green;
+            case 4:
+                return Brushes.White;
+            default:
+                return Brushes.White;
         }
 
 
-        //    static Dictionary<BO.Status, Color> _statusToColorMap = new Dictionary<BO.Status, Color>
-        //{
-        //  { BO.Status.Unscheduled, Colors.Yellow },
-        //  { BO.Status.Scheduled, Colors.Beige },
-        //  { BO.Status.OnTrack, Colors.Orange },
-        //  { BO.Status.Done, Colors.Green },
-        //  { BO.Status.None, Colors.Red }
+    }
 
-        //};
-
-        //    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        //    {
-        //        BO.Status status;
-        //        if (!Enum.TryParse(value.ToString(), out status))
-        //        {
-        //            return Brushes.Black;
-        //        }
-
-        //        if (_statusToColorMap.TryGetValue(status, out Color color))
-        //        {
-        //            return new SolidColorBrush(color);
-        //        }
-        //        else
-        //        {
-        //            return Brushes.Black;
-        //        }
-        //    }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
         throw new NotImplementedException();
     }
 }
+    public class ConvertVisibiltyByStartTime : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return BlApi.Factory.Get().isProjectStarted()? true : false;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+

@@ -56,7 +56,8 @@
         <TextBlock Grid.Row="6" Grid.Column="2" VerticalAlignment="Center" Text="{Binding RequiredEffortTime, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
 
         <Label Content="StartDate:" Grid.Row="7" Grid.Column="1" VerticalAlignment="Center"/>
-        <TextBlock Grid.Row="7" Grid.Column="2" VerticalAlignment="Center" Text="{Binding StartDate, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
+        <DatePicker Grid.Row="7" Grid.Column="2" VerticalAlignment="Center" Text="{Binding StartDate, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
+        <Button Grid.Column="4" HorizontalAlignment="Center" Grid.Row="7" Content="update"  Click="btnUpdateStartDate_Click"/>
 
         <Label Content="ScheduledDate:" Grid.Row="8" Grid.Column="1" VerticalAlignment="Center"/>
         <TextBlock Grid.Row="8" Grid.Column="2" VerticalAlignment="Center" Text="{Binding ScheduledDate, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>

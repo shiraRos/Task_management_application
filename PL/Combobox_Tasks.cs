@@ -10,8 +10,9 @@ namespace PL;
 /// </summary>
 internal class TasksToEngineer : IEnumerable
 {
+   
     static readonly IEnumerable<BO.TaskInEngineer> s_tsks =
-(  BlApi.Factory.Get().Task.GetAvailableTasks() as IEnumerable<BO.TaskInEngineer>)!;
+(  BlApi.Factory.Get().Task.GetAvailableTasks((BO.EngineerExperience)4) as IEnumerable<BO.TaskInEngineer>)!;
     /// <summary>
     /// Returns an enumerator that iterates through the collection of available tasks
     /// </summary>

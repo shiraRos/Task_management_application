@@ -55,7 +55,7 @@ public interface ITask
     /// function for filtering and getting all of the not taken tasks
     /// </summary>
     /// <returns>all tasks in TaskInEngineer format</returns>
-    public IEnumerable<TaskInEngineer> GetAvailableTasks();
+    public IEnumerable<TaskInEngineer> GetAvailableTasks(BO.EngineerExperience exp);
 
     /// <summary>
     /// Retrieves all available engineers based on the provided task ID and experience level.

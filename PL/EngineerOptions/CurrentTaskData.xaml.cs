@@ -26,6 +26,16 @@ namespace PL.EngineerOptions
         // Static reference to the business logic layer
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
+
+        /// <summary>
+        ///  Property representing the current task
+        /// </summary>
+        public BO.Task TaskItem
+        {
+            get { return (BO.Task)GetValue(CurrentEngineerTask); }
+            set { SetValue(CurrentEngineerTask, value); }
+        }
+
         /// <summary>
         /// Dependency property for the current engineer task
         /// </summary>
@@ -71,8 +81,29 @@ namespace PL.EngineerOptions
                 {
                     MessageBox.Show(ex.Message);
                 }
-                Close();
+               // Close();
             }
+        }
+
+        /// <summary>
+        /// Event handler for the Update the start date button click
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnUpdateStartDate_Click(object sender, RoutedEventArgs e)
+        {
+         
+                // If in update mode, try to update the existing task
+                try
+                {
+                    s_bl.Task.Update(TaskItem);
+                    MessageBox.Show("the task updated succefully");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+           
         }
         /// <summary>
         /// Event handler for the 'Done' button click

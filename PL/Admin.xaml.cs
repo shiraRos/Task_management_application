@@ -78,21 +78,26 @@ namespace PL
             }
         }
 
+
         private void ButtonCreateScheduale_Click(object sender, RoutedEventArgs e)
         {
-           
-            string input = Microsoft.VisualBasic.Interaction.InputBox("please enter the project start date:", "date Enter");
+            string input = Microsoft.VisualBasic.Interaction.InputBox("Please enter the project start date (MM/dd/yyyy):", "Date Enter");
 
-
-           
+            if (DateTime.TryParse(input, out DateTime startDate))
+            {
                 try
                 {
-                    s_bl.createSchedule(s_bl.Clock);
+                    s_bl.createSchedule(startDate);
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
                 }
+            }
+            else
+            {
+                MessageBox.Show("Invalid date format. Please enter the date in MM/dd/yyyy format.");
+            }
         }
 
         private void ButtonGanttView_Click(object sender, RoutedEventArgs e)
