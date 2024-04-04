@@ -15,20 +15,6 @@
     <CreateAtDate>2024-04-04T00:00:00+03:00</CreateAtDate>
   </Task>
   <Task>
-    <Id>989</Id>
-    <EngineerId xsi:nil="true" />
-    <IsMileston xsi:nil="true" />
-    <StartDate xsi:nil="true" />
-    <DeadlineDate>2024-05-09T01:01:01</DeadlineDate>
-    <CompleteDate xsi:nil="true" />
-    <ScheduledDate>2024-05-05T01:01:01</ScheduledDate>
-    <RequiredEffortTime>P2D</RequiredEffortTime>
-    <ComplexityLevel>Proficient</ComplexityLevel>
-    <Description>Building a database with appropriate values</Description>
-    <Alias>Build database</Alias>
-    <CreateAtDate>2024-04-04T00:00:00+03:00</CreateAtDate>
-  </Task>
-  <Task>
     <Id>991</Id>
     <EngineerId xsi:nil="true" />
     <IsMileston xsi:nil="true" />
@@ -54,6 +40,20 @@
     <ComplexityLevel>Expert</ComplexityLevel>
     <Description>Writing server and client code</Description>
     <Alias>Coding</Alias>
+    <CreateAtDate>2024-04-04T00:00:00+03:00</CreateAtDate>
+  </Task>
+  <Task>
+    <Id>989</Id>
+    <EngineerId xsi:nil="true" />
+    <IsMileston xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <DeadlineDate>2024-05-09T01:01:01</DeadlineDate>
+    <CompleteDate xsi:nil="true" />
+    <ScheduledDate>2024-05-05T00:00:00</ScheduledDate>
+    <RequiredEffortTime>P2D</RequiredEffortTime>
+    <ComplexityLevel>Proficient</ComplexityLevel>
+    <Description>Building a database with appropriate values</Description>
+    <Alias>Build database</Alias>
     <CreateAtDate>2024-04-04T00:00:00+03:00</CreateAtDate>
   </Task>
 </ArrayOfTask>

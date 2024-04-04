@@ -14,7 +14,45 @@
         <local:ConvertTaskStatusToForegroundColor x:Key="ConvertTaskStatusToForegroundColorKey" />
         <local:ConvertTaskStatusToBackgroundColor x:Key="ConvertTaskStatusToBackgroundColorKey" />
         <local:ConvertVisibiltyByStartTime x:Key="ConvertVisibiltyByStartTimeKey" />
-        
-        
+
+
+         <!-- Define a unified color palette -->
+        <Color x:Key="PrimaryColor">#007ACC</Color>
+        <Color x:Key="SecondaryColor">#4CAF50</Color>
+        <Color x:Key="TextColor">#333333</Color>
+        <Color x:Key="BorderColor">#CCCCCC</Color>
+
+        <!-- Convert Color resources to SolidColorBrush -->
+        <SolidColorBrush x:Key="PrimaryColorBrush" Color="{StaticResource PrimaryColor}" />
+        <SolidColorBrush x:Key="SecondaryColorBrush" Color="{StaticResource SecondaryColor}" />
+        <SolidColorBrush x:Key="BorderColorBrush" Color="{StaticResource BorderColor}" />
+
+        <!-- Define a unified button style -->
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource PrimaryColorBrush}" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderBrush" Value="{StaticResource BorderColorBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Padding" Value="10,5" />
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="MinWidth" Value="100" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="3">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{StaticResource SecondaryColorBrush}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Application.Resources>
 </Application>
