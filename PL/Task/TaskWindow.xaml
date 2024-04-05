@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Title="TaskWindow" Height="550" Width="800"
      DataContext="{Binding TaskItem, RelativeSource={RelativeSource Self}, Mode=TwoWay}" >
+
     <Grid VerticalAlignment="Center">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -50,8 +51,12 @@
         <TextBox Grid.Row="4" Grid.Column="2" IsEnabled="False" VerticalAlignment="Center" Text="{Binding Status, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
 
         <Label Content="Dependencies:" Grid.Row="5" Grid.Column="1" VerticalAlignment="Center"/>
-                <ListBox Grid.Row="5" Grid.Column="2"  VerticalAlignment="Center" ItemsSource="{Binding Source={StaticResource TaksDependenciesKey}}" 
-  SelectionChanged="ListBox_SelectionChanged" SelectionMode="Extended"  />
+        
+        <!--<ListBox Grid.Row="5" Grid.Column="2"  VerticalAlignment="Center" ItemsSource="{Binding Source={StaticResource TaksDependenciesKey}}" 
+  SelectionChanged="ListBox_SelectionChanged" SelectionMode="Extended"  />-->
+        <ListBox Grid.Row="5" Grid.Column="2" VerticalAlignment="Center" ItemsSource="{Binding Source={StaticResource TaksDependenciesKey}}" 
+         SelectionChanged="ListBox_SelectionChanged" SelectionMode="Extended">
+        </ListBox>
 
         <Label Content="RequiredEffortTime: (00:00:00 format)" Grid.Row="6" Grid.Column="1" VerticalAlignment="Center"/>
         <TextBox Grid.Row="6" Grid.Column="2" VerticalAlignment="Center"  Text="{Binding RequiredEffortTime, StringFormat='{}{0:hh\\:mm}', Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>

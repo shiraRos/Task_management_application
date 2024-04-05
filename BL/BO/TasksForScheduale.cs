@@ -27,6 +27,11 @@ public class TasksForScheduale
     public string? EngineerName {  get; set; }
 
     /// <summary>
+    /// Gets or sets the dependencies associated with the task.
+    /// </summary>
+    public IEnumerable<TaskInList>? Dependencies { get; set; } = null;
+
+    /// <summary>
     /// Gets or sets the status of the task.
     /// </summary>
     public Status TaskStaus { get; set; }
