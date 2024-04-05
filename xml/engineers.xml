@@ -1,38 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfEngineer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Engineer>
-    <Id>211786654</Id>
-    <Level>AdvancedBeginner</Level>
-    <Cost>169591</Cost>
+    <Id>289712831</Id>
+    <Level>Novice</Level>
+    <Cost>17407</Cost>
     <Name>Kewin Klein</Name>
     <Email>Kewin Klein@gmail.com</Email>
   </Engineer>
   <Engineer>
-    <Id>260115328</Id>
-    <Level>Proficient</Level>
-    <Cost>218498</Cost>
+    <Id>244348662</Id>
+    <Level>Novice</Level>
+    <Cost>172103</Cost>
     <Name>Dan Segal</Name>
     <Email>Dan Segal@gmail.com</Email>
   </Engineer>
   <Engineer>
-    <Id>342252030</Id>
-    <Level>Competent</Level>
-    <Cost>278847</Cost>
+    <Id>265869513</Id>
+    <Level>Proficient</Level>
+    <Cost>41042</Cost>
     <Name>Barbara Sol</Name>
     <Email>Barbara Sol@gmail.com</Email>
   </Engineer>
   <Engineer>
-    <Id>319700214</Id>
-    <Level>Novice</Level>
-    <Cost>185007</Cost>
+    <Id>264414561</Id>
+    <Level>Proficient</Level>
+    <Cost>64592</Cost>
     <Name>Alice Weiss</Name>
     <Email>Alice Weiss@gmail.com</Email>
-  </Engineer>
-  <Engineer>
-    <Id>326616896</Id>
-    <Level>Expert</Level>
-    <Cost>1020</Cost>
-    <Name>yacov</Name>
-    <Email>d@gmail.com</Email>
   </Engineer>
 </ArrayOfEngineer>

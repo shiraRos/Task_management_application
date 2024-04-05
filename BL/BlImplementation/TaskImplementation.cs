@@ -397,6 +397,7 @@ internal class TaskImplementation : ITask
                 Alias = tsk?.Alias ?? "",
                 EngineerId = tsk?.EngineerId ?? 0,
                 EngineerName = tsk?.EngineerId == null ? "no engineer" : _dal.Engineer.Read((int)tsk.EngineerId)?.Name ?? "",
+                Dependencies = DepCreate(tsk.Id),
                 TaskStaus = (Status)CreateStatus(tsk!.EngineerId != null, tsk.CompleteDate),
                 StartDate = (DateTime)tsk.ScheduledDate!,
                 EndDate = (DateTime)tsk.DeadlineDate!

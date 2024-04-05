@@ -22,7 +22,8 @@
             <RowDefinition Height="2*"></RowDefinition>
             <RowDefinition Height="2*"></RowDefinition>
             <RowDefinition Height="2*"></RowDefinition>
-            <RowDefinition Height="3*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="4*"></RowDefinition>
         </Grid.RowDefinitions>
 
         <Label Content="Id:" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center"/>
@@ -45,6 +46,10 @@ SelectedValue="{Binding Level, Mode=TwoWay, NotifyOnValidationError=true}" />
         <ComboBox Grid.Row="5" Grid.Column="2"  VerticalAlignment="Center" ItemsSource="{Binding Source={StaticResource TasksToEngineerKey}}" 
 SelectedValue="{Binding Task, Mode=TwoWay, NotifyOnValidationError=true}"  
                   IsEnabled="{Binding Path=Id, Mode=OneTime, Converter={StaticResource IsEnableConverterTaskKey}}" ></ComboBox>
-        <Button Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" Grid.Row="6" Margin="25" Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}" Height="30" Width="60" Click="btnAddUpdate_Click"/>
+
+        <!--<Label Content="Current Task:" Grid.Row="6" Grid.Column="1" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="6" Grid.Column="2"  VerticalAlignment="Center" Height="30" Text="{Binding Task, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" ></TextBlock>-->
+
+        <Button Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" Grid.Row="7" Margin="25" Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}" Height="30" Width="60" Click="btnAddUpdate_Click"/>
     </Grid>
 </Window>
