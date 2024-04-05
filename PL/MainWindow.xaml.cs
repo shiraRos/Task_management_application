@@ -75,21 +75,24 @@ public partial class MainWindow : Window
 
     private void ButtonEngineer_Click(object sender, RoutedEventArgs e)
     {
-        int id;
-        string input = Microsoft.VisualBasic.Interaction.InputBox("please enter your ID:", "Enginner Enter");
-
-
-        if (int.TryParse(input, out id))
+        if (s_bl.isProjectStarted()== true )
         {
-            try
+            int id;
+            string input = Microsoft.VisualBasic.Interaction.InputBox("please enter your ID:", "Enginner Enter");
+
+
+            if (int.TryParse(input, out id))
             {
-                BO.Engineer newUser= s_bl.Engineer.Read(id)!;
-                int takId = newUser.Task != null ? newUser.Task.Id : 0;
-                new CurrentTaskData(takId,newUser.Id).ShowDialog();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
+                try
+                {
+                    BO.Engineer newUser = s_bl.Engineer.Read(id)!;
+                    int takId = newUser.Task != null ? newUser.Task.Id : 0;
+                    new CurrentTaskData(takId, newUser.Id).ShowDialog();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
         }
     }

@@ -36,6 +36,6 @@
         <Button Content="add year" Grid.Column="1" Grid.ColumnSpan="2"  Grid.Row="3" Click="ButtonAdvanceYear_Click"></Button>
         <Button Content="initialize" Grid.Column="1" Grid.ColumnSpan="2"  Grid.Row="4" Click="ButtonInitializeClock_Click"></Button>
         <Button Content="Admin" Grid.Column="1"   Grid.Row="6" Width="150" Click="ButtonAdmin_Click" ></Button>
-        <Button Content="Engineer" Grid.Column="2"     Grid.Row="6" Width="150" IsEnabled="{Binding Mode=OneWay, Converter={StaticResource ConvertVisibiltyByStartTimeKey}}" Click="ButtonEngineer_Click"></Button>
+        <Button Content="Engineer" Grid.Column="2"     Grid.Row="6" Width="150" Click="ButtonEngineer_Click"></Button>
     </Grid>
 </Window>
