@@ -79,12 +79,12 @@
         <TextBox Grid.Row="13" Grid.Column="2" VerticalAlignment="Center" Text="{Binding Deliverables, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
 
         <Label Content="Engineer:"  Grid.Row="14" Grid.Column="1" VerticalAlignment="Center"/>
-        <ComboBox Grid.Row="14"  IsEnabled="{Binding Path=Id, Mode=OneTime, Converter={StaticResource IsEnableConverterTaskKey}}" Grid.Column="2"  VerticalAlignment="Center" ItemsSource="{Binding Source={StaticResource EngineerToTaskKey}}" 
-SelectedValue="{Binding Engineer, Mode=TwoWay, NotifyOnValidationError=true}" />
+        <ComboBox Grid.Row="14"   Grid.Column="2"  VerticalAlignment="Center" IsEnabled="{Binding Mode=OneWay, Converter={StaticResource ConvertVisibiltyByStartTimeKey}}" 
+SelectedValue="{Binding Engineer, Mode=TwoWay, NotifyOnValidationError=true}" ItemsSource="{Binding Source={StaticResource EngineerToTaskKey}}" />
 
         <Label Content="ComplexityLevel:" Grid.Row="15" Grid.Column="1" VerticalAlignment="Center"/>
         <ComboBox Grid.Row="15" Grid.Column="2"  VerticalAlignment="Center" ItemsSource="{Binding Source={StaticResource EngineerExperienceEnumKey}}" 
-SelectedValue="{Binding ComplexityLevel, Mode=TwoWay, NotifyOnValidationError=true}" IsEnabled="{Binding Mode=OneTime, Converter={StaticResource ConvertVisibiltyByStartTimeKey}}" />
+SelectedValue="{Binding ComplexityLevel, Mode=TwoWay, NotifyOnValidationError=true}"  />
 
         
 
