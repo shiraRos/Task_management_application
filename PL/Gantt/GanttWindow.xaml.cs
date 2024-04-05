@@ -81,6 +81,7 @@ public partial class GanttWindow : Window
         dataTable.Columns.Add("Alias", typeof(string));
         dataTable.Columns.Add("EngineerId", typeof(int));
         dataTable.Columns.Add("Engineer Name", typeof(string));
+        dataTable.Columns.Add("Depend On Tasks", typeof(string));
         dataTable.Columns.Add("Status", typeof(string)); // Use PascalCase for consistency
         dataTable.Columns.Add("Start Date", typeof(DateTime)); // Use DateTime for date representation
         dataTable.Columns.Add("End Date", typeof(DateTime)); // Use DateTime for date representation
@@ -104,6 +105,8 @@ public partial class GanttWindow : Window
             row["Alias"] = task.Alias;
             row["EngineerId"] = task.EngineerId;
             row["Engineer Name"] = task.EngineerName;
+            row["Depend On Tasks"] = (task.Dependencies != null) ? string.Join(", ", task.Dependencies!.Select(d => $"{d.Id}")) : " ";
+                //string.Join(", ",task.Dependencies!.Select(d => $"{d.Id}"));
             row["Status"] = task.TaskStaus; // Use PascalCase
             row["Start Date"] = task.StartDate;
             row["End Date"] = task.EndDate;
