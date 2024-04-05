@@ -17,44 +17,6 @@
         <local:ConvertVisibiltyByResetTime x:Key="ConvertVisibiltyByResetTimeKey" />
 
 
-         <!-- Define a unified color palette --><!--
-        <Color x:Key="PrimaryColor">#007ACC</Color>
-        <Color x:Key="SecondaryColor">#B3E3ED</Color>
-        <Color x:Key="TextColor">#333333</Color>
-        <Color x:Key="BorderColor">#CCCCCC</Color>
-
-        --><!-- Convert Color resources to SolidColorBrush --><!--
-        <SolidColorBrush x:Key="PrimaryColorBrush" Color="{StaticResource PrimaryColor}" />
-        <SolidColorBrush x:Key="SecondaryColorBrush" Color="{StaticResource SecondaryColor}" />
-        <SolidColorBrush x:Key="BorderColorBrush" Color="{StaticResource BorderColor}" />
-
-        --><!-- Define a unified button style --><!--
-        <Style TargetType="Button">
-            <Setter Property="Background" Value="{StaticResource PrimaryColorBrush}" />
-            <Setter Property="Foreground" Value="White" />
-            <Setter Property="BorderBrush" Value="{StaticResource BorderColorBrush}" />
-            <Setter Property="BorderThickness" Value="1" />
-            <Setter Property="Padding" Value="10,5" />
-            <Setter Property="Margin" Value="1" />
-            <Setter Property="MinWidth" Value="100" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="3">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="{StaticResource SecondaryColorBrush}" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>-->
         <!-- Theme Colors -->
         <Color x:Key="PrimaryColor">#007ACC</Color>
         <Color x:Key="SecondaryColor">#B3E3ED</Color>
@@ -66,6 +28,7 @@
         <SolidColorBrush x:Key="SecondaryColorBrush" Color="{StaticResource SecondaryColor}" />
         <SolidColorBrush x:Key="BorderColorBrush" Color="{StaticResource BorderColor}" />
         <SolidColorBrush x:Key="PageBackgroundColor" Color="#DDBAF0" />
+        <BitmapImage x:Key="MyIcon" UriSource="C:\Users\USER\source\repos\dotNet5783_6836_4770\PL\Images\Task_It.png"/>
 
 
         <!-- Define a unified button style -->
@@ -91,18 +54,29 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+            
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="Background" Value="{StaticResource SecondaryColorBrush}" />
                 </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value="0.5" />
+                </Trigger>
+                <DataTrigger Binding="{Binding Path=IsSelected}" Value="True">
+                    <Setter Property="Foreground" Value="Gray" />
+                </DataTrigger>
+                <EventTrigger RoutedEvent="Button.Click">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" To="Gray" Duration="0:0:0.5" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
             </Style.Triggers>
-        </Style>
 
-        <!-- Define a gradient background -->
-        <LinearGradientBrush x:Key="AppBackground" StartPoint="0,0" EndPoint="1,1">
-            <GradientStop Color="#F5F5F5" Offset="0"/>
-            <GradientStop Color="#E0E0E0" Offset="1"/>
-        </LinearGradientBrush>
+        </Style>
     </Application.Resources>
     
 </Application>

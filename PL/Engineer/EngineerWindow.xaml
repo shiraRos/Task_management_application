@@ -6,8 +6,11 @@
         xmlns:local="clr-namespace:PL.Engineer"
         mc:Ignorable="d"
         Title="EngineerWindow" Height="400" Width="350"
-    DataContext="{Binding EngineerItem, RelativeSource={RelativeSource Self}, Mode=TwoWay}" >
-
+    DataContext="{Binding EngineerItem, RelativeSource={RelativeSource Self}, Mode=TwoWay}" 
+         Icon="{StaticResource MyIcon}">
+    <Window.Background>
+        <ImageBrush  ImageSource="C:\Users\USER\source\repos\dotNet5783_6836_4770\PL\Images\Background.png"/>
+    </Window.Background>
     <Grid VerticalAlignment="Center">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -46,9 +49,6 @@ SelectedValue="{Binding Level, Mode=TwoWay, NotifyOnValidationError=true}" />
         <ComboBox Grid.Row="5" Grid.Column="2"  VerticalAlignment="Center" ItemsSource="{Binding Source={StaticResource TasksToEngineerKey}}" 
 SelectedValue="{Binding Task, Mode=TwoWay, NotifyOnValidationError=true}"  
                   IsEnabled="{Binding Path=Id, Mode=OneTime, Converter={StaticResource IsEnableConverterTaskKey}}" ></ComboBox>
-
-        <!--<Label Content="Current Task:" Grid.Row="6" Grid.Column="1" VerticalAlignment="Center"/>
-        <TextBlock Grid.Row="6" Grid.Column="2"  VerticalAlignment="Center" Height="30" Text="{Binding Task, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" ></TextBlock>-->
 
         <Button Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" Grid.Row="7" Margin="25" Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}" Height="30" Width="60" Click="btnAddUpdate_Click"/>
     </Grid>

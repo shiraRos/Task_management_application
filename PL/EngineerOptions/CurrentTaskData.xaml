@@ -5,7 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.EngineerOptions"
         mc:Ignorable="d"
-        Title="CurrentTaskData" Height="550" Width="800"     DataContext="{Binding EngTask, RelativeSource={RelativeSource Self}, Mode=TwoWay}" >
+        Title="CurrentTaskData" Height="550" Width="800"    Icon="{StaticResource MyIcon}"  DataContext="{Binding EngTask, RelativeSource={RelativeSource Self}, Mode=TwoWay}" >
+    <Window.Background>
+        <ImageBrush  ImageSource="C:\Users\USER\source\repos\dotNet5783_6836_4770\PL\Images\Background.png"/>
+    </Window.Background>
     <Grid VerticalAlignment="Center">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>

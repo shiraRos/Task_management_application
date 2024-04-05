@@ -6,8 +6,10 @@
         xmlns:local="clr-namespace:PL.Task"
         mc:Ignorable="d"
         Title="TaskWindow" Height="550" Width="800"
-     DataContext="{Binding TaskItem, RelativeSource={RelativeSource Self}, Mode=TwoWay}" >
-
+     DataContext="{Binding TaskItem, RelativeSource={RelativeSource Self}, Mode=TwoWay}"  Icon="{StaticResource MyIcon}">
+    <Window.Background>
+        <ImageBrush  ImageSource="C:\Users\USER\source\repos\dotNet5783_6836_4770\PL\Images\Background.png"/>
+    </Window.Background>
     <Grid VerticalAlignment="Center">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
