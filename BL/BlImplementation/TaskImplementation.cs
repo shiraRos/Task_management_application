@@ -232,6 +232,8 @@ internal class TaskImplementation : ITask
     {
         try
         {
+            if (!ImpossibleDependency(item))
+                throw new BO.BlValidationError("there is a circular dependency the dependencies are impossible");
             if (item.Engineer != null)
             {
                 DO.Engineer? engToAdd = _dal.Engineer.Read(item.Engineer.Id);
@@ -251,9 +253,7 @@ internal class TaskImplementation : ITask
                         if (depOnTsk.Status != (Status)3 && depOnTsk.Status != (Status)0)
                             throw new BO.BlStatusNotFit($"the dependent task: {depOnTsk.Alias} is not done yet");
                     }
-                //Sends to the function to check if there is a circular dependency
-                if (!ImpossibleDependency(item))
-                    throw new BO.BlValidationError("there is a circular dependency the dependencies are impossible");
+               
                 //Checks that no engineer has taken the task before
                 if (dependTsk.Engineer != null && dependTsk.Engineer.Id != item.Engineer.Id)
                     throw new BO.BltaskHasEngineer($"the task: {item.Id} had already taken by other engineer");

@@ -52,7 +52,14 @@ namespace PL.EngineerOptions
             // For example, you can cast the selected item to its type and access its properties
             var selectedTask = (sender as ListView)!.SelectedItem as BO.TaskInEngineer; // Change 'Task' to your actual item type
             currentEng.Task = selectedTask;
+            try
+            {
             s_bl.Engineer.Update(currentEng);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
             Close();
 
         }

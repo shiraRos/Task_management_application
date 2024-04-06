@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Task"
         mc:Ignorable="d"
-        Title="TaskWindow" Height="550" Width="800"
+        Title="TaskWindow" Height="800" Width="800"
      DataContext="{Binding TaskItem, RelativeSource={RelativeSource Self}, Mode=TwoWay}"  Icon="{StaticResource MyIcon}">
     <Window.Background>
         <ImageBrush  ImageSource="C:\Users\USER\source\repos\dotNet5783_6836_4770\PL\Images\Background.png"/>
@@ -53,11 +53,9 @@
         <TextBox Grid.Row="4" Grid.Column="2" IsEnabled="False" VerticalAlignment="Center" Text="{Binding Status, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
 
         <Label Content="Dependencies:" Grid.Row="5" Grid.Column="1" VerticalAlignment="Center"/>
-        
-        <!--<ListBox Grid.Row="5" Grid.Column="2"  VerticalAlignment="Center" ItemsSource="{Binding Source={StaticResource TaksDependenciesKey}}" 
-  SelectionChanged="ListBox_SelectionChanged" SelectionMode="Extended"  />-->
+       
         <ListBox Grid.Row="5" Grid.Column="2" VerticalAlignment="Center" ItemsSource="{Binding Source={StaticResource TaksDependenciesKey}}" 
-         SelectionChanged="ListBox_SelectionChanged" SelectionMode="Extended">
+         SelectionChanged="ListBox_SelectionChanged" SelectionMode="Extended" IsEnabled="{Binding Mode=OneWay, Converter={StaticResource ConvertVisibiltyByResetTimeKey}}">
         </ListBox>
 
         <Label Content="RequiredEffortTime: (00:00:00 format)" Grid.Row="6" Grid.Column="1" VerticalAlignment="Center"/>
@@ -76,7 +74,7 @@
         <TextBox Grid.Row="10" Grid.Column="2" IsEnabled="False" VerticalAlignment="Center" Text="{Binding DeadlineDate, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
 
 
-        <Label Content="CompleteDate:" Grid.Row="11" Grid.Column="1" VerticalAlignment="Center"/>
+        <Label Content="CompleteDate:" Grid.Row="11" IsEnabled="False" Grid.Column="1" VerticalAlignment="Center"/>
         <DatePicker Grid.Row="11" Grid.Column="2" VerticalAlignment="Center" Text="{Binding CompleteDate, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
 
         <Label Content="Remarks:" Grid.Row="12" Grid.Column="1" VerticalAlignment="Center"/>

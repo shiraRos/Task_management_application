@@ -1,49 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfTask xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Task>
-    <Id>1037</Id>
-    <EngineerId xsi:nil="true" />
-    <IsMileston xsi:nil="true" />
-    <StartDate xsi:nil="true" />
-    <DeadlineDate>2025-05-05T01:01:01</DeadlineDate>
-    <CompleteDate xsi:nil="true" />
-    <ScheduledDate>2025-05-05T00:00:00</ScheduledDate>
-    <RequiredEffortTime>PT1H1M1S</RequiredEffortTime>
-    <ComplexityLevel>Competent</ComplexityLevel>
-    <Description>Planning the appearance of the web page</Description>
-    <Alias>first Planing</Alias>
-    <CreateAtDate>2024-04-05T00:00:00+03:00</CreateAtDate>
-  </Task>
-  <Task>
-    <Id>1041</Id>
-    <EngineerId xsi:nil="true" />
-    <IsMileston xsi:nil="true" />
-    <StartDate xsi:nil="true" />
-    <DeadlineDate>2025-05-05T01:01:01</DeadlineDate>
-    <CompleteDate xsi:nil="true" />
-    <ScheduledDate>2025-05-05T00:00:00</ScheduledDate>
-    <RequiredEffortTime>PT1H1M1S</RequiredEffortTime>
-    <ComplexityLevel>Competent</ComplexityLevel>
-    <Description>Planning the appearance of the web page</Description>
-    <Alias>first Planing</Alias>
-    <CreateAtDate>2024-04-05T00:00:00+03:00</CreateAtDate>
-  </Task>
-  <Task>
-    <Id>1038</Id>
-    <EngineerId xsi:nil="true" />
-    <IsMileston xsi:nil="true" />
-    <StartDate xsi:nil="true" />
-    <DeadlineDate>2025-05-09T01:01:01</DeadlineDate>
-    <CompleteDate xsi:nil="true" />
-    <ScheduledDate>2025-05-05T01:01:01</ScheduledDate>
-    <RequiredEffortTime>P2D</RequiredEffortTime>
-    <ComplexityLevel>Proficient</ComplexityLevel>
-    <Description>Building a database with appropriate values</Description>
-    <Alias>Build database</Alias>
-    <CreateAtDate>2024-04-05T00:00:00+03:00</CreateAtDate>
-  </Task>
-  <Task>
-    <Id>1040</Id>
+    <Id>1052</Id>
     <EngineerId xsi:nil="true" />
     <IsMileston xsi:nil="true" />
     <StartDate xsi:nil="true" />
@@ -54,11 +12,39 @@
     <ComplexityLevel>Competent</ComplexityLevel>
     <Description>User page display design and code usage</Description>
     <Alias> Display design</Alias>
-    <CreateAtDate>2024-04-05T00:00:00+03:00</CreateAtDate>
+    <CreateAtDate>2024-04-06T00:00:00+03:00</CreateAtDate>
   </Task>
   <Task>
-    <Id>1042</Id>
+    <Id>1051</Id>
     <EngineerId xsi:nil="true" />
+    <IsMileston xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <DeadlineDate>2025-05-12T01:01:01</DeadlineDate>
+    <CompleteDate xsi:nil="true" />
+    <ScheduledDate>2025-05-09T01:01:01</ScheduledDate>
+    <RequiredEffortTime>P3D</RequiredEffortTime>
+    <ComplexityLevel>Expert</ComplexityLevel>
+    <Description>Writing server and client code</Description>
+    <Alias>Coding</Alias>
+    <CreateAtDate>2024-04-06T00:00:00+03:00</CreateAtDate>
+  </Task>
+  <Task>
+    <Id>1049</Id>
+    <EngineerId>313900591</EngineerId>
+    <IsMileston xsi:nil="true" />
+    <StartDate>2024-07-04T00:00:00</StartDate>
+    <DeadlineDate>2025-05-05T01:01:01</DeadlineDate>
+    <CompleteDate>2025-04-07T00:00:00+03:00</CompleteDate>
+    <ScheduledDate>2025-05-05T00:00:00</ScheduledDate>
+    <RequiredEffortTime>PT1H1M1S</RequiredEffortTime>
+    <ComplexityLevel>Competent</ComplexityLevel>
+    <Description>Planning the appearance of the web page</Description>
+    <Alias>first Planing</Alias>
+    <CreateAtDate>2025-04-07T00:00:00+03:00</CreateAtDate>
+  </Task>
+  <Task>
+    <Id>1050</Id>
+    <EngineerId>313900591</EngineerId>
     <IsMileston xsi:nil="true" />
     <StartDate xsi:nil="true" />
     <DeadlineDate>2025-05-09T01:01:01</DeadlineDate>
@@ -68,48 +54,6 @@
     <ComplexityLevel>Proficient</ComplexityLevel>
     <Description>Building a database with appropriate values</Description>
     <Alias>Build database</Alias>
-    <CreateAtDate>2024-04-05T00:00:00+03:00</CreateAtDate>
-  </Task>
-  <Task>
-    <Id>1044</Id>
-    <EngineerId xsi:nil="true" />
-    <IsMileston xsi:nil="true" />
-    <StartDate xsi:nil="true" />
-    <DeadlineDate>2025-05-09T01:01:01</DeadlineDate>
-    <CompleteDate xsi:nil="true" />
-    <ScheduledDate>2025-05-05T01:01:01</ScheduledDate>
-    <RequiredEffortTime>P4D</RequiredEffortTime>
-    <ComplexityLevel>Competent</ComplexityLevel>
-    <Description>User page display design and code usage</Description>
-    <Alias> Display design</Alias>
-    <CreateAtDate>2024-04-05T00:00:00+03:00</CreateAtDate>
-  </Task>
-  <Task>
-    <Id>1039</Id>
-    <EngineerId xsi:nil="true" />
-    <IsMileston xsi:nil="true" />
-    <StartDate xsi:nil="true" />
-    <DeadlineDate>2025-05-12T01:01:01</DeadlineDate>
-    <CompleteDate xsi:nil="true" />
-    <ScheduledDate>2025-05-09T01:01:01</ScheduledDate>
-    <RequiredEffortTime>P3D</RequiredEffortTime>
-    <ComplexityLevel>Expert</ComplexityLevel>
-    <Description>Writing server and client code</Description>
-    <Alias>Coding</Alias>
-    <CreateAtDate>2024-04-05T00:00:00+03:00</CreateAtDate>
-  </Task>
-  <Task>
-    <Id>1043</Id>
-    <EngineerId xsi:nil="true" />
-    <IsMileston xsi:nil="true" />
-    <StartDate xsi:nil="true" />
-    <DeadlineDate>2025-05-12T01:01:01</DeadlineDate>
-    <CompleteDate xsi:nil="true" />
-    <ScheduledDate>2025-05-09T01:01:01</ScheduledDate>
-    <RequiredEffortTime>P3D</RequiredEffortTime>
-    <ComplexityLevel>Expert</ComplexityLevel>
-    <Description>Writing server and client code</Description>
-    <Alias>Coding</Alias>
-    <CreateAtDate>2024-04-05T00:00:00+03:00</CreateAtDate>
+    <CreateAtDate>2025-04-07T00:00:00+03:00</CreateAtDate>
   </Task>
 </ArrayOfTask>
