@@ -6,12 +6,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Task"
         mc:Ignorable="d"
-        Title="TaskListWindow" Height="450" Width="800"
-         Icon="{StaticResource MyIcon}">
+        Title="TaskListWindow" Height="450" Width="800">
 
-    <Window.Background>
-        <ImageBrush  ImageSource="C:\Users\USER\source\repos\dotNet5783_6836_4770\PL\Images\Background.png"/>
-    </Window.Background>
     <!--Extrnal Grid-->
     <Grid>
         <!--Internal, Upper Grid-->

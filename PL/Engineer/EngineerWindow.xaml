@@ -6,11 +6,8 @@
         xmlns:local="clr-namespace:PL.Engineer"
         mc:Ignorable="d"
         Title="EngineerWindow" Height="400" Width="350"
-    DataContext="{Binding EngineerItem, RelativeSource={RelativeSource Self}, Mode=TwoWay}" 
-         Icon="{StaticResource MyIcon}">
-    <Window.Background>
-        <ImageBrush  ImageSource="C:\Users\USER\source\repos\dotNet5783_6836_4770\PL\Images\Background.png"/>
-    </Window.Background>
+    DataContext="{Binding EngineerItem, RelativeSource={RelativeSource Self}, Mode=TwoWay}" >
+  
     <Grid VerticalAlignment="Center">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>

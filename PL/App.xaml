@@ -28,7 +28,7 @@
         <SolidColorBrush x:Key="SecondaryColorBrush" Color="{StaticResource SecondaryColor}" />
         <SolidColorBrush x:Key="BorderColorBrush" Color="{StaticResource BorderColor}" />
         <SolidColorBrush x:Key="PageBackgroundColor" Color="#DDBAF0" />
-        <BitmapImage x:Key="MyIcon" UriSource="C:\Users\USER\source\repos\dotNet5783_6836_4770\PL\Images\Task_It.png"/>
+ 
 
 
         <!-- Define a unified button style -->

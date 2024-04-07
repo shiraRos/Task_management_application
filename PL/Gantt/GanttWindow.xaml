@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PL.Gantt"
         mc:Ignorable="d"
         Title="GanttWindow" Height="450" Width="800"
-    DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"  Icon="{StaticResource MyIcon}">
+    DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}" >
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition  Height="*"/>

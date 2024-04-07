@@ -5,10 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="Admin" Height="450" Width="800"  Icon="{StaticResource MyIcon}"  >
-    <Window.Background>
-        <ImageBrush  ImageSource="C:\Users\USER\source\repos\dotNet5783_6836_4770\PL\Images\Background.png"/>
-    </Window.Background>
+        Title="Admin" Height="450" Width="800"   >
+ 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition  Height="*"/>
